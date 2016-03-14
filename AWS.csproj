@@ -43,7 +43,7 @@
     <Compile Include="GameObject.cs" />
     <Compile Include="GameWorld.cs" />
     <Compile Include="IDraw.cs" />
-    <Compile Include="ILoadContent.cs" />
+    <Compile Include="ILoadcontent.cs" />
     <Compile Include="IUpdate.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -58,10 +58,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Icon.ico" />
     <Content Include="Content\Sprites\GO.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />
