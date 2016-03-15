@@ -20,22 +20,22 @@ namespace AWS
 
         public void MousePressed()
         {
-            System.Diagnostics.Debug.WriteLine("MouseDown");
+            System.Diagnostics.Debug.WriteLine("MouseDown.");
         }
 
         public void MouseEnter()
         {
-            System.Diagnostics.Debug.WriteLine("MouseEnter");
+            System.Diagnostics.Debug.WriteLine("MouseEnter.");
         }
 
         public void MouseExit()
         {
-            System.Diagnostics.Debug.WriteLine("MouseExit");
+            System.Diagnostics.Debug.WriteLine("MouseExit.");
         }
 
         public void MouseReleased()
         {
-            System.Diagnostics.Debug.WriteLine("MouseUp");
+            System.Diagnostics.Debug.WriteLine("MouseUp.");
         }
     }
 }
