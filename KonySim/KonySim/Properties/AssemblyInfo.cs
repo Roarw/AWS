@@ -5,8 +5,8 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("AWS")]
-[assembly: AssemblyProduct("AWS")]
+[assembly: AssemblyTitle("KonySim")]
+[assembly: AssemblyProduct("KonySim")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyCompany("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("3cb7ab23-65dd-41a3-b0e5-073a85f5cfa4")]
+[assembly: Guid("b04bd6e3-62e8-4f40-9ae7-d7197433f44f")]
 
 // Version information for an assembly consists of the following four values:
 //
