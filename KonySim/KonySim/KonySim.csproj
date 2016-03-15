@@ -43,6 +43,8 @@
     <Compile Include="Button.cs" />
     <Compile Include="Component.cs" />
     <Compile Include="Db\Connection.cs" />
+    <Compile Include="Db\Player.cs" />
+    <Compile Include="Db\TableRow.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="GameObject.cs" />
     <Compile Include="GameWorld.cs" />
