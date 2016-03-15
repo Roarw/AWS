@@ -1,7 +1,7 @@
 ﻿using System;
 using KonySim.Db;
 
-namespace AWS
+namespace KonySim
 {
 #if WINDOWS || LINUX
     /// <summary>
