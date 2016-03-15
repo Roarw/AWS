@@ -8,9 +8,11 @@ namespace AWS
 {
     class Button : Component, ILoadContent, IMouseDetection
     {
-        public Button(GameObject gameObject) : base(gameObject)
-        {
+        ButtonFactory factory;
 
+        public Button(GameObject gameObject, ButtonFactory factory) : base(gameObject)
+        {
+            this.factory = factory;
         }
 
         public void LoadContent(ContentManager content)
@@ -20,22 +22,22 @@ namespace AWS
 
         public void MousePressed()
         {
-            System.Diagnostics.Debug.WriteLine("MouseDown.");
+            factory.MousePressed();
         }
 
         public void MouseEnter()
         {
-            System.Diagnostics.Debug.WriteLine("MouseEnter.");
+            factory.MouseEnter();
         }
 
         public void MouseExit()
         {
-            System.Diagnostics.Debug.WriteLine("MouseExit.");
+            factory.MouseExit();
         }
 
         public void MouseReleased()
         {
-            System.Diagnostics.Debug.WriteLine("MouseUp.");
+            factory.MouseReleased();
         }
     }
 }

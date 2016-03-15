@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
 
@@ -38,7 +39,14 @@ namespace AWS
             go.AddComponent(new Transform(go, Vector2.Zero));
             go.AddComponent(new SpriteRender(go, "Sprites/GO.png", 0));
             go.AddComponent(new MouseDetector(go));
-            go.AddComponent(new Button(go));
+
+            ButtonFactory bf = new DelegatesButtonFactory(go,
+                new Action<GameObject>(ButtonDelegateMethods.MouseEnter),
+                new Action<GameObject>(ButtonDelegateMethods.MouseExit),
+                new Action<GameObject>(ButtonDelegateMethods.MousePressed),
+                new Action<GameObject>(ButtonDelegateMethods.MouseReleased));
+
+            go.AddComponent(new Button(go, bf));
             objects.Add(go);
 
             base.Initialize();
