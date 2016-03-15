@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{75A7BE41-62F4-49BE-8438-9A2EB35D74CA}</ProjectGuid>
+    <ProjectGuid>{1CBD158E-BBA7-4652-B7F8-ADC5794FE923}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AWS</RootNamespace>
-    <AssemblyName>AWS</AssemblyName>
+    <RootNamespace>KonySim</RootNamespace>
+    <AssemblyName>KonySim</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MonoGamePlatform>Windows</MonoGamePlatform>
     <MonoGameContentBuilderExe>
@@ -68,7 +68,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Sprites\GO.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Icon.ico" />
   </ItemGroup>
