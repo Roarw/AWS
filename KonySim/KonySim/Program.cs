@@ -15,11 +15,11 @@ namespace AWS
         [STAThread]
         private static void Main()
         {
+            //Db connection testing
             using (Connection con = new Connection())
             {
-                //woo
+                var p = con.GetRow<Player>(1);
             }
-            //con.FetchRow<Player>("SELECT * FROM Player");
 
             using (var game = new GameWorld())
                 game.Run();

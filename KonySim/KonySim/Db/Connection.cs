@@ -38,16 +38,55 @@ CREATE TABLE ShopWeapon(ID integer primary key, shopID integer not null, weaponI
             }
         }
 
-        /*public T FetchRow<T>(string cmdText) where T : TableRow
+        public List<T> GetAllRows<T>() where T : TableRow, new()
         {
-            SQLiteCommand cmd = new SQLiteCommand(cmdText, con);
+            SQLiteCommand cmd = new SQLiteCommand("SELECT * FROM " + typeof(T).Name, con);
 
-            var reader = cmd.ExecuteReader();
+            List<T> result = new List<T>();
 
-            var propertiesToFill = typeof(T).GetProperties();
+            SQLiteDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                T item = new T();
+                FillPropertiesFromRow(item, reader);
 
-            return default(T);
-        }*/
+                result.Add(item);
+            }
+
+            return result;
+        }
+
+        public T GetRow<T>(int ID) where T : TableRow, new()
+        {
+            SQLiteCommand cmd = new SQLiteCommand("SELECT * FROM " + typeof(T).Name + " WHERE ID = " + ID, con);
+
+            SQLiteDataReader reader = cmd.ExecuteReader();
+            if (reader.Read())
+            {
+                var result = new T();
+                FillPropertiesFromRow(result, reader);
+                return result;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        private void FillPropertiesFromRow<T>(T target, SQLiteDataReader reader)
+        {
+            PropertyInfo[] propertiesToFill = typeof(T).GetProperties();
+            foreach (PropertyInfo p in propertiesToFill)
+            {
+                object value = reader[p.Name];
+
+                if (value != DBNull.Value)
+                {
+                    value = Convert.ChangeType(value, p.PropertyType);
+                    p.SetValue(target, value, null);
+                }
+            }
+        }
 
         public void Dispose()
         {
@@ -57,11 +96,11 @@ CREATE TABLE ShopWeapon(ID integer primary key, shopID integer not null, weaponI
 
     internal class TableRow
     {
+        public int ID { get; set; }
     }
 
     internal class Player : TableRow
     {
-        public int ID { get; set; }
         public int Score { get; set; }
         public int Funds { get; set; }
         public int Buffs { get; set; }
