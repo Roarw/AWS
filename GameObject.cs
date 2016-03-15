@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace AWS
 {
-    class GameObject : Component, ILoadContent, IUpdate, IDraw
+    class GameObject : Component, ILoadContent, IUpdate, IDraw, IMouseDetection
     {
         List<Component> components;
 
@@ -57,6 +57,50 @@ namespace AWS
                     (component as IDraw).Draw(spriteBatch);
                 }
             }
+        }
+
+        public void MousePressed()
+        {
+            foreach (Component component in components)
+            {
+                if (component is IMouseDetection)
+                {
+                    (component as IMouseDetection).MousePressed();
+                }
+            }
+        }
+
+        public void MouseReleased()
+        {
+            foreach (Component component in components)
+            {
+                if (component is IMouseDetection)
+                {
+                    (component as IMouseDetection).MouseReleased();
+                }
+            }
+        }
+
+        public void MouseEnter()
+        {
+            foreach (Component component in components)
+            {
+                if (component is IMouseDetection)
+                {
+                    (component as IMouseDetection).MouseEnter();
+                }
+            }
+        }
+
+        public void MouseExit()
+        {
+            foreach (Component component in components)
+            {
+                if (component is IMouseDetection)
+                {
+                    (component as IMouseDetection).MouseExit();
+                }
+            };
         }
     }
 }

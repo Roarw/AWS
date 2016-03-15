@@ -37,6 +37,8 @@ namespace AWS
             GameObject go = new GameObject();
             go.AddComponent(new Transform(go, Vector2.Zero));
             go.AddComponent(new SpriteRender(go, "Sprites/GO.png", 0));
+            go.AddComponent(new MouseDetector(go));
+            go.AddComponent(new Button(go));
             objects.Add(go);
 
             base.Initialize();
