@@ -1,4 +1,5 @@
 ﻿using System;
+using KonySim.Db;
 
 namespace AWS
 {
@@ -12,8 +13,14 @@ namespace AWS
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        private static void Main()
         {
+            using (Connection con = new Connection())
+            {
+                //woo
+            }
+            //con.FetchRow<Player>("SELECT * FROM Player");
+
             using (var game = new GameWorld())
                 game.Run();
         }
