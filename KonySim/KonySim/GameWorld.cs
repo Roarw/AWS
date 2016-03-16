@@ -1,22 +1,22 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
-namespace AWS
+namespace KonySim
 {
     /// <summary>
     /// This is the main type for your game.
     /// </summary>
     public class GameWorld : Game
     {
-        GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
+        private GraphicsDeviceManager graphics;
+        private SpriteBatch spriteBatch;
 
-        List<GameObject> objects;
-        float deltaTime;
+        private List<GameObject> objects;
+        private float deltaTime;
 
         public GameWorld()
         {
