@@ -79,32 +79,45 @@ namespace KonySim.Db
             }
         }
 
+        public List<T> FindRowsWhere<T>(string column, object value) where T : TableRow, new()
+        {
+            SQLiteCommand cmd = new SQLiteCommand("SELECT * FROM " + typeof(T).Name + " WHERE " + column + " = @Val;", con);
+            cmd.Parameters.AddWithValue("@Val", value);
+
+            List<T> result = new List<T>();
+
+            SQLiteDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                var item = new T();
+                FillPropertiesFromRow(item, reader);
+                result.Add(item);
+            }
+            return result;
+        }
+
         public void InsertRow<T>(T obj) where T : TableRow, new()
         {
-            var properties = typeof(T).GetProperties();
+            //Get all properties of the assigned type (Except for ID)
+            var propertiesWidhoutID = typeof(T).GetProperties().Where(a => a.Name != "ID");
 
             StringBuilder cmdText = new StringBuilder();
 
             //Create base of INSERT statement
             cmdText.Append("INSERT INTO ").Append(typeof(T).Name).Append("(");
 
-            var valueNames = from a in properties where a.Name != "ID" select a.Name;
-
             //Append list of column names to insert
-            cmdText.Append(string.Join(",", valueNames)).Append(")");
+            cmdText.Append(string.Join(",", propertiesWidhoutID.Select(a => a.Name))).Append(")");
 
             //Append list of values to insert there
-            cmdText.Append(" VALUES (").Append(string.Join(",", valueNames.Select(a => "@" + a))).Append(");");
+            cmdText.Append(" VALUES (").Append(string.Join(",", propertiesWidhoutID.Select(a => "@" + a.Name))).Append(");");
 
             var cmd = new SQLiteCommand(cmdText.ToString(), con);
 
             //Insert values as command parameters
-            foreach (var p in properties)
+            foreach (var p in propertiesWidhoutID)
             {
-                if (p.Name != "ID")
-                {
-                    cmd.Parameters.AddWithValue("@" + p.Name, p.GetValue(obj, null));
-                }
+                cmd.Parameters.AddWithValue("@" + p.Name, p.GetValue(obj, null));
             }
             cmd.ExecuteNonQuery();
         }
