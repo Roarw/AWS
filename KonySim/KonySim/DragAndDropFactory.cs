@@ -2,22 +2,22 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework;
 
-namespace AWS
+namespace KonySim
 {
-    class DragAndDropFactory : ButtonFactory, ILoadContent, IUpdate
+    internal class DragAndDropFactory : ButtonFactory, ILoadContent, IUpdate
     {
-        GameObject go;
-        int mouseX;
-        int mouseY;
-        int mouse1X;
-        int mouse1Y;
-        bool isPressed;
-        SpriteRender spriteRender;
-        Transform transform;
+        private GameObject go;
+        private int mouseX;
+        private int mouseY;
+        private int mouse1X;
+        private int mouse1Y;
+        private bool isPressed;
+        private SpriteRender spriteRender;
+        private Transform transform;
 
         public DragAndDropFactory(GameObject go)
         {
@@ -38,13 +38,12 @@ namespace AWS
 
             if (isPressed)
             {
-                transform.Position = new Vector2(mouseX - mouse1X/1.3f, mouseY - mouse1Y/1.3f);
+                transform.Position = new Vector2(mouseX - mouse1X / 1.3f, mouseY - mouse1Y / 1.3f);
             }
         }
 
         public void MouseEnter()
         {
-            
         }
 
         public void MouseExit()
@@ -64,7 +63,5 @@ namespace AWS
         {
             isPressed = false;
         }
-
-        
     }
 }
