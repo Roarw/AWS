@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Content;
 
-namespace AWS
+namespace KonySim
 {
     class Button : Component, ILoadContent, IMouseDetection, IUpdate
     {

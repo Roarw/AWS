@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework;
 
-namespace AWS
+namespace KonySim
 {
-    class DragAndDropFactory : ButtonFactory, ILoadContent, IUpdate
+    internal class DragAndDropFactory : ButtonFactory, ILoadContent, IUpdate
     {
         GameObject go;
         int deltaX;
@@ -44,7 +44,6 @@ namespace AWS
 
         public void MouseEnter()
         {
-            
         }
 
         public void MouseExit()
@@ -63,7 +62,5 @@ namespace AWS
         {
             isPressed = false;
         }
-
-        
     }
 }

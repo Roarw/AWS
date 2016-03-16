@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework;
 
-namespace AWS
+namespace KonySim
 {
     class MouseDetector : Component, ILoadContent, IUpdate
     {

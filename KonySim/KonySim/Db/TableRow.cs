@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace KonySim
+namespace KonySim.Db
 {
-    interface IUpdate
+    internal abstract class TableRow
     {
-        void Update(float deltaTime);
+        public int ID { get; set; }
     }
 }

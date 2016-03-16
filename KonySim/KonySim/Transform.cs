@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Content;
 
-namespace AWS
+namespace KonySim
 {
     class Transform : Component, ILoadContent
     {
