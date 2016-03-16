@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Content;
 
 namespace AWS
 {
-    class Button : Component, ILoadContent, IMouseDetection
+    class Button : Component, ILoadContent, IMouseDetection, IUpdate
     {
         ButtonFactory factory;
 
@@ -17,7 +17,10 @@ namespace AWS
 
         public void LoadContent(ContentManager content)
         {
-            
+            if (factory is ILoadContent)
+            {
+                (factory as ILoadContent).LoadContent(content);
+            }
         }
 
         public void MousePressed()
@@ -38,6 +41,14 @@ namespace AWS
         public void MouseReleased()
         {
             factory.MouseReleased();
+        }
+
+        public void Update(float deltaTime)
+        {
+            if (factory is IUpdate)
+            {
+                (factory as IUpdate).Update(deltaTime);
+            }
         }
     }
 }

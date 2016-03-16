@@ -34,17 +34,14 @@ namespace AWS
         {
             // TODO: Add your initialization logic here
             objects = new List<GameObject>();
+            this.IsMouseVisible = true;
 
             GameObject go = new GameObject();
             go.AddComponent(new Transform(go, Vector2.Zero));
             go.AddComponent(new SpriteRender(go, "Sprites/GO.png", 0));
             go.AddComponent(new MouseDetector(go));
 
-            ButtonFactory bf = new DelegatesButtonFactory(go,
-                new Action<GameObject>(ButtonDelegateMethods.MouseEnter),
-                new Action<GameObject>(ButtonDelegateMethods.MouseExit),
-                new Action<GameObject>(ButtonDelegateMethods.MousePressed),
-                new Action<GameObject>(ButtonDelegateMethods.MouseReleased));
+            ButtonFactory bf = new DragAndDropFactory(go);
 
             go.AddComponent(new Button(go, bf));
             objects.Add(go);
