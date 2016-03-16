@@ -43,10 +43,10 @@ namespace AWS
 
         public void Update(float deltaTime)
         {
-            mouseX = Mouse.GetState().Position.X;
-            mouseY = Mouse.GetState().Position.Y;
+            mouseX = GameWorld.MouseX;
+            mouseY = GameWorld.MouseY;
             leftButtonState = Mouse.GetState().LeftButton;
-
+            
             CheckMouseCollision();
         }
 
@@ -65,16 +65,18 @@ namespace AWS
                     mousePressed = true;
                     gameObject.MousePressed();
                 }
-                else if (leftButtonState == ButtonState.Released && mousePressed)
-                {
-                    mousePressed = false;
-                    gameObject.MouseReleased();
-                }
+                
             }
             else if (mouseHover)
             {
                 mouseHover = false;
                 gameObject.MouseExit();
+            }
+
+            if (leftButtonState == ButtonState.Released && mousePressed)
+            {
+                mousePressed = false;
+                gameObject.MouseReleased();
             }
         }
 

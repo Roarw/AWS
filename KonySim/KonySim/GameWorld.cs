@@ -15,8 +15,17 @@ namespace AWS
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        static float widthMulti;
+        static float heightMulti;
+
+        public static int MouseX { get { return Mouse.GetState().Position.X / (int)WidthMulti; } }
+        public static int MouseY { get { return Mouse.GetState().Position.Y / (int)HeightMulti; } }
+
         List<GameObject> objects;
         float deltaTime;
+
+        public static float WidthMulti { get { return widthMulti;} }
+        public static float HeightMulti { get { return heightMulti; } }
 
         public GameWorld()
         {
@@ -33,6 +42,12 @@ namespace AWS
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+            //graphics.IsFullScreen = true;
+            //graphics.ApplyChanges();
+
+            widthMulti = (float)Window.ClientBounds.Width / (float)graphics.PreferredBackBufferWidth;
+            heightMulti = (float)Window.ClientBounds.Height / (float)graphics.PreferredBackBufferHeight;
+            
             objects = new List<GameObject>();
             this.IsMouseVisible = true;
 
@@ -46,9 +61,7 @@ namespace AWS
             go.AddComponent(new Button(go, bf));
             objects.Add(go);
 
-            graphics.IsFullScreen = true;
-            graphics.ApplyChanges();
-
+            
             base.Initialize();
         }
 

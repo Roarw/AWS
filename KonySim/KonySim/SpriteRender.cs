@@ -12,7 +12,7 @@ namespace AWS
     {
         private string spriteName;
         private float depth;
-
+        
         private Texture2D sprite;
         private Transform transform;
 

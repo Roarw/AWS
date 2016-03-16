@@ -3,10 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework.Content;
 
 namespace AWS
 {
-    class Transform : Component
+    class Transform : Component, ILoadContent
     {
         Vector2 position;
 
@@ -17,9 +18,9 @@ namespace AWS
             this.position = position;
         }
 
-        public void Translate(Vector2 translation)
+        public void LoadContent(ContentManager content)
         {
-            position += translation;
+            position = position * new Vector2(GameWorld.MouseX, GameWorld.MouseY);
         }
     }
 }
