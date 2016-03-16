@@ -18,7 +18,15 @@ namespace KonySim
             //Db connection testing
             using (Connection con = new Connection())
             {
-                var p = con.GetRow<Player>(1);
+                var p = new Player
+                {
+                    ID = 3,
+                    Buffs = 111,
+                    Funds = 111,
+                    Score = 111
+                };
+
+                con.UpdateRow(p);
             }
 
             using (var game = new GameWorld())
