@@ -46,6 +46,9 @@ namespace AWS
             go.AddComponent(new Button(go, bf));
             objects.Add(go);
 
+            graphics.IsFullScreen = true;
+            graphics.ApplyChanges();
+
             base.Initialize();
         }
 
