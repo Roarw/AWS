@@ -45,6 +45,7 @@
     <Compile Include="ButtonFactory.cs" />
     <Compile Include="DelegatesButtonFactory.cs" />
     <Compile Include="DragAndDropFactory.cs" />
+    <Compile Include="NameGenerator.cs" />
     <Compile Include="SimpleButtonFactory.cs" />
     <Compile Include="Component.cs" />
     <Compile Include="Enums.cs" />
