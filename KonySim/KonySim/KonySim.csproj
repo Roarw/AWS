@@ -45,6 +45,7 @@
     <Compile Include="ButtonFactory.cs" />
     <Compile Include="ChildRender.cs" />
     <Compile Include="DelegatesButtonFactory.cs" />
+    <Compile Include="Shop.cs" />
     <Compile Include="SimpleButtonFactory.cs" />
     <Compile Include="Component.cs" />
     <Compile Include="Enums.cs" />
