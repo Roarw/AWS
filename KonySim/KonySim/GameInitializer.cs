@@ -11,7 +11,7 @@ namespace KonySim
         private Random random;
 
         //Denne klasse kunne evt. bruges til at holde på indstillinger, spilleren vælger, før spillet startes (feks. sværhedsgrad).
-        //Start() sin egen funktion så dette nemt kan implementeres (og fordi det ser nice ud)
+        //De kunne gemmes i properties og bruges når Start() er kaldt.
 
         public GameInitializer(GameWorld world, Random random)
         {

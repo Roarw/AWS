@@ -10,7 +10,7 @@ namespace KonySim
     /// <summary>
     /// This is the main type for your game.
     /// </summary>
-    class GameWorld : Game
+    internal class GameWorld : Game
     {
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
@@ -24,12 +24,19 @@ namespace KonySim
         private List<GameObject> objects;
         private UI ui;
         private float deltaTime;
-        
+
         public static float WidthMulti { get { return widthMulti; } }
         public static float HeightMulti { get { return heightMulti; } }
 
+        private GameState state;
+        public GameState State { get { return state; } }
+
         public GameWorld()
         {
+            //Initialize game and create GameState object
+            new GameInitializer(this, new Random()).Start();
+            state = new GameState();
+
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
         }
@@ -88,10 +95,8 @@ namespace KonySim
             {
                 go.LoadContent(Content);
             }
-			
-			ui.LoadContent(Content);
 
-            new GameInitializer(this, new Random()).Start();
+            ui.LoadContent(Content);
         }
 
         /// <summary>

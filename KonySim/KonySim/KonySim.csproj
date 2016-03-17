@@ -61,6 +61,7 @@
     <Compile Include="DelegatesButtonFactory.cs" />
     <Compile Include="DragAndDropFactory.cs" />
     <Compile Include="GameInitializer.cs" />
+    <Compile Include="GameState.cs" />
     <Compile Include="NameGenerator.cs" />
     <Compile Include="SimpleButtonFactory.cs" />
     <Compile Include="Component.cs" />

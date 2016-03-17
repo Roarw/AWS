@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework;
 
 namespace KonySim
 {
-    class UI: ILoadContent, IUpdate, IDraw
+    internal class UI : ILoadContent, IUpdate, IDraw
     {
-        List<GameObject> permanentObjects;
+        private List<GameObject> permanentObjects;
 
         public UI()
         {
@@ -18,7 +18,6 @@ namespace KonySim
             permanentObjects.Add(CreateIcon("Sprites/iconCrack.png", new Vector2(0, 0)));
             permanentObjects.Add(CreateIcon("Sprites/iconSyringe.png", new Vector2(200, 0)));
             permanentObjects.Add(CreateIcon("Sprites/iconWarrior.png", new Vector2(400, 0)));
-
         }
 
         public void LoadContent(ContentManager content)
