@@ -51,9 +51,6 @@ namespace KonySim
             objects = new List<GameObject>();
             this.IsMouseVisible = true;
 
-            CreateGo(Vector2.Zero);
-            CreateGo(new Vector2(100, 400));
-
             base.Initialize();
         }
 
@@ -82,6 +79,8 @@ namespace KonySim
             {
                 go.LoadContent(Content);
             }
+
+            new GameInitializer(this, new Random()).Start();
         }
 
         /// <summary>

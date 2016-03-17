@@ -96,30 +96,41 @@ namespace KonySim.Db
             return result;
         }
 
-        public void InsertRow<T>(T obj) where T : TableRow, new()
+        public int InsertRow<T>(T obj) where T : TableRow, new()
         {
             //Get all properties of the assigned type (Except for ID)
-            var propertiesWidhoutID = typeof(T).GetProperties().Where(a => a.Name != "ID");
+            var propertiesWithoutID = typeof(T).GetProperties().Where(a => a.Name != "ID");
 
             StringBuilder cmdText = new StringBuilder();
 
             //Create base of INSERT statement
-            cmdText.Append("INSERT INTO ").Append(typeof(T).Name).Append("(");
+            cmdText.Append("INSERT INTO ").Append(typeof(T).Name);
 
-            //Append list of column names to insert
-            cmdText.Append(string.Join(",", propertiesWidhoutID.Select(a => a.Name))).Append(")");
+            if (propertiesWithoutID.Count() > 0)
+            {
+                //Append list of column names to insert
+                cmdText.Append(" (").Append(string.Join(",", propertiesWithoutID.Select(a => a.Name))).Append(")");
 
-            //Append list of values to insert there
-            cmdText.Append(" VALUES (").Append(string.Join(",", propertiesWidhoutID.Select(a => "@" + a.Name))).Append(");");
+                //Append list of values to insert there
+                cmdText.Append(" VALUES (").Append(string.Join(",", propertiesWithoutID.Select(a => "@" + a.Name))).Append(");");
+            }
+            else
+            {
+                //No values to insert...
+                cmdText.Append(" DEFAULT VALUES;");
+            }
 
             var cmd = new SQLiteCommand(cmdText.ToString(), con);
 
             //Insert values as command parameters
-            foreach (var p in propertiesWidhoutID)
+            foreach (var p in propertiesWithoutID)
             {
                 cmd.Parameters.AddWithValue("@" + p.Name, p.GetValue(obj, null));
             }
             cmd.ExecuteNonQuery();
+
+            var id = new SQLiteCommand("SELECT last_insert_rowid()", con).ExecuteScalar();
+            return Convert.ToInt32(id);
         }
 
         public void UpdateRow<T>(T obj) where T : TableRow, new()
@@ -152,6 +163,11 @@ namespace KonySim.Db
         public void DeleteRow<T>(int id)
         {
             new SQLiteCommand("DELETE FROM " + typeof(T).Name + " WHERE ID = " + id, con).ExecuteNonQuery();
+        }
+
+        public void DeleteAllRows<T>()
+        {
+            new SQLiteCommand("DELETE FROM " + typeof(T).Name, con).ExecuteNonQuery();
         }
 
         private void FillPropertiesFromRow<T>(T target, SQLiteDataReader reader)
