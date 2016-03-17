@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace AWS
 {
-    internal class SpriteRender : Component, ILoadContent, IDraw
+    class ChildRender : spriteRender, ILoadContent, IDraw
     {
         private string spriteName;
         private float depth;
@@ -18,22 +18,24 @@ namespace AWS
 
         public Rectangle Rectangle { get; set; }
 
-        public SpriteRender(GameObject gameObject, string spriteName, float depth) : base(gameObject)
+        public ChildRender(GameObject gameObject, string spriteName, float depth) : base(gameObject)
         {
             this.spriteName = spriteName;
             this.depth = depth;
         }
 
-        public virtual void LoadContent(ContentManager content)
+        public override void LoadContent(ContentManager content)
         {
             this.sprite = content.Load<Texture2D>(spriteName);
             this.Rectangle = new Rectangle(0, 0, sprite.Width, sprite.Height);
             this.transform = (Transform)gameObject.GetComponent("Transform");
         }
 
-        public virtual void Draw(SpriteBatch spriteBatch)
+        public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(sprite, transform.Position, Rectangle, Color.White, 0, Vector2.Zero, Vector2.One, SpriteEffects.None, depth);
+            spriteBatch.Draw(sprite, transform.Position, Rectangle, Color.White, 0, Vector2.Zero, Vector2.One, SpriteEffects.None, 1);
+            spriteBatch.Draw(sprite, transform.Position, Rectangle, Color.White, 0, Vector2.Zero, Vector2.One, SpriteEffects.None, 2);
+            spriteBatch.Draw(sprite, transform.Position, Rectangle, Color.White, 0, Vector2.Zero, Vector2.One, SpriteEffects.None, 3);
         }
     }
 }
