@@ -10,70 +10,59 @@ namespace KonySim
 {
     class UI: ILoadContent, IUpdate, IDraw
     {
-        List<GameObject> permanentObjects;
-        SpriteFont iconFont;
+        ContentManager content;
 
-        List<GameObject> childrenList;
-        List<Transform> childrensTransform;
-        float scrollerPosition;
+        List<GameObject> uiObjects;
+        SpriteFont iconFont;
+        UIList childrenList;
 
         //Initializing stuff.
         public UI()
         {
-            permanentObjects = new List<GameObject>();
+            uiObjects = new List<GameObject>();
 
-            permanentObjects.Add(CreateIcon("Sprites/btnBack", new Vector2(0, 0)));
-            permanentObjects.Add(CreateIcon("Sprites/iconSyringe", new Vector2(200, 20)));
-            permanentObjects.Add(CreateIcon("Sprites/iconWarrior", new Vector2(500, 20)));
-            permanentObjects.Add(CreateIcon("Sprites/iconCrack", new Vector2(800, 20)));
-
-            childrenList = new List<GameObject>();
-            childrensTransform = new List<Transform>();
-
-            childrenList.Add(CreateIcon("Sprites/ChildSub", new Vector2(0, 0)));
-            childrenList.Add(CreateIcon("Sprites/ChildSub", new Vector2(0, 0)));
-            childrenList.Add(CreateIcon("Sprites/ChildSub", new Vector2(0, 0)));
-            childrenList.Add(CreateIcon("Sprites/ChildSub", new Vector2(0, 0)));
-
-            permanentObjects.Add(CreateIcon("Sprites/goUp", new Vector2(1305, 0)));
-            permanentObjects.Add(CreateIcon("Sprites/goDown", new Vector2(1305, 950)));
+            uiObjects.Add(CreateImage("Sprites/btnBack", new Vector2(0, 0)));
+            uiObjects.Add(CreateImage("Sprites/iconSyringe", new Vector2(200, 20)));
+            uiObjects.Add(CreateImage("Sprites/iconWarrior", new Vector2(500, 20)));
+            uiObjects.Add(CreateImage("Sprites/iconCrack", new Vector2(800, 20)));
         }
-
-        //Loading content.
+        
         public void LoadContent(ContentManager content)
         {
-            foreach (GameObject go in permanentObjects)
+            //Setting ContentManager.
+            this.content = content;
+
+            foreach (GameObject go in uiObjects)
             {
                 go.LoadContent(content);
             }
 
             iconFont = content.Load<SpriteFont>("Fonts/IconFont");
 
-            foreach (GameObject go in childrenList)
-            {
-                go.LoadContent(content);
-                childrensTransform.Add((Transform)go.GetComponent("Transform"));
-            }
-        }
+            //Children list.
+            childrenList = new UIList(new Vector2(1300, 0), 800);
+            childrenList.LoadContent(content);
 
-        //Updating.
+            childrenList.AddItem(CreateImage("Sprites/ChildSub", new Vector2(0, 0)), content);
+            childrenList.AddItem(CreateImage("Sprites/ChildSub", new Vector2(0, 0)), content);
+            childrenList.AddItem(CreateImage("Sprites/ChildSub", new Vector2(0, 0)), content);
+            childrenList.AddItem(CreateImage("Sprites/iconSyringe", new Vector2(0, 0)), content);
+            childrenList.AddItem(CreateImage("Sprites/ChildSub", new Vector2(0, 0)), content);
+        }
+        
         public void Update(float deltaTime)
         {
-            foreach (GameObject go in permanentObjects)
+            foreach (GameObject go in uiObjects)
             {
                 go.Update(deltaTime);
             }
 
-            for (int i = 0; i < childrenList.Count; i++)
-            {
-                childrensTransform[i].Position = new Vector2(1305, i * 200 + 60 + scrollerPosition);
-            }
+            childrenList.Update(deltaTime);
         }
-
-        //Drawing.
+        
         public void Draw(SpriteBatch spriteBatch)
         {
-            foreach (GameObject go in permanentObjects)
+            foreach (GameObject go in uiObjects)
             {
                 go.Draw(spriteBatch);
             }
@@ -82,14 +71,11 @@ namespace KonySim
             spriteBatch.DrawString(iconFont, "100", new Vector2(620, 20), Color.White);
             spriteBatch.DrawString(iconFont, "10000", new Vector2(920, 20), Color.White);
 
-            foreach (GameObject go in childrenList)
-            {
-                go.Draw(spriteBatch);
-            }
+            childrenList.Draw(spriteBatch);
         }
         
-        //Creating a simple icon.
-        private GameObject CreateIcon(string sprite, Vector2 position)
+        //Creating an image.
+        private GameObject CreateImage(string sprite, Vector2 position)
         {
             GameObject go = new GameObject();
             go.AddComponent(new Transform(go, position));
