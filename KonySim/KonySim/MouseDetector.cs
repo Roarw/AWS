@@ -2,22 +2,23 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework;
 
 namespace KonySim
 {
-    class MouseDetector : Component, ILoadContent, IUpdate
+    internal class MouseDetector : Component, ILoadContent, IUpdate
     {
-        Transform transform;
-        SpriteRender spriteRender;
+        private Transform transform;
+        private SpriteRender spriteRender;
 
-        int mouseX;
-        int mouseY;
-        ButtonState leftButtonState;
-        bool mouseHover;
-        bool mousePressed;
+        private int mouseX;
+        private int mouseY;
+        private ButtonState leftButtonState;
+        private bool mouseHover;
+        private bool mousePressed;
+        private bool mousePressedOnMe;
 
         private Rectangle CollisionBox
         {
@@ -46,12 +47,39 @@ namespace KonySim
             mouseX = GameWorld.MouseX;
             mouseY = GameWorld.MouseY;
             leftButtonState = Mouse.GetState().LeftButton;
-            
+
             CheckMouseCollision();
         }
 
         private void CheckMouseCollision()
         {
+            if (!mousePressed)
+            {
+                if (leftButtonState == ButtonState.Pressed)
+                {
+                    mousePressed = true;
+
+                    if (CollidingWithMouse())
+                    {
+                        mousePressedOnMe = true;
+                        gameObject.MousePressed();
+                    }
+                }
+            }
+            else
+            {
+                if (leftButtonState == ButtonState.Released)
+                {
+                    mousePressed = false;
+
+                    if (mousePressedOnMe)
+                    {
+                        mousePressedOnMe = false;
+                        gameObject.MouseReleased();
+                    }
+                }
+            }
+
             if (CollidingWithMouse())
             {
                 if (!mouseHover)
@@ -59,24 +87,14 @@ namespace KonySim
                     mouseHover = true;
                     gameObject.MouseEnter();
                 }
-
-                if (leftButtonState == ButtonState.Pressed && !mousePressed)
+            }
+            else
+            {
+                if (mouseHover)
                 {
-                    mousePressed = true;
-                    gameObject.MousePressed();
+                    mouseHover = false;
+                    gameObject.MouseExit();
                 }
-                
-            }
-            else if (mouseHover)
-            {
-                mouseHover = false;
-                gameObject.MouseExit();
-            }
-
-            if (leftButtonState == ButtonState.Released && mousePressed)
-            {
-                mousePressed = false;
-                gameObject.MouseReleased();
             }
         }
 
