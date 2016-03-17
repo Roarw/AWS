@@ -10,7 +10,7 @@ namespace KonySim
     /// <summary>
     /// This is the main type for your game.
     /// </summary>
-    public class GameWorld : Game
+    class GameWorld : Game
     {
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
@@ -22,8 +22,9 @@ namespace KonySim
         public static int MouseY { get { return Mouse.GetState().Position.Y / (int)HeightMulti; } }
 
         private List<GameObject> objects;
+        private UI ui;
         private float deltaTime;
-
+        
         public static float WidthMulti { get { return widthMulti; } }
         public static float HeightMulti { get { return heightMulti; } }
 
@@ -43,7 +44,10 @@ namespace KonySim
         {
             // TODO: Add your initialization logic here
             //graphics.IsFullScreen = true;
-            //graphics.ApplyChanges();
+            graphics.PreferredBackBufferWidth = 1600;
+            graphics.PreferredBackBufferHeight = 1000;
+            Window.Position = new Point(-10, 0);
+            graphics.ApplyChanges();
 
             widthMulti = (float)Window.ClientBounds.Width / (float)graphics.PreferredBackBufferWidth;
             heightMulti = (float)Window.ClientBounds.Height / (float)graphics.PreferredBackBufferHeight;
@@ -53,6 +57,8 @@ namespace KonySim
 
             CreateGo(Vector2.Zero);
             CreateGo(new Vector2(100, 400));
+
+            ui = new UI();
 
             base.Initialize();
         }
@@ -82,6 +88,8 @@ namespace KonySim
             {
                 go.LoadContent(Content);
             }
+
+            ui.LoadContent(Content);
         }
 
         /// <summary>
@@ -111,6 +119,8 @@ namespace KonySim
                 go.Update(deltaTime);
             }
 
+            ui.Update(deltaTime);
+
             base.Update(gameTime);
         }
 
@@ -120,7 +130,7 @@ namespace KonySim
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Peru);
 
             // TODO: Add your drawing code here
             spriteBatch.Begin();
@@ -129,6 +139,8 @@ namespace KonySim
             {
                 go.Draw(spriteBatch);
             }
+
+            ui.Draw(spriteBatch);
 
             spriteBatch.End();
 
