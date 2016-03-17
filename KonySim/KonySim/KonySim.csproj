@@ -43,6 +43,7 @@
     <Compile Include="Button.cs" />
     <Compile Include="ButtonDelegateMethods.cs" />
     <Compile Include="ButtonFactory.cs" />
+    <Compile Include="ChildRender.cs" />
     <Compile Include="DelegatesButtonFactory.cs" />
     <Compile Include="SimpleButtonFactory.cs" />
     <Compile Include="Component.cs" />
