@@ -11,13 +11,15 @@ namespace KonySim
     class UI: ILoadContent, IUpdate, IDraw
     {
         List<GameObject> permanentObjects;
+        SpriteFont iconFont;
 
         public UI()
         {
             permanentObjects = new List<GameObject>();
-            permanentObjects.Add(CreateIcon("Sprites/iconCrack.png", new Vector2(0, 0)));
-            permanentObjects.Add(CreateIcon("Sprites/iconSyringe.png", new Vector2(200, 0)));
-            permanentObjects.Add(CreateIcon("Sprites/iconWarrior.png", new Vector2(400, 0)));
+            permanentObjects.Add(CreateIcon("Sprites/btnBack", new Vector2(0, 0)));
+            permanentObjects.Add(CreateIcon("Sprites/iconCrack", new Vector2(200, 20)));
+            permanentObjects.Add(CreateIcon("Sprites/iconSyringe", new Vector2(500, 20)));
+            permanentObjects.Add(CreateIcon("Sprites/iconWarrior", new Vector2(800, 20)));
 
         }
 
@@ -27,6 +29,8 @@ namespace KonySim
             {
                 go.LoadContent(content);
             }
+
+            iconFont = content.Load<SpriteFont>("Fonts/IconFont");
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -35,6 +39,10 @@ namespace KonySim
             {
                 go.Draw(spriteBatch);
             }
+
+            spriteBatch.DrawString(iconFont, "11", new Vector2(320, 20), Color.White);
+            spriteBatch.DrawString(iconFont, "11", new Vector2(620, 20), Color.White);
+            spriteBatch.DrawString(iconFont, "11", new Vector2(920, 20), Color.White);
         }
 
         public void Update(float deltaTime)
