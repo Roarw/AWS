@@ -10,45 +10,76 @@ namespace KonySim
 {
     internal class UI : ILoadContent, IUpdate, IDraw
     {
-        private List<GameObject> permanentObjects;
+        ContentManager content;
 
+        List<GameObject> uiObjects;
+        SpriteFont iconFont;
+        UIList childrenList;
+
+        //Initializing stuff.
         public UI()
         {
-            permanentObjects = new List<GameObject>();
-            permanentObjects.Add(CreateIcon("Sprites/iconCrack.png", new Vector2(0, 0)));
-            permanentObjects.Add(CreateIcon("Sprites/iconSyringe.png", new Vector2(200, 0)));
-            permanentObjects.Add(CreateIcon("Sprites/iconWarrior.png", new Vector2(400, 0)));
-        }
+            uiObjects = new List<GameObject>();
 
+            uiObjects.Add(CreateImage("Sprites/btnBack", new Vector2(0, 0)));
+            uiObjects.Add(CreateImage("Sprites/iconSyringe", new Vector2(200, 20)));
+            uiObjects.Add(CreateImage("Sprites/iconWarrior", new Vector2(500, 20)));
+            uiObjects.Add(CreateImage("Sprites/iconCrack", new Vector2(800, 20)));
+        }
+        
         public void LoadContent(ContentManager content)
         {
-            foreach (GameObject go in permanentObjects)
+            //Setting ContentManager.
+            this.content = content;
+
+            foreach (GameObject go in uiObjects)
             {
                 go.LoadContent(content);
             }
-        }
 
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            foreach (GameObject go in permanentObjects)
-            {
-                go.Draw(spriteBatch);
-            }
-        }
+            iconFont = content.Load<SpriteFont>("Fonts/IconFont");
 
+            //Children list.
+            childrenList = new UIList(new Vector2(980, 0), 700);
+            childrenList.LoadContent(content);
+
+            childrenList.AddItem(CreateImage("Sprites/ChildSub", new Vector2(0, 0)), content);
+            childrenList.AddItem(CreateImage("Sprites/ChildSub", new Vector2(0, 0)), content);
+            childrenList.AddItem(CreateImage("Sprites/ChildSub", new Vector2(0, 0)), content);
+            childrenList.AddItem(CreateImage("Sprites/ChildSub", new Vector2(0, 0)), content);
+            childrenList.AddItem(CreateImage("Sprites/ChildSub", new Vector2(0, 0)), content);
+        }
+        
         public void Update(float deltaTime)
         {
-            foreach (GameObject go in permanentObjects)
+            foreach (GameObject go in uiObjects)
             {
                 go.Update(deltaTime);
             }
-        }
 
-        private GameObject CreateIcon(string sprite, Vector2 position)
+            childrenList.Update(deltaTime);
+        }
+        
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            foreach (GameObject go in uiObjects)
+            {
+                go.Draw(spriteBatch);
+            }
+
+            spriteBatch.DrawString(iconFont, "100", new Vector2(320, 20), Color.White);
+            spriteBatch.DrawString(iconFont, "100", new Vector2(620, 20), Color.White);
+            spriteBatch.DrawString(iconFont, "10000", new Vector2(920, 20), Color.White);
+
+            childrenList.Draw(spriteBatch);
+        }
+        
+        //Creating an image.
+        private GameObject CreateImage(string sprite, Vector2 position)
         {
             GameObject go = new GameObject();
             go.AddComponent(new Transform(go, position));
-            go.AddComponent(new SpriteRender(go, sprite, 0));
+            go.AddComponent(new SpriteRender(go, sprite, 0.1f, 0, 0));
             return go;
         }
     }

@@ -51,8 +51,8 @@ namespace KonySim
         {
             // TODO: Add your initialization logic here
             //graphics.IsFullScreen = true;
-            graphics.PreferredBackBufferWidth = 1600;
-            graphics.PreferredBackBufferHeight = 1000;
+            graphics.PreferredBackBufferWidth = 1280;
+            graphics.PreferredBackBufferHeight = 720;
             Window.Position = new Point(-10, 0);
             graphics.ApplyChanges();
 
@@ -74,10 +74,9 @@ namespace KonySim
         {
             GameObject go = new GameObject();
             go.AddComponent(new Transform(go, position));
-            go.AddComponent(new SpriteRender(go, "Sprites/GO.png", 0));
+            go.AddComponent(new SpriteRender(go, "Sprites/GO.png", 0, 0, 0));
             go.AddComponent(new MouseDetector(go));
-            ButtonFactory bf = new DragAndDropFactory(go);
-            go.AddComponent(new Button(go, bf));
+            go.AddComponent(new DragAndDrop(go));
             objects.Add(go);
         }
 
@@ -140,7 +139,7 @@ namespace KonySim
             GraphicsDevice.Clear(Color.Peru);
 
             // TODO: Add your drawing code here
-            spriteBatch.Begin();
+            spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, null, null, null, null, null);
 
             foreach (GameObject go in objects)
             {

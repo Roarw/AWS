@@ -7,19 +7,13 @@ using Microsoft.Xna.Framework.Content;
 
 namespace KonySim
 {
-    internal class Transform : Component, ILoadContent
+    internal class Transform : Component
     {
-        private Vector2 position;
-
-        public Vector2 Position { get { return position; } set { position = value; } }
+        public Vector2 Position { get; set; }
 
         public Transform(GameObject gameObject, Vector2 position) : base(gameObject)
         {
-            this.position = position;
-        }
-
-        public void LoadContent(ContentManager content)
-        {
+            this.Position = position;
         }
     }
 }
