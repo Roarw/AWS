@@ -15,18 +15,12 @@ namespace KonySim
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
 
-        private static float widthMulti;
-        private static float heightMulti;
-
-        public static int MouseX { get { return Mouse.GetState().Position.X / (int)WidthMulti; } }
-        public static int MouseY { get { return Mouse.GetState().Position.Y / (int)HeightMulti; } }
+        public static int MouseX { get { return Mouse.GetState().Position.X; } }
+        public static int MouseY { get { return Mouse.GetState().Position.Y; } }
 
         private List<GameObject> objects;
         private UI ui;
         private float deltaTime;
-
-        public static float WidthMulti { get { return widthMulti; } }
-        public static float HeightMulti { get { return heightMulti; } }
 
         public GameWorld()
         {
@@ -43,14 +37,10 @@ namespace KonySim
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            //graphics.IsFullScreen = true;
             graphics.PreferredBackBufferWidth = 1280;
             graphics.PreferredBackBufferHeight = 720;
             Window.Position = new Point(-10, 0);
             graphics.ApplyChanges();
-
-            widthMulti = (float)Window.ClientBounds.Width / (float)graphics.PreferredBackBufferWidth;
-            heightMulti = (float)Window.ClientBounds.Height / (float)graphics.PreferredBackBufferHeight;
 
             objects = new List<GameObject>();
             this.IsMouseVisible = true;
