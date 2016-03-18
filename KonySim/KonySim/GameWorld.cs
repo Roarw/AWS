@@ -21,7 +21,8 @@ namespace KonySim
         public static int MouseX { get { return Mouse.GetState().Position.X / (int)WidthMulti; } }
         public static int MouseY { get { return Mouse.GetState().Position.Y / (int)HeightMulti; } }
 
-        private List<GameObject> objects;
+        private List<GameObject> objects = new List<GameObject>();
+        private List<GameObject> objectsToRemove = new List<GameObject>();
         private UI ui;
         private float deltaTime;
 
@@ -32,6 +33,11 @@ namespace KonySim
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+        }
+
+        public void RemoveObject(GameObject go)
+        {
+            objectsToRemove.Add(go);
         }
 
         /// <summary>
@@ -52,16 +58,17 @@ namespace KonySim
             widthMulti = (float)Window.ClientBounds.Width / (float)graphics.PreferredBackBufferWidth;
             heightMulti = (float)Window.ClientBounds.Height / (float)graphics.PreferredBackBufferHeight;
 
-            objects = new List<GameObject>();
             this.IsMouseVisible = true;
 
             CreateGo(Vector2.Zero);
             CreateGo(new Vector2(100, 400));
 
-            var go = new GameObject();
+            var go = new GameObject(this);
             go.AddComponent(new Transform(Vector2.Zero));
             go.AddComponent(new SpriteRender("Sprites/GO", 0));
-            go.AddComponent(new DragAndDropAlt(new Vector2(20, 20)));
+            var dnd = new DragAndDropAlt(new Vector2(20, 20));
+            //dnd.Released += (sender, e) => { Exit(); };
+            go.AddComponent(dnd);
             objects.Add(go);
 
             ui = new UI();
@@ -71,7 +78,7 @@ namespace KonySim
 
         private void CreateGo(Vector2 position)
         {
-            GameObject go = new GameObject();
+            GameObject go = new GameObject(this);
             go.AddComponent(new Transform(position));
             go.AddComponent(new SpriteRender("Sprites/GO.png", 0));
             go.AddComponent(new MouseDetector());
@@ -125,6 +132,12 @@ namespace KonySim
             {
                 go.Update(deltaTime);
             }
+
+            foreach (var go in objectsToRemove)
+            {
+                objects.Remove(go);
+            }
+            objectsToRemove.Clear();
 
             ui.Update(deltaTime);
 

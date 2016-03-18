@@ -10,10 +10,16 @@ namespace KonySim
     internal class GameObject : ILoadContent, IUpdate, IDraw, IMouseDetection
     {
         private List<Component> components;
+        public GameWorld World { get; }
 
-        public GameObject()
+        public GameObject() : this(null)
+        {
+        }
+
+        public GameObject(GameWorld world)
         {
             components = new List<Component>();
+            World = world;
         }
 
         public T GetComponent<T>() where T : Component
