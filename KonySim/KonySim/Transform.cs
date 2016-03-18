@@ -1,25 +1,19 @@
-﻿using Microsoft.Xna.Framework;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 
-namespace AWS
+namespace KonySim
 {
-    class Transform : Component
+    internal class Transform : Component
     {
-        Vector2 position;
-
-        public Vector2 Position { get { return position; } }
+        public Vector2 Position { get; set; }
 
         public Transform(GameObject gameObject, Vector2 position) : base(gameObject)
         {
-            this.position = position;
-        }
-
-        public void Translate(Vector2 translation)
-        {
-            position += translation;
+            this.Position = position;
         }
     }
 }
