@@ -1,0 +1,61 @@
+diff a/KonySim/KonySim/ChildRender.cs b/KonySim/KonySim/ChildRender.cs	(rejected hunks)
+@@ -8,34 +8,34 @@
+ 
+ namespace AWS
+ {
+-    class ChildRender : spriteRender, ILoadContent, IDraw
+-    {
+-        private string spriteName;
+-        private float depth;
++    //class ChildRender : SpriteRender, ILoadContent, IDraw
++    //{
++    //    private string spriteName;
++    //    private float depth;
+ 
+-        private Texture2D sprite;
+-        private Transform transform;
++    //    private Texture2D sprite;
++    //    private Transform transform;
+ 
+-        public Rectangle Rectangle { get; set; }
++    //    public Rectangle Rectangle { get; set; }
+ 
+-        public ChildRender(GameObject gameObject, string spriteName, float depth) : base(gameObject)
+-        {
+-            this.spriteName = spriteName;
+-            this.depth = depth;
+-        }
++    //    public ChildRender(GameObject gameObject, string spriteName, float depth) : base(gameObject)
++    //    {
++    //        this.spriteName = spriteName;
++    //        this.depth = depth;
++    //    }
+ 
+-        public override void LoadContent(ContentManager content)
+-        {
+-            this.sprite = content.Load<Texture2D>(spriteName);
+-            this.Rectangle = new Rectangle(0, 0, sprite.Width, sprite.Height);
+-            this.transform = (Transform)gameObject.GetComponent("Transform");
+-        }
++    //    public override void LoadContent(ContentManager content)
++    //    {
++    //        this.sprite = content.Load<Texture2D>(spriteName);
++    //        this.Rectangle = new Rectangle(0, 0, sprite.Width, sprite.Height);
++    //        this.transform = (Transform)gameObject.GetComponent("Transform");
++    //    }
+ 
+-        public override void Draw(SpriteBatch spriteBatch)
+-        {
+-            spriteBatch.Draw(sprite, transform.Position, Rectangle, Color.White, 0, Vector2.Zero, Vector2.One, SpriteEffects.None, 1);
+-            spriteBatch.Draw(sprite, transform.Position, Rectangle, Color.White, 0, Vector2.Zero, Vector2.One, SpriteEffects.None, 2);
+-            spriteBatch.Draw(sprite, transform.Position, Rectangle, Color.White, 0, Vector2.Zero, Vector2.One, SpriteEffects.None, 3);
+-        }
+-    }
++    //    public override void Draw(SpriteBatch spriteBatch)
++    //    {
++    //        spriteBatch.Draw(sprite, transform.Position, Rectangle, Color.White, 0, Vector2.Zero, Vector2.One, SpriteEffects.None, 1);
++    //        spriteBatch.Draw(sprite, transform.Position, Rectangle, Color.White, 0, Vector2.Zero, Vector2.One, SpriteEffects.None, 2);
++    //        spriteBatch.Draw(sprite, transform.Position, Rectangle, Color.White, 0, Vector2.Zero, Vector2.One, SpriteEffects.None, 3);
++    //    }
++    //}
+ }

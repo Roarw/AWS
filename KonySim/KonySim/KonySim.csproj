@@ -43,9 +43,14 @@
     <Compile Include="Button.cs" />
     <Compile Include="ButtonDelegateMethods.cs" />
     <Compile Include="ButtonFactory.cs" />
+    <Compile Include="ChildRender.cs" />
     <Compile Include="DelegatesButtonFactory.cs" />
+<<<<<<< HEAD
     <Compile Include="DragAndDropFactory.cs" />
     <Compile Include="NameGenerator.cs" />
+=======
+    <Compile Include="Shop.cs" />
+>>>>>>> origin/Sameh
     <Compile Include="SimpleButtonFactory.cs" />
     <Compile Include="Component.cs" />
     <Compile Include="Enums.cs" />
