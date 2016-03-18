@@ -1,8 +1,8 @@
-﻿using Microsoft.Xna.Framework;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -12,19 +12,19 @@ namespace KonySim
     /// Idea: Make a dictionary with a bool, that checks if an object is bound or not.
     /// </summary>
 
-    class UIList: ILoadContent, IUpdate, IDraw
+    internal class UIList : ILoadContent, IUpdate, IDraw
     {
-        List<GameObject> frameList;
-        Dictionary<GameObject, List<Component>> itemInformation;
-        
-        Vector2 position;
-        int height;
-        int elementHeight;
-        int maxHeight;
-        float scrollerPosition;
+        private List<GameObject> frameList;
+        private Dictionary<GameObject, List<Component>> itemInformation;
+
+        private Vector2 position;
+        private int height;
+        private int elementHeight;
+        private int maxHeight;
+        private float scrollerPosition;
 
         private Rectangle listArea;
-        
+
         //Initializing stuff.
         public UIList(Vector2 position, int height)
         {
@@ -46,7 +46,7 @@ namespace KonySim
             frameList.Add(CreateScroller("Sprites/goUp", new Vector2(position.X + 5, position.Y), -1));
             frameList.Add(CreateScroller("Sprites/goDown", new Vector2(position.X + 5, height - 50), 1));
         }
-        
+
         public void LoadContent(ContentManager content)
         {
             foreach (GameObject go in frameList)
@@ -105,8 +105,7 @@ namespace KonySim
             go.AddComponent(new Transform(go, position));
             go.AddComponent(new SpriteRender(go, sprite, 0.5f, 0, 0));
             go.AddComponent(new MouseDetector(go));
-            ButtonFactory bf = new UIListScrollerFactory(this, factor);
-            go.AddComponent(new Interactive(go, bf));
+            go.AddComponent(new ListScroller(this, factor));
             return go;
         }
 
@@ -177,7 +176,7 @@ namespace KonySim
 
             foreach (var item in itemInformation.Keys)
             {
-                 (itemInformation[item][0] as Transform).Position += new Vector2(0, value);
+                (itemInformation[item][0] as Transform).Position += new Vector2(0, value);
 
                 //if (InsideUIList(item))
                 //{

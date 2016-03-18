@@ -8,18 +8,18 @@ using Microsoft.Xna.Framework.Input;
 
 namespace KonySim
 {
-    internal class DragAndDropFactory : ButtonFactory, ILoadContent, IUpdate
+    internal class DragAndDrop : Component, ILoadContent, IUpdate, IMouseDetection
     {
-        GameObject go;
-        int deltaX;
-        int deltaY;
-        int mouseX;
-        int mouseY;
-        bool isPressed;
-        SpriteRender spriteRender;
-        Transform transform;
+        private GameObject go;
+        private int deltaX;
+        private int deltaY;
+        private int mouseX;
+        private int mouseY;
+        private bool isPressed;
+        private SpriteRender spriteRender;
+        private Transform transform;
 
-        public DragAndDropFactory(GameObject go)
+        public DragAndDrop(GameObject go)
         {
             this.go = go;
         }
@@ -38,7 +38,7 @@ namespace KonySim
 
             if (isPressed)
             {
-                transform.Position = new Vector2((float)mouseX  - (float)deltaX, (float)mouseY- (float)deltaY);
+                transform.Position = new Vector2((float)mouseX - (float)deltaX, (float)mouseY - (float)deltaY);
             }
         }
 
@@ -52,9 +52,9 @@ namespace KonySim
 
         public void MousePressed()
         {
-            deltaX =  mouseX - (int)transform.Position.X;
+            deltaX = mouseX - (int)transform.Position.X;
             deltaY = mouseY - (int)transform.Position.Y;
-            
+
             isPressed = true;
         }
 

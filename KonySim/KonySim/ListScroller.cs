@@ -5,13 +5,13 @@ using System.Text;
 
 namespace KonySim
 {
-    internal class UIListScrollerFactory : ButtonFactory, IUpdate
+    internal class ListScroller : Component, IUpdate, IMouseDetection
     {
-        UIList uiList;
-        int factor;
-        bool mouseDown;
+        private UIList uiList;
+        private int factor;
+        private bool mouseDown;
 
-        public UIListScrollerFactory(UIList uiList, int factor)
+        public ListScroller(UIList uiList, int factor)
         {
             this.uiList = uiList;
             this.factor = factor;
@@ -28,7 +28,6 @@ namespace KonySim
 
         public void MouseEnter()
         {
-            
         }
 
         public void MouseExit()
