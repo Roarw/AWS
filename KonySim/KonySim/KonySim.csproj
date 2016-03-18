@@ -57,22 +57,16 @@
   <ItemGroup>
     <Compile Include="Interactive.cs" />
     <Compile Include="ButtonFactory.cs" />
-<<<<<<< HEAD
+
     <Compile Include="ChildRender.cs" />
     <Compile Include="DelegatesButtonFactory.cs" />
-<<<<<<< HEAD
-=======
->>>>>>> ea5904bd92b46a8ef322a46d57a08eddd0b87f85
+
     <Compile Include="DragAndDropFactory.cs" />
     <Compile Include="GameInitializer.cs" />
     <Compile Include="NameGenerator.cs" />
-<<<<<<< HEAD
-=======
     <Compile Include="Shop.cs" />
->>>>>>> origin/Sameh
     <Compile Include="SimpleButtonFactory.cs" />
-=======
->>>>>>> ea5904bd92b46a8ef322a46d57a08eddd0b87f85
+
     <Compile Include="Component.cs" />
     <Compile Include="Db\Connection.cs" />
     <Compile Include="Db\Mission.cs" />
