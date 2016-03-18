@@ -30,7 +30,7 @@ namespace KonySim
             }
         }
 
-        public MouseDetector(GameObject gameObject) : base(gameObject)
+        public MouseDetector() : base()
         {
             mouseHover = false;
             mousePressed = false;
@@ -38,8 +38,8 @@ namespace KonySim
 
         public void LoadContent(ContentManager content)
         {
-            this.transform = (Transform)gameObject.GetComponent("Transform");
-            this.spriteRender = (SpriteRender)gameObject.GetComponent("SpriteRender");
+            this.transform = GameObject.GetComponent<Transform>();
+            this.spriteRender = GameObject.GetComponent<SpriteRender>();
         }
 
         public void Update(float deltaTime)
@@ -62,7 +62,7 @@ namespace KonySim
                     if (CollidingWithMouse())
                     {
                         mousePressedOnMe = true;
-                        gameObject.MousePressed();
+                        GameObject.MousePressed();
                     }
                 }
             }
@@ -75,7 +75,7 @@ namespace KonySim
                     if (mousePressedOnMe)
                     {
                         mousePressedOnMe = false;
-                        gameObject.MouseReleased();
+                        GameObject.MouseReleased();
                     }
                 }
             }
@@ -85,7 +85,7 @@ namespace KonySim
                 if (!mouseHover)
                 {
                     mouseHover = true;
-                    gameObject.MouseEnter();
+                    GameObject.MouseEnter();
                 }
             }
             else
@@ -93,7 +93,7 @@ namespace KonySim
                 if (mouseHover)
                 {
                     mouseHover = false;
-                    gameObject.MouseExit();
+                    GameObject.MouseExit();
                 }
             }
         }

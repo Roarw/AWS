@@ -29,7 +29,7 @@ namespace KonySim
         {
             get
             {
-                return new Rectangle((int)position.X + 5, (int)position.Y + 50, 
+                return new Rectangle((int)position.X + 5, (int)position.Y + 50,
                     300/*300 is the width of a ChildCard.*/ - 5, height - 50);
             }
         }
@@ -102,8 +102,8 @@ namespace KonySim
         private GameObject CreateImageOffset(string sprite, Vector2 position, int yTopOffset, int yBottomOffset)
         {
             GameObject go = new GameObject();
-            go.AddComponent(new Transform(go, position));
-            go.AddComponent(new SpriteRender(go, sprite, 0, yTopOffset, yBottomOffset));
+            go.AddComponent(new Transform(position));
+            go.AddComponent(new SpriteRender(sprite, 0, yTopOffset, yBottomOffset));
             return go;
         }
 
@@ -111,9 +111,9 @@ namespace KonySim
         private GameObject CreateScroller(string sprite, Vector2 position, int factor)
         {
             GameObject go = new GameObject();
-            go.AddComponent(new Transform(go, position));
-            go.AddComponent(new SpriteRender(go, sprite, 0.5f, 0, 0));
-            go.AddComponent(new MouseDetector(go));
+            go.AddComponent(new Transform(position));
+            go.AddComponent(new SpriteRender(sprite, 0.5f, 0, 0));
+            go.AddComponent(new MouseDetector());
             go.AddComponent(new ListScroller(this, factor));
             return go;
         }
@@ -121,7 +121,7 @@ namespace KonySim
         //Adding an item to the UIList.
         public void AddItem(GameObject gameObject, ContentManager content)
         {
-            if (gameObject.GetComponent("Transform") == null || gameObject.GetComponent("SpriteRender") == null)
+            if (gameObject.GetComponent<Transform>() == null || gameObject.GetComponent<SpriteRender>() == null)
             {
                 System.Diagnostics.Debug.WriteLine("Failed to add item to UIList, because Transform or SpriteRender is null.");
             }
@@ -130,7 +130,7 @@ namespace KonySim
                 gameObject.LoadContent(content);
                 itemInformation.Add(gameObject, new List<Component>()
                 {
-                    (Transform)gameObject.GetComponent("Transform"), (SpriteRender)gameObject.GetComponent("SpriteRender")
+                    gameObject.GetComponent<Transform>(), gameObject.GetComponent<SpriteRender>()
                 });
             }
         }

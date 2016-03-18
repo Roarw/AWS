@@ -55,6 +55,7 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="DragAndDropAlt.cs" />
     <Compile Include="DragAndDrop.cs" />
     <Compile Include="GameInitializer.cs" />
     <Compile Include="NameGenerator.cs" />
@@ -128,7 +129,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Icon.ico" />
-    <Content Include="listBackground.png" />
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />

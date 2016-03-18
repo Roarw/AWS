@@ -15,12 +15,18 @@ namespace KonySim
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
 
-        public static int MouseX { get { return Mouse.GetState().Position.X; } }
-        public static int MouseY { get { return Mouse.GetState().Position.Y; } }
+        private static float widthMulti;
+        private static float heightMulti;
+
+        public static int MouseX { get { return Mouse.GetState().Position.X / (int)WidthMulti; } }
+        public static int MouseY { get { return Mouse.GetState().Position.Y / (int)HeightMulti; } }
 
         private List<GameObject> objects;
         private UI ui;
         private float deltaTime;
+
+        public static float WidthMulti { get { return widthMulti; } }
+        public static float HeightMulti { get { return heightMulti; } }
 
         public GameWorld()
         {
@@ -37,16 +43,26 @@ namespace KonySim
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+            //graphics.IsFullScreen = true;
             graphics.PreferredBackBufferWidth = 1280;
             graphics.PreferredBackBufferHeight = 720;
             Window.Position = new Point(-10, 0);
             graphics.ApplyChanges();
+
+            widthMulti = (float)Window.ClientBounds.Width / (float)graphics.PreferredBackBufferWidth;
+            heightMulti = (float)Window.ClientBounds.Height / (float)graphics.PreferredBackBufferHeight;
 
             objects = new List<GameObject>();
             this.IsMouseVisible = true;
 
             CreateGo(Vector2.Zero);
             CreateGo(new Vector2(100, 400));
+
+            var go = new GameObject();
+            go.AddComponent(new Transform(Vector2.Zero));
+            go.AddComponent(new SpriteRender("Sprites/GO", 0));
+            go.AddComponent(new DragAndDropAlt(new Vector2(20, 20)));
+            objects.Add(go);
 
             ui = new UI();
 
@@ -56,10 +72,10 @@ namespace KonySim
         private void CreateGo(Vector2 position)
         {
             GameObject go = new GameObject();
-            go.AddComponent(new Transform(go, position));
-            go.AddComponent(new SpriteRender(go, "Sprites/GO.png", 0));
-            go.AddComponent(new MouseDetector(go));
-            go.AddComponent(new DragAndDrop(go));
+            go.AddComponent(new Transform(position));
+            go.AddComponent(new SpriteRender("Sprites/GO.png", 0));
+            go.AddComponent(new MouseDetector());
+            go.AddComponent(new DragAndDrop());
             objects.Add(go);
         }
 

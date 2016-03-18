@@ -12,23 +12,23 @@ namespace KonySim
     {
         private string spriteName;
         private float depth;
-        int yTopOffset;
-        int yBottomOffset;
-        Rectangle bounds;
-        bool checkBounds;
+        private int yTopOffset;
+        private int yBottomOffset;
+        private Rectangle bounds;
+        private bool checkBounds;
 
         private Texture2D sprite;
         private Transform transform;
-        
+
         public Rectangle Rectangle { get; set; }
 
-        public SpriteRender(GameObject gameObject, string spriteName, float depth) : base(gameObject)
+        public SpriteRender(string spriteName, float depth) : base()
         {
             this.spriteName = spriteName;
             this.depth = depth;
         }
 
-        public SpriteRender(GameObject gameObject, string spriteName, float depth, int yTopOffset, int yBottomOffset) : base(gameObject)
+        public SpriteRender(string spriteName, float depth, int yTopOffset, int yBottomOffset) : base()
         {
             this.spriteName = spriteName;
             this.depth = depth;
@@ -36,7 +36,7 @@ namespace KonySim
             this.yBottomOffset = yBottomOffset;
         }
 
-        public SpriteRender(GameObject gameObject, string spriteName, float depth, Rectangle bounds) : base(gameObject)
+        public SpriteRender(string spriteName, float depth, Rectangle bounds) : base()
         {
             this.spriteName = spriteName;
             this.depth = depth;
@@ -48,7 +48,7 @@ namespace KonySim
         {
             this.sprite = content.Load<Texture2D>(spriteName);
             this.Rectangle = new Rectangle(0, 0 + yTopOffset, sprite.Width, sprite.Height + yBottomOffset);
-            this.transform = (Transform)gameObject.GetComponent("Transform");
+            this.transform = GameObject.GetComponent<Transform>();
         }
 
         public void Draw(SpriteBatch spriteBatch)

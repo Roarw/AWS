@@ -5,20 +5,28 @@ using System.Text;
 
 namespace KonySim
 {
-    abstract class Component
+    internal abstract class Component
     {
-        protected GameObject gameObject;
+        private GameObject gameObject;
 
-        public GameObject GameObject { get { return gameObject; } }
+        public GameObject GameObject
+        {
+            get { return gameObject; }
+            set
+            {
+                if (gameObject == null)
+                {
+                    gameObject = value;
+                }
+                else
+                {
+                    throw new InvalidOperationException("What the fuck man");
+                }
+            }
+        }
 
         public Component()
         {
-
-        }
-
-        public Component(GameObject gameObject)
-        {
-            this.gameObject = gameObject;
         }
     }
 }

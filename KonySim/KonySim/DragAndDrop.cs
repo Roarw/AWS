@@ -10,7 +10,6 @@ namespace KonySim
 {
     internal class DragAndDrop : Component, ILoadContent, IUpdate, IMouseDetection
     {
-        private GameObject go;
         private int deltaX;
         private int deltaY;
         private int mouseX;
@@ -19,15 +18,14 @@ namespace KonySim
         private SpriteRender spriteRender;
         private Transform transform;
 
-        public DragAndDrop(GameObject go)
+        public DragAndDrop()
         {
-            this.go = go;
         }
 
         public void LoadContent(ContentManager content)
         {
-            this.spriteRender = (SpriteRender)go.GetComponent("SpriteRender");
-            this.transform = (Transform)go.GetComponent("Transform");
+            spriteRender = GameObject.GetComponent<SpriteRender>();
+            transform = GameObject.GetComponent<Transform>();
             isPressed = false;
         }
 
