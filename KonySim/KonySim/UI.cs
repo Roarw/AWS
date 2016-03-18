@@ -40,14 +40,16 @@ namespace KonySim
             iconFont = content.Load<SpriteFont>("Fonts/IconFont");
 
             //Children list.
-            childrenList = new UIList(new Vector2(980, 0), 700);
+            childrenList = new UIList(new Vector2(980, 0), 720);
             childrenList.LoadContent(content);
 
-            childrenList.AddItem(CreateImage("Sprites/ChildSub", new Vector2(0, 0)), content);
-            childrenList.AddItem(CreateImage("Sprites/ChildSub", new Vector2(0, 0)), content);
-            childrenList.AddItem(CreateImage("Sprites/ChildSub", new Vector2(0, 0)), content);
-            childrenList.AddItem(CreateImage("Sprites/ChildSub", new Vector2(0, 0)), content);
-            childrenList.AddItem(CreateImage("Sprites/ChildSub", new Vector2(0, 0)), content);
+            Rectangle bounds = new Rectangle(980 + 5, 0 + 50, 300/*300 is the width of a ChildCard.*/ - 5, 720 - 50);
+
+            childrenList.AddItem(ChildCard("Sprites/ChildSub", new Vector2(0, 0), bounds), content);
+            childrenList.AddItem(ChildCard("Sprites/ChildSub", new Vector2(0, 0), bounds), content);
+            childrenList.AddItem(ChildCard("Sprites/ChildSub", new Vector2(0, 0), bounds), content);
+            childrenList.AddItem(ChildCard("Sprites/ChildSub", new Vector2(0, 0), bounds), content);
+            childrenList.AddItem(ChildCard("Sprites/ChildSub", new Vector2(0, 0), bounds), content);
         }
         
         public void Update(float deltaTime)
@@ -79,7 +81,16 @@ namespace KonySim
         {
             GameObject go = new GameObject();
             go.AddComponent(new Transform(go, position));
-            go.AddComponent(new SpriteRender(go, sprite, 0.1f, 0, 0));
+            go.AddComponent(new SpriteRender(go, sprite, 0.1f));
+            return go;
+        }
+
+        //Creating a child card.
+        private GameObject ChildCard(string sprite, Vector2 position, Rectangle rect)
+        {
+            GameObject go = new GameObject();
+            go.AddComponent(new Transform(go, position));
+            go.AddComponent(new SpriteRender(go, sprite, 0.1f, rect));
             return go;
         }
     }
