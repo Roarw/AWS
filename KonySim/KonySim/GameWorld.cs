@@ -1,22 +1,32 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
-namespace AWS
+namespace KonySim
 {
     /// <summary>
     /// This is the main type for your game.
     /// </summary>
-    public class GameWorld : Game
+    class GameWorld : Game
     {
-        GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
+        private GraphicsDeviceManager graphics;
+        private SpriteBatch spriteBatch;
 
-        List<GameObject> objects;
-        float deltaTime;
+        private static float widthMulti;
+        private static float heightMulti;
+
+        public static int MouseX { get { return Mouse.GetState().Position.X / (int)WidthMulti; } }
+        public static int MouseY { get { return Mouse.GetState().Position.Y / (int)HeightMulti; } }
+
+        private List<GameObject> objects;
+        private UI ui;
+        private float deltaTime;
+        
+        public static float WidthMulti { get { return widthMulti; } }
+        public static float HeightMulti { get { return heightMulti; } }
 
         public GameWorld()
         {
@@ -33,23 +43,35 @@ namespace AWS
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+            //graphics.IsFullScreen = true;
+            graphics.PreferredBackBufferWidth = 1280;
+            graphics.PreferredBackBufferHeight = 720;
+            Window.Position = new Point(-10, 0);
+            graphics.ApplyChanges();
+
+            widthMulti = (float)Window.ClientBounds.Width / (float)graphics.PreferredBackBufferWidth;
+            heightMulti = (float)Window.ClientBounds.Height / (float)graphics.PreferredBackBufferHeight;
+
             objects = new List<GameObject>();
             this.IsMouseVisible = true;
 
-            GameObject go = new GameObject();
-            go.AddComponent(new Transform(go, Vector2.Zero));
-            go.AddComponent(new SpriteRender(go, "Sprites/GO.png", 0));
-            go.AddComponent(new MouseDetector(go));
+            CreateGo(Vector2.Zero);
+            CreateGo(new Vector2(100, 400));
 
-            ButtonFactory bf = new DragAndDropFactory(go);
-
-            go.AddComponent(new Button(go, bf));
-            objects.Add(go);
-
-            graphics.IsFullScreen = true;
-            graphics.ApplyChanges();
+            ui = new UI();
 
             base.Initialize();
+        }
+
+        private void CreateGo(Vector2 position)
+        {
+            GameObject go = new GameObject();
+            go.AddComponent(new Transform(go, position));
+            go.AddComponent(new SpriteRender(go, "Sprites/GO.png", 0, 0, 0));
+            go.AddComponent(new MouseDetector(go));
+            ButtonFactory bf = new DragAndDropFactory(go);
+            go.AddComponent(new Interactive(go, bf));
+            objects.Add(go);
         }
 
         /// <summary>
@@ -66,6 +88,10 @@ namespace AWS
             {
                 go.LoadContent(Content);
             }
+			
+			ui.LoadContent(Content);
+
+            new GameInitializer(this, new Random()).Start();
         }
 
         /// <summary>
@@ -95,6 +121,8 @@ namespace AWS
                 go.Update(deltaTime);
             }
 
+            ui.Update(deltaTime);
+
             base.Update(gameTime);
         }
 
@@ -104,15 +132,17 @@ namespace AWS
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Peru);
 
             // TODO: Add your drawing code here
-            spriteBatch.Begin();
+            spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, null, null, null, null, null);
 
             foreach (GameObject go in objects)
             {
                 go.Draw(spriteBatch);
             }
+
+            ui.Draw(spriteBatch);
 
             spriteBatch.End();
 

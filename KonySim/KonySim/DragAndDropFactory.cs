@@ -2,19 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework;
 
-namespace AWS
+namespace KonySim
 {
-    class DragAndDropFactory : ButtonFactory, ILoadContent, IUpdate
+    internal class DragAndDropFactory : ButtonFactory, ILoadContent, IUpdate
     {
         GameObject go;
+        int deltaX;
+        int deltaY;
         int mouseX;
         int mouseY;
-        int mouse1X;
-        int mouse1Y;
         bool isPressed;
         SpriteRender spriteRender;
         Transform transform;
@@ -33,30 +33,28 @@ namespace AWS
 
         public void Update(float deltaTime)
         {
-            mouseX = Mouse.GetState().Position.X;
-            mouseY = Mouse.GetState().Position.Y;
+            mouseX = GameWorld.MouseX;
+            mouseY = GameWorld.MouseY;
 
             if (isPressed)
             {
-                transform.Position = new Vector2(mouseX - mouse1X/1.3f, mouseY - mouse1Y/1.3f);
+                transform.Position = new Vector2((float)mouseX  - (float)deltaX, (float)mouseY- (float)deltaY);
             }
         }
 
         public void MouseEnter()
         {
-            
         }
 
         public void MouseExit()
         {
-            isPressed = false;
         }
 
         public void MousePressed()
         {
-            mouse1X = Mouse.GetState().Position.X;
-            mouse1Y = Mouse.GetState().Position.Y;
-            System.Diagnostics.Debug.WriteLine(mouse1X + " " + mouse1Y);
+            deltaX =  mouseX - (int)transform.Position.X;
+            deltaY = mouseY - (int)transform.Position.Y;
+            
             isPressed = true;
         }
 
@@ -64,7 +62,5 @@ namespace AWS
         {
             isPressed = false;
         }
-
-        
     }
 }
