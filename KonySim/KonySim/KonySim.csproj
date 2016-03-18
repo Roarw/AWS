@@ -55,7 +55,9 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="DragAndDrop.cs" />
+    <Compile Include="Interactive.cs" />
+    <Compile Include="ButtonFactory.cs" />
+    <Compile Include="DragAndDropFactory.cs" />
     <Compile Include="GameInitializer.cs" />
     <Compile Include="NameGenerator.cs" />
     <Compile Include="Component.cs" />
@@ -82,7 +84,7 @@
     <Compile Include="Transform.cs" />
     <Compile Include="UI.cs" />
     <Compile Include="UIList.cs" />
-    <Compile Include="ListScroller.cs" />
+    <Compile Include="UIListScrollerFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">

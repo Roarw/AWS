@@ -10,7 +10,7 @@ namespace KonySim
     /// <summary>
     /// This is the main type for your game.
     /// </summary>
-    internal class GameWorld : Game
+    class GameWorld : Game
     {
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
@@ -24,7 +24,7 @@ namespace KonySim
         private List<GameObject> objects;
         private UI ui;
         private float deltaTime;
-
+        
         public static float WidthMulti { get { return widthMulti; } }
         public static float HeightMulti { get { return heightMulti; } }
 
@@ -69,7 +69,8 @@ namespace KonySim
             go.AddComponent(new Transform(go, position));
             go.AddComponent(new SpriteRender(go, "Sprites/GO.png", 0, 0, 0));
             go.AddComponent(new MouseDetector(go));
-            go.AddComponent(new DragAndDrop(go));
+            ButtonFactory bf = new DragAndDropFactory(go);
+            go.AddComponent(new Interactive(go, bf));
             objects.Add(go);
         }
 
@@ -87,8 +88,8 @@ namespace KonySim
             {
                 go.LoadContent(Content);
             }
-
-            ui.LoadContent(Content);
+			
+			ui.LoadContent(Content);
 
             new GameInitializer(this, new Random()).Start();
         }
