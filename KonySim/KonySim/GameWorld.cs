@@ -67,7 +67,7 @@ namespace KonySim
         {
             GameObject go = new GameObject();
             go.AddComponent(new Transform(go, position));
-            go.AddComponent(new SpriteRender(go, "Sprites/GO.png", 0));
+            go.AddComponent(new SpriteRender(go, "Sprites/GO.png", 0, 0, 0));
             go.AddComponent(new MouseDetector(go));
             ButtonFactory bf = new DragAndDropFactory(go);
             go.AddComponent(new Button(go, bf));

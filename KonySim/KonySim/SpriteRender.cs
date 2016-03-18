@@ -12,9 +12,9 @@ namespace KonySim
     {
         private string spriteName;
         private float depth;
-        private int yTopOffset;
-        private int yBottomOffset;
-        
+        int yTopOffset;
+        int yBottomOffset;
+
         private Texture2D sprite;
         private Transform transform;
 
@@ -22,12 +22,12 @@ namespace KonySim
 
         public Rectangle Rectangle { get; set; }
 
-        public SpriteRender(GameObject gameObject, string spriteName, float depth) : base(gameObject)
+        public SpriteRender(GameObject gameObject, string spriteName, float depth, int yTopOffset, int yBottomOffset) : base(gameObject)
         {
             this.spriteName = spriteName;
             this.depth = depth;
-            this.yTopOffset = 0;
-            this.yBottomOffset = 0;
+            this.yTopOffset = yTopOffset;
+            this.yBottomOffset = yBottomOffset;
         }
 
         public void LoadContent(ContentManager content)
@@ -46,6 +46,7 @@ namespace KonySim
         {
             this.yTopOffset = yTopOffset;
             this.yBottomOffset = yBottomOffset;
+            this.Rectangle = new Rectangle(0, 0 + yTopOffset, sprite.Width, sprite.Height + yBottomOffset);
         }
     }
 }

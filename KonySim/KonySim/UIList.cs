@@ -8,6 +8,10 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace KonySim
 {
+    /// <summary>
+    /// Idea: Make a dictionary with a bool, that checks if an object is bound or not.
+    /// </summary>
+
     class UIList: ILoadContent, IUpdate, IDraw
     {
         List<GameObject> frameList;
@@ -17,9 +21,35 @@ namespace KonySim
         Vector2 position;
         int height;
         int elementHeight;
+        int maxHeight;
         float scrollerPosition;
 
         private Rectangle listArea;
+
+        public float ScrollerPosition
+        {
+            set
+            {
+                if (value > 0 && scrollerPosition < 0)
+                {
+                    scrollerPosition = value;
+
+                    if (scrollerPosition > 0)
+                    {
+                        scrollerPosition = 0;
+                    }
+                }
+                else if (value < 0 && scrollerPosition < -(maxHeight - height))
+                {
+                    scrollerPosition = value;
+
+                    if (scrollerPosition > -(maxHeight - height))
+                    {
+                        scrollerPosition = -(maxHeight - height);
+                    }
+                }
+            }
+        }
 
         //Initializing stuff.
         public UIList(Vector2 position, int height)
@@ -66,6 +96,7 @@ namespace KonySim
 
                 elementHeight += ((itemInformation[itemInformation.Keys.ElementAt(i)][1] as SpriteRender).Rectangle.Height + 10);
             }
+            maxHeight = elementHeight;
             elementHeight = 0;
         }
 
@@ -89,8 +120,7 @@ namespace KonySim
         {
             GameObject go = new GameObject();
             go.AddComponent(new Transform(go, position));
-            SpriteRender spr = new SpriteRender(go, sprite, 0);
-            spr.SetYOffset(yTopOffset, yBottomOffset);
+            SpriteRender spr = new SpriteRender(go, sprite, 0, yTopOffset, yBottomOffset);
             go.AddComponent(spr);
             return go;
         }
@@ -115,19 +145,34 @@ namespace KonySim
         //TouchingUIList and InsideUIList, checks if something is within the bounds of the UIList.
         private bool TouchingUIList(GameObject gameObject)
         {
-            return ((itemInformation[gameObject][0] as Transform).Position.Y + 
-                    (itemInformation[gameObject][1] as SpriteRender).Rectangle.Height < listArea.Y + listArea.Height &&
-                    (itemInformation[gameObject][0] as Transform).Position.Y +
-                    (itemInformation[gameObject][1] as SpriteRender).Rectangle.Height > listArea.Y ||
-                    (itemInformation[gameObject][0] as Transform).Position.Y < listArea.Y + listArea.Height &&
-                    (itemInformation[gameObject][0] as Transform).Position.Y > listArea.Y);
+            float tby = (itemInformation[gameObject][0] as Transform).Position.Y + (itemInformation[gameObject][1] as SpriteRender).Rectangle.Height;
+            float tty = (itemInformation[gameObject][0] as Transform).Position.Y;
+
+            return (tby < listArea.Y + listArea.Height && tby > listArea.Y ||
+                    tty < listArea.Y + listArea.Height && tty > listArea.Y);
         }
 
         private bool InsideUIList(GameObject gameObject)
         {
-            return ((itemInformation[gameObject][0] as Transform).Position.Y +
-                    (itemInformation[gameObject][1] as SpriteRender).Rectangle.Height < listArea.Y + listArea.Height &&
-                    (itemInformation[gameObject][0] as Transform).Position.Y > listArea.Y);
+            float tby = (itemInformation[gameObject][0] as Transform).Position.Y + (itemInformation[gameObject][1] as SpriteRender).Rectangle.Height;
+            float tty = (itemInformation[gameObject][0] as Transform).Position.Y;
+
+            return (tby < listArea.Y + listArea.Height && tty > listArea.Y);
         }
+
+
+        //float tty = (itemInformation[item][0] as Transform).Position.Y;
+        //float tby = (itemInformation[item][0] as Transform).Position.Y + (itemInformation[item][1] as SpriteRender).Rectangle.Width;
+
+        //                if (tty<listArea.Y)
+        //                {
+        //                    (itemInformation[item][1] as SpriteRender).SetYOffset(0, (int)tty - listArea.Y);
+        //                    item.Draw(spriteBatch);
+        //                }
+        //                else if (tby > listArea.Y + listArea.Width)
+        //                {
+        //                    (itemInformation[item][1] as SpriteRender).SetYOffset((int)tby, (int)-tby);
+        //                    item.Draw(spriteBatch);
+        //                }
     }
 }

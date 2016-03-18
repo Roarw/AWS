@@ -46,7 +46,7 @@ namespace KonySim
             childrenList.AddItem(CreateImage("Sprites/ChildSub", new Vector2(0, 0)), content);
             childrenList.AddItem(CreateImage("Sprites/ChildSub", new Vector2(0, 0)), content);
             childrenList.AddItem(CreateImage("Sprites/ChildSub", new Vector2(0, 0)), content);
-            childrenList.AddItem(CreateImage("Sprites/iconSyringe", new Vector2(0, 0)), content);
+            childrenList.AddItem(CreateImage("Sprites/ChildSub", new Vector2(0, 0)), content);
             childrenList.AddItem(CreateImage("Sprites/ChildSub", new Vector2(0, 0)), content);
         }
         
@@ -79,7 +79,7 @@ namespace KonySim
         {
             GameObject go = new GameObject();
             go.AddComponent(new Transform(go, position));
-            go.AddComponent(new SpriteRender(go, sprite, 0));
+            go.AddComponent(new SpriteRender(go, sprite, 0, 0, 0));
             return go;
         }
     }
