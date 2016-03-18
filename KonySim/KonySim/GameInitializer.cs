@@ -25,6 +25,8 @@ namespace KonySim
 
             using (Db.Connection con = new Db.Connection())
             {
+                if (con.GetAllRows<Db.Player>().Count > 0) return; //Stop, there is already stuff in the database
+
                 //Wipe all rows in case the tables are already populated
                 con.DeleteAllRows<Db.Mission>();
                 con.DeleteAllRows<Db.Player>();
