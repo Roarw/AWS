@@ -40,7 +40,7 @@ namespace KonySim
             iconFont = content.Load<SpriteFont>("Fonts/IconFont");
 
             //Children list.
-            childrenList = new UIList(new Vector2(1300, 0), 800);
+            childrenList = new UIList(new Vector2(980, 0), 700);
             childrenList.LoadContent(content);
 
             childrenList.AddItem(CreateImage("Sprites/ChildSub", new Vector2(0, 0)), content);
@@ -79,7 +79,7 @@ namespace KonySim
         {
             GameObject go = new GameObject();
             go.AddComponent(new Transform(go, position));
-            go.AddComponent(new SpriteRender(go, sprite, 0, 0, 0));
+            go.AddComponent(new SpriteRender(go, sprite, 0.1f, 0, 0));
             return go;
         }
     }

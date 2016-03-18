@@ -55,14 +55,11 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Button.cs" />
-    <Compile Include="ButtonDelegateMethods.cs" />
+    <Compile Include="Interactive.cs" />
     <Compile Include="ButtonFactory.cs" />
-    <Compile Include="DelegatesButtonFactory.cs" />
     <Compile Include="DragAndDropFactory.cs" />
     <Compile Include="GameInitializer.cs" />
     <Compile Include="NameGenerator.cs" />
-    <Compile Include="SimpleButtonFactory.cs" />
     <Compile Include="Component.cs" />
     <Compile Include="Db\Connection.cs" />
     <Compile Include="Db\Mission.cs" />
@@ -87,6 +84,7 @@
     <Compile Include="Transform.cs" />
     <Compile Include="UI.cs" />
     <Compile Include="UIList.cs" />
+    <Compile Include="UIListScrollerFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">

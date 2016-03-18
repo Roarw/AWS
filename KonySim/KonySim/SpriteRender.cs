@@ -17,9 +17,7 @@ namespace KonySim
 
         private Texture2D sprite;
         private Transform transform;
-
-        public Texture2D Sprite { get { return sprite; } }
-
+        
         public Rectangle Rectangle { get; set; }
 
         public SpriteRender(GameObject gameObject, string spriteName, float depth, int yTopOffset, int yBottomOffset) : base(gameObject)

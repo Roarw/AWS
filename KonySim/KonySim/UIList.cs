@@ -15,7 +15,6 @@ namespace KonySim
     class UIList: ILoadContent, IUpdate, IDraw
     {
         List<GameObject> frameList;
-        
         Dictionary<GameObject, List<Component>> itemInformation;
         
         Vector2 position;
@@ -25,32 +24,7 @@ namespace KonySim
         float scrollerPosition;
 
         private Rectangle listArea;
-
-        public float ScrollerPosition
-        {
-            set
-            {
-                if (value > 0 && scrollerPosition < 0)
-                {
-                    scrollerPosition = value;
-
-                    if (scrollerPosition > 0)
-                    {
-                        scrollerPosition = 0;
-                    }
-                }
-                else if (value < 0 && scrollerPosition < -(maxHeight - height))
-                {
-                    scrollerPosition = value;
-
-                    if (scrollerPosition > -(maxHeight - height))
-                    {
-                        scrollerPosition = -(maxHeight - height);
-                    }
-                }
-            }
-        }
-
+        
         //Initializing stuff.
         public UIList(Vector2 position, int height)
         {
@@ -69,8 +43,8 @@ namespace KonySim
             frameList.Add(CreateImageOffset("Sprites/listFrame", new Vector2(position.X + 295, position.Y), 0, height - 5));
             frameList.Add(CreateImageOffset("Sprites/listBackground", new Vector2(position.X + 5, position.Y + 50), 0, height - 105));
 
-            frameList.Add(CreateImageOffset("Sprites/goUp", new Vector2(position.X + 5, position.Y), 0, 0));
-            frameList.Add(CreateImageOffset("Sprites/goDown", new Vector2(position.X + 5, height - 50), 0, 0));
+            frameList.Add(CreateScroller("Sprites/goUp", new Vector2(position.X + 5, position.Y), -1));
+            frameList.Add(CreateScroller("Sprites/goDown", new Vector2(position.X + 5, height - 50), 1));
         }
         
         public void LoadContent(ContentManager content)
@@ -120,8 +94,19 @@ namespace KonySim
         {
             GameObject go = new GameObject();
             go.AddComponent(new Transform(go, position));
-            SpriteRender spr = new SpriteRender(go, sprite, 0, yTopOffset, yBottomOffset);
-            go.AddComponent(spr);
+            go.AddComponent(new SpriteRender(go, sprite, 0, yTopOffset, yBottomOffset));
+            return go;
+        }
+
+        //Creating a scroller button.
+        private GameObject CreateScroller(string sprite, Vector2 position, int factor)
+        {
+            GameObject go = new GameObject();
+            go.AddComponent(new Transform(go, position));
+            go.AddComponent(new SpriteRender(go, sprite, 0.5f, 0, 0));
+            go.AddComponent(new MouseDetector(go));
+            ButtonFactory bf = new UIListScrollerFactory(this, factor);
+            go.AddComponent(new Interactive(go, bf));
             return go;
         }
 
@@ -160,19 +145,55 @@ namespace KonySim
             return (tby < listArea.Y + listArea.Height && tty > listArea.Y);
         }
 
+        //Scrolling up and down the list.
+        public void SetScrollerPosition(float value)
+        {
+            scrollerPosition += value;
 
-        //float tty = (itemInformation[item][0] as Transform).Position.Y;
-        //float tby = (itemInformation[item][0] as Transform).Position.Y + (itemInformation[item][1] as SpriteRender).Rectangle.Width;
+            System.Diagnostics.Debug.WriteLine(value);
 
-        //                if (tty<listArea.Y)
-        //                {
-        //                    (itemInformation[item][1] as SpriteRender).SetYOffset(0, (int)tty - listArea.Y);
-        //                    item.Draw(spriteBatch);
-        //                }
-        //                else if (tby > listArea.Y + listArea.Width)
-        //                {
-        //                    (itemInformation[item][1] as SpriteRender).SetYOffset((int)tby, (int)-tby);
-        //                    item.Draw(spriteBatch);
-        //                }
+            //if (value > 0 && scrollerPosition < 0)
+            //{
+            //    scrollerPosition += value;
+
+            //    System.Diagnostics.Debug.WriteLine(scrollerPosition);
+
+            //    //if (scrollerPosition > 0)
+            //    //{
+            //    //    scrollerPosition = 0;
+            //    //}
+            //}
+            //else if (value < 0 && scrollerPosition < -(maxHeight - height))
+            //{
+            //    scrollerPosition += value;
+
+            //    System.Diagnostics.Debug.WriteLine(scrollerPosition);
+
+            //    //if (scrollerPosition > -(maxHeight - height))
+            //    //{
+            //    //    scrollerPosition = -(maxHeight - height);
+            //    //}
+            //}
+
+            foreach (var item in itemInformation.Keys)
+            {
+                 (itemInformation[item][0] as Transform).Position += new Vector2(0, value);
+
+                //if (InsideUIList(item))
+                //{
+                //    float tty = (itemInformation[item][0] as Transform).Position.Y;
+                //    float tby = (itemInformation[item][0] as Transform).Position.Y + (itemInformation[item][1] as SpriteRender).Rectangle.Width;
+
+                //    if (tty < listArea.Y)
+                //    {
+                //        (itemInformation[item][1] as SpriteRender).SetYOffset(0, (int)tty - listArea.Y);
+                //    }
+                //    else if (tby > listArea.Y + listArea.Width)
+                //    {
+                //        (itemInformation[item][1] as SpriteRender).SetYOffset((int)tby, (int)-tby);
+                //    }
+                //}
+            }
+        }
     }
 }

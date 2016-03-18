@@ -6,11 +6,11 @@ using Microsoft.Xna.Framework.Content;
 
 namespace KonySim
 {
-    class Button : Component, ILoadContent, IMouseDetection, IUpdate
+    class Interactive : Component, ILoadContent, IMouseDetection, IUpdate
     {
         ButtonFactory factory;
 
-        public Button(GameObject gameObject, ButtonFactory factory) : base(gameObject)
+        public Interactive(GameObject gameObject, ButtonFactory factory) : base(gameObject)
         {
             this.factory = factory;
         }
