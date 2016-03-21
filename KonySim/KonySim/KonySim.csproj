@@ -55,10 +55,10 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Db\Generator.cs" />
     <Compile Include="DragAndDropAlt.cs" />
     <Compile Include="DragAndDrop.cs" />
     <Compile Include="GameInitializer.cs" />
-    <Compile Include="NameGenerator.cs" />
     <Compile Include="Component.cs" />
     <Compile Include="Db\Connection.cs" />
     <Compile Include="Db\Mission.cs" />
