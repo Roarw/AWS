@@ -29,8 +29,15 @@ namespace KonySim
         public static float WidthMulti { get { return widthMulti; } }
         public static float HeightMulti { get { return heightMulti; } }
 
+        private GameState state;
+        public GameState State { get { return state; } }
+
         public GameWorld()
         {
+            //Initialize game and create GameState object
+            new GameInitializer(this, new Random()).Start();
+            state = new GameState();
+
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
         }
@@ -102,8 +109,6 @@ namespace KonySim
             }
 
             ui.LoadContent(Content);
-
-            new GameInitializer(this, new Random()).Start();
         }
 
         /// <summary>
