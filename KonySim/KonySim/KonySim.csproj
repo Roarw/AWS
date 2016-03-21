@@ -57,6 +57,7 @@
   <ItemGroup>
     <Compile Include="DragAndDropAlt.cs" />
     <Compile Include="DragAndDrop.cs" />
+    <Compile Include="FightCalculator.cs" />
     <Compile Include="GameInitializer.cs" />
     <Compile Include="GameState.cs" />
     <Compile Include="Component.cs" />
