@@ -25,7 +25,6 @@ namespace KonySim
         private List<GameObject> objectsToRemove = new List<GameObject>();
         private UI ui;
         private float deltaTime;
-        private WorldMap worldmap;
 
         public static float WidthMulti { get { return widthMulti; } }
         public static float HeightMulti { get { return heightMulti; } }
@@ -74,7 +73,6 @@ namespace KonySim
             objects.Add(go);
             
             ui = new UI();
-            worldmap = new WorldMap();
 
             base.Initialize();
         }
@@ -97,7 +95,7 @@ namespace KonySim
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            worldmap.LoadContent(Content);
+
             // TODO: use this.Content to load your game content here
             foreach (GameObject go in objects)
             {
@@ -162,7 +160,6 @@ namespace KonySim
             {
                 go.Draw(spriteBatch);
             }
-              worldmap.Draw(spriteBatch);
             ui.Draw(spriteBatch);
 
             spriteBatch.End();

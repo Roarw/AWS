@@ -50,11 +50,12 @@ namespace KonySim
 
         public void LoadContent(ContentManager content)
         {
-            go.LoadContent(content);
+            
             go.AddComponent(new MissionComp(1, 1, 1, 1, 1, 1));
             go.AddComponent(new MouseDetector());
             go.AddComponent(new Transform(new Vector2(10, 10)));
             go.AddComponent(new SpriteRender("Sprites/iconWarrior", 5));
+            go.LoadContent(content);
             byer.Add(go);
 
         }
