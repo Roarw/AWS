@@ -10,14 +10,11 @@ namespace KonySim
 {
     class WorldMap : IMouseDetection, IDraw, ILoadContent, IUpdate
     {
-        new List<GameObject> byer = new List<GameObject>();
-        GameObject go = new GameObject();
+        List<GameObject> byer = new List<GameObject>();
        
 
         public void gameobject()
         {
-            go.AddComponent(new Transform(new Vector2(10, 10)));
-            byer.Add(go);
         }
 
         public void MouseEnter()
@@ -32,7 +29,7 @@ namespace KonySim
 
         public void MousePressed()
         {
-            go.GetComponent<MissionComp>().ShowMission();
+            //go.GetComponent<MissionComp>().ShowMission();
         }
 
         public void MouseReleased()
@@ -51,12 +48,7 @@ namespace KonySim
         public void LoadContent(ContentManager content)
         {
             
-            go.AddComponent(new MissionComp(1, 1, 1, 1, 1, 1));
-            go.AddComponent(new MouseDetector());
-            go.AddComponent(new Transform(new Vector2(10, 10)));
-            go.AddComponent(new SpriteRender("Sprites/iconWarrior", 5));
-            go.LoadContent(content);
-            byer.Add(go);
+           
 
         }
 
