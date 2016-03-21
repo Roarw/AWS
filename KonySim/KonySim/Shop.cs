@@ -6,20 +6,20 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace AWS
+namespace KonySim
 {
-    class Shop : ILoadContent, IDraw
-    {
-        private Button btnBuy;
+    //class Shop : ILoadContent, IDraw
+    //{
+    //    private Button btnBuy;
 
-        public void LoadContent(ContentManager content)
-        {
+    //    public void LoadContent(ContentManager content)
+    //    {
             
-        }
+    //    }
 
-        public void Draw(SpriteBatch spriteBatch)
-        {
+    //    public void Draw(SpriteBatch spriteBatch)
+    //    {
 
-        }
-    }
+    //    }
+    //}
 }
