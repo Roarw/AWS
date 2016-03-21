@@ -16,7 +16,7 @@ namespace KonySim
 
         private Transform transform;
 
-        public TextRenderer(GameObject gameObject, string text, float depth) : base(gameObject)
+        public TextRenderer(GameObject gameObject, string text, float depth) : base()
         {
             this.text = text;
             this.depth = depth;
@@ -24,7 +24,7 @@ namespace KonySim
 
         public void LoadContent(ContentManager content)
         {
-            this.transform = (Transform)gameObject.GetComponent("Transform");
+            this.transform = GameObject.GetComponent<Transform>();
             font = content.Load<SpriteFont>("Default");
         }
 

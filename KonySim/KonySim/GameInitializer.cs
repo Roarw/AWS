@@ -63,7 +63,6 @@ namespace KonySim
                 {
                     string n = "";
                     int dmg = 0;
-                    int p = 0;
 
                     int pick = random.Next(3);
                     switch (pick)
