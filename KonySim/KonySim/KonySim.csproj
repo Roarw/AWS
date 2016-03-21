@@ -58,6 +58,7 @@
     <Compile Include="DragAndDropAlt.cs" />
     <Compile Include="DragAndDrop.cs" />
     <Compile Include="GameInitializer.cs" />
+    <Compile Include="Mission.cs" />
     <Compile Include="NameGenerator.cs" />
     <Compile Include="Component.cs" />
     <Compile Include="Db\Connection.cs" />
@@ -84,6 +85,7 @@
     <Compile Include="UI.cs" />
     <Compile Include="UIList.cs" />
     <Compile Include="ListScroller.cs" />
+    <Compile Include="WorldMap.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
