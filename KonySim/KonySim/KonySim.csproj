@@ -59,6 +59,7 @@
     <Compile Include="DragAndDropAlt.cs" />
     <Compile Include="DragAndDrop.cs" />
     <Compile Include="GameInitializer.cs" />
+    <Compile Include="GameState.cs" />
     <Compile Include="Component.cs" />
     <Compile Include="Db\Connection.cs" />
     <Compile Include="Db\Mission.cs" />
@@ -79,6 +80,7 @@
     <Compile Include="MouseDetector.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TextRenderer.cs" />
     <Compile Include="SpriteRender.cs" />
     <Compile Include="Transform.cs" />
     <Compile Include="UI.cs" />
@@ -98,6 +100,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Sprites\BackButton.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\Sprites\btnBack.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -120,6 +125,15 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Sprites\GO.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Sprites\Icon_Crack.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Sprites\Icon_Syringe.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Sprites\Icon_Warrior.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Sprites\listBackground.png">

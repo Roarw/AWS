@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace KonySim
 {
-    internal class UI : ILoadContent, IUpdate, IDraw
+    internal class UI : Component, ILoadContent, IUpdate, IDraw
     {
         private ContentManager content;
 
@@ -21,21 +21,21 @@ namespace KonySim
         {
             uiObjects = new List<GameObject>();
 
-            uiObjects.Add(CreateImage("Sprites/btnBack", new Vector2(0, 0)));
-            uiObjects.Add(CreateImage("Sprites/iconSyringe", new Vector2(200, 20)));
-            uiObjects.Add(CreateImage("Sprites/iconWarrior", new Vector2(500, 20)));
-            uiObjects.Add(CreateImage("Sprites/iconCrack", new Vector2(800, 20)));
+            uiObjects.Add(CreateImage("Sprites/BackButton", new Vector2(0, 0)));
+            uiObjects.Add(CreateImage("Sprites/Icon_Syringe", new Vector2(200, 20)));
+            uiObjects.Add(CreateImage("Sprites/Icon_Warrior", new Vector2(500, 20)));
+            uiObjects.Add(CreateImage("Sprites/Icon_Crack", new Vector2(800, 20)));
         }
 
         public void LoadContent(ContentManager content)
         {
+            foreach (var o in uiObjects)
+            {
+                GameObject.World.AddObject(o);
+            }
+
             //Setting ContentManager.
             this.content = content;
-
-            foreach (GameObject go in uiObjects)
-            {
-                go.LoadContent(content);
-            }
 
             iconFont = content.Load<SpriteFont>("Fonts/IconFont");
 
@@ -54,21 +54,11 @@ namespace KonySim
 
         public void Update(float deltaTime)
         {
-            foreach (GameObject go in uiObjects)
-            {
-                go.Update(deltaTime);
-            }
-
             childrenList.Update(deltaTime);
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            foreach (GameObject go in uiObjects)
-            {
-                go.Draw(spriteBatch);
-            }
-
             spriteBatch.DrawString(iconFont, "100", new Vector2(320, 20), Color.White);
             spriteBatch.DrawString(iconFont, "100", new Vector2(620, 20), Color.White);
             spriteBatch.DrawString(iconFont, "10000", new Vector2(920, 20), Color.White);
