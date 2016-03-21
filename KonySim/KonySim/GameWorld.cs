@@ -64,7 +64,10 @@ namespace KonySim
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            //graphics.IsFullScreen = true;
+            //Creating the generator.
+            new Generator(this);
+
+            //Setting graphics.
             graphics.PreferredBackBufferWidth = 1280;
             graphics.PreferredBackBufferHeight = 720;
             Window.Position = new Point(-10, 0);
@@ -74,6 +77,8 @@ namespace KonySim
             heightMulti = (float)Window.ClientBounds.Height / (float)graphics.PreferredBackBufferHeight;
 
             this.IsMouseVisible = true;
+
+            //Managing GameObjects.
 
             //CreateGo(Vector2.Zero);
             //CreateGo(new Vector2(100, 400));

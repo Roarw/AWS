@@ -1,35 +1,42 @@
-﻿using Microsoft.Xna.Framework;
+﻿using KonySim.Db;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace KonySim.Db
+namespace KonySim
 {
-    static class Generator
+    class Generator
     {
-        static string[] names = new string[15] { "Luim", "aap", "swart", "poef", "speeksel", "lelike", "adebowale", "ayodele", "dubaku", "oog", "boemelaar", "jabari", "imamu", "john", "mugabe" };
-        static Random random = new Random();
+        static GameWorld gameWorld;
 
-        static string GetRandomName
+        static string[] names = new string[] { "Luim", "Aap", "Swart", "Poef", "Speeksel", "Lelike", "Adebowale", "Ayodele", "Dubaku", "Oog", "Boemelaar", "Jabari", "Imamu", "John", "Mugabe" };
+        static Random random = new Random();
+        
+
+        public Generator(GameWorld gameWorld)
         {
-            get { return names[random.Next(names.Length)]; }
+            Generator.gameWorld = gameWorld;
         }
 
-        public static void NewChildForDatabase(int exp)
+        public static Soldier NewChildForDB(int exp)
         {
             Soldier soldier = new Soldier();
-            soldier.Name = GetRandomName;
+            soldier.Name = GetRandomName();
             soldier.Health = random.Next(70, 100);
             soldier.Exp = exp;
-            soldier.PortraitIndex = 0;
+            soldier.PortraitIndex = GetRandomImageInt();
             soldier.PortraitColor = GetRandomInt();
-            soldier.PlayerID = 0;
+            soldier.PlayerID = gameWorld.State.Player.ID;
             soldier.WeaponID = null;
 
+            return soldier;
+        }
 
-
-            Math.Log(100, 200);
+        static string GetRandomName()
+        {
+            return names[random.Next(names.Length)];
         }
 
         private static int GetRandomInt()
@@ -56,6 +63,11 @@ namespace KonySim.Db
             }
 
             return Int32.Parse(returnInt);
+        }
+
+        private static int GetRandomImageInt()
+        {
+            return random.Next(1, 14 /*This value is the highest child picture number +  1*/);
         }
     }
 }
