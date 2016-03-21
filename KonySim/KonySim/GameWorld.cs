@@ -23,7 +23,8 @@ namespace KonySim
 
         private List<GameObject> objects = new List<GameObject>();
         private List<GameObject> objectsToRemove = new List<GameObject>();
-        private UI ui;
+        private List<GameObject> objectsToAdd = new List<GameObject>();
+
         private float deltaTime;
 
         public static float WidthMulti { get { return widthMulti; } }
@@ -42,9 +43,16 @@ namespace KonySim
             Content.RootDirectory = "Content";
         }
 
+        public void AddObject(GameObject go)
+        {
+            if (!objectsToAdd.Contains(go))
+                objectsToAdd.Add(go);
+        }
+
         public void RemoveObject(GameObject go)
         {
-            objectsToRemove.Add(go);
+            if (!objectsToRemove.Contains(go))
+                objectsToRemove.Add(go);
         }
 
         /// <summary>
@@ -67,8 +75,8 @@ namespace KonySim
 
             this.IsMouseVisible = true;
 
-            CreateGo(Vector2.Zero);
-            CreateGo(new Vector2(100, 400));
+            //CreateGo(Vector2.Zero);
+            //CreateGo(new Vector2(100, 400));
 
             var go = new GameObject(this);
             go.AddComponent(new Transform(Vector2.Zero));
@@ -76,9 +84,11 @@ namespace KonySim
             var dnd = new DragAndDropAlt(new Vector2(20, 20));
             //dnd.Released += (sender, e) => { Exit(); };
             go.AddComponent(dnd);
-            objects.Add(go);
+            objectsToAdd.Add(go);
 
-            ui = new UI();
+            var uiGo = new GameObject(this);
+            uiGo.AddComponent(new UI());
+            objectsToAdd.Add(uiGo);
 
             base.Initialize();
         }
@@ -103,12 +113,6 @@ namespace KonySim
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
-            foreach (GameObject go in objects)
-            {
-                go.LoadContent(Content);
-            }
-
-            ui.LoadContent(Content);
         }
 
         /// <summary>
@@ -138,13 +142,22 @@ namespace KonySim
                 go.Update(deltaTime);
             }
 
-            foreach (var go in objectsToRemove)
+            var tempAdd = new List<GameObject>(objectsToAdd);
+            objectsToAdd.Clear();
+
+            foreach (var go in tempAdd)
+            {
+                objects.Add(go);
+                go.LoadContent(Content);
+            }
+
+            var tempRemove = new List<GameObject>(objectsToRemove);
+            objectsToRemove.Clear();
+
+            foreach (var go in tempRemove)
             {
                 objects.Remove(go);
             }
-            objectsToRemove.Clear();
-
-            ui.Update(deltaTime);
 
             base.Update(gameTime);
         }
@@ -164,8 +177,6 @@ namespace KonySim
             {
                 go.Draw(spriteBatch);
             }
-
-            ui.Draw(spriteBatch);
 
             spriteBatch.End();
 
