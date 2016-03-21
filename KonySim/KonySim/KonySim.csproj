@@ -55,7 +55,6 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Db\Generator.cs" />
     <Compile Include="DragAndDropAlt.cs" />
     <Compile Include="DragAndDrop.cs" />
     <Compile Include="GameInitializer.cs" />
@@ -73,6 +72,7 @@
     <Compile Include="Enums.cs" />
     <Compile Include="GameObject.cs" />
     <Compile Include="GameWorld.cs" />
+    <Compile Include="Generator.cs" />
     <Compile Include="IDraw.cs" />
     <Compile Include="ILoadcontent.cs" />
     <Compile Include="IMouseDetection.cs" />
@@ -103,9 +103,6 @@
     <Content Include="Content\Sprites\BackButton.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Sprites\btnBack.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Content\Sprites\ChildSub.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -113,15 +110,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Sprites\goUp.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\Sprites\iconCrack.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\Sprites\iconSyringe.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\Sprites\iconWarrior.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Sprites\GO.png">

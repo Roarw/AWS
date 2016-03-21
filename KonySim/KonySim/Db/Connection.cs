@@ -160,6 +160,20 @@ namespace KonySim.Db
             cmd.ExecuteNonQuery();
         }
 
+        public void InsertOrUpdateRow<T>(T obj) where T : TableRow, new()
+        {
+            var alreadyExistingRow = GetRow<T>(obj.ID);
+
+            if (alreadyExistingRow != null)
+            {
+                UpdateRow(obj);
+            }
+            else
+            {
+                InsertRow(obj);
+            }
+        }
+
         public void DeleteRow<T>(int id)
         {
             new SQLiteCommand("DELETE FROM " + typeof(T).Name + " WHERE ID = " + id, con).ExecuteNonQuery();

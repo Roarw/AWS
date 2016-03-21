@@ -16,15 +16,18 @@ namespace KonySim
         private SpriteFont iconFont;
         private UIList childrenList;
 
+        private int statStart = 100;
+        private int statDist = 300;
+
         //Initializing stuff.
         public UI()
         {
             uiObjects = new List<GameObject>();
 
             uiObjects.Add(CreateImage("Sprites/BackButton", new Vector2(0, 0)));
-            uiObjects.Add(CreateImage("Sprites/Icon_Syringe", new Vector2(200, 20)));
-            uiObjects.Add(CreateImage("Sprites/Icon_Warrior", new Vector2(500, 20)));
-            uiObjects.Add(CreateImage("Sprites/Icon_Crack", new Vector2(800, 20)));
+            uiObjects.Add(CreateImage("Sprites/Icon_Syringe", new Vector2(statStart, 20)));
+            uiObjects.Add(CreateImage("Sprites/Icon_Warrior", new Vector2(statStart + statDist, 20)));
+            uiObjects.Add(CreateImage("Sprites/Icon_Crack", new Vector2(statStart + statDist * 2, 20)));
         }
 
         public void LoadContent(ContentManager content)
@@ -40,7 +43,7 @@ namespace KonySim
             iconFont = content.Load<SpriteFont>("Fonts/IconFont");
 
             //Children list.
-            childrenList = new UIList(new Vector2(980, 100), 400);
+            childrenList = new UIList(new Vector2(980, 0), 720);
             childrenList.LoadContent(content);
 
             Rectangle bounds = childrenList.Bounds;
@@ -59,9 +62,10 @@ namespace KonySim
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.DrawString(iconFont, "100", new Vector2(320, 20), Color.White);
-            spriteBatch.DrawString(iconFont, "100", new Vector2(620, 20), Color.White);
-            spriteBatch.DrawString(iconFont, "10000", new Vector2(920, 20), Color.White);
+            var player = GameObject.World.State.Player;
+            spriteBatch.DrawString(iconFont, player.Buffs.ToString(), new Vector2(60 + statStart, 20), Color.White);
+            spriteBatch.DrawString(iconFont, "100", new Vector2(60 + statStart + statDist, 20), Color.White);
+            spriteBatch.DrawString(iconFont, player.Funds.ToString(), new Vector2(60 + statStart + statDist * 2, 20), Color.White);
 
             childrenList.Draw(spriteBatch);
         }
