@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework;
 
 namespace KonySim
 {
-    class WorldMap : IMouseDetection, IDraw, ILoadContent, IUpdate
+    class WorldMap : Component, IMouseDetection, IDraw, ILoadContent, IUpdate
     {
         List<GameObject> byer = new List<GameObject>();
        
