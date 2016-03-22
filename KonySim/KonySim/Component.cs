@@ -11,7 +11,17 @@ namespace KonySim
 
         public GameObject GameObject
         {
-            get { return gameObject; }
+            get
+            {
+                if (gameObject == null)
+                {
+                    throw new NullReferenceException("This component has not been attached to a GameObject.");
+                }
+                else
+                {
+                    return gameObject;
+                }
+            }
             set
             {
                 if (gameObject == null)
@@ -20,7 +30,7 @@ namespace KonySim
                 }
                 else
                 {
-                    throw new InvalidOperationException("What the fuck man");
+                    throw new InvalidOperationException("This component already has a GameObject attached.");
                 }
             }
         }

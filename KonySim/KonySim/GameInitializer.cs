@@ -11,7 +11,7 @@ namespace KonySim
         private Random random;
 
         //Denne klasse kunne evt. bruges til at holde på indstillinger, spilleren vælger, før spillet startes (feks. sværhedsgrad).
-        //Start() sin egen funktion så dette nemt kan implementeres (og fordi det ser nice ud)
+        //De kunne gemmes i properties og bruges når Start() er kaldt.
 
         public GameInitializer(GameWorld world, Random random)
         {
@@ -37,7 +37,22 @@ namespace KonySim
                 con.DeleteAllRows<Db.WeaponShop>();
 
                 //Player setup
-                con.InsertRow(new Db.Player { Score = 0, Funds = 100, Buffs = 10 });
+                var playerId = con.InsertRow(new Db.Player { Score = 0, Funds = 100, Buffs = 10 });
+
+                //Initial soliders
+                for (int i = 0; i < 5; i++)
+                {
+                    con.InsertRow(new Db.Soldier()
+                    {
+                        Name = "hajeeb #" + i,
+                        Health = 100,
+                        Exp = 0,
+                        Lvl = 0,
+                        PlayerID = playerId,
+                        PortraitIndex = 0,
+                        PortraitColor = 0
+                    });
+                }
 
                 //Mission setup
                 for (int i = 0; i < 10; i++)
@@ -63,7 +78,6 @@ namespace KonySim
                 {
                     string n = "";
                     int dmg = 0;
-                    int p = 0;
 
                     int pick = random.Next(3);
                     switch (pick)

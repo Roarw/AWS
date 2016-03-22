@@ -31,8 +31,8 @@ namespace KonySim
 
         public void Update(float deltaTime)
         {
-            mouseX = GameWorld.MouseX;
-            mouseY = GameWorld.MouseY;
+            mouseX = GameWorld.Instance.MouseX;
+            mouseY = GameWorld.Instance.MouseY;
 
             if (isPressed)
             {
