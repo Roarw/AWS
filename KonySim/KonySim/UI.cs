@@ -52,6 +52,10 @@ namespace KonySim
             {
                 childrenList.AddItem(ChildCard(soldier), content);
             }
+
+
+            Db.Soldier ss = Generator.NewChildForDB(0);
+            childrenList.AddItem(ChildCard(ss), content);
         }
 
         public void Update(float deltaTime)
@@ -88,7 +92,7 @@ namespace KonySim
             go.AddComponent(new Transform(Vector2.Zero));
             go.AddComponent(new SpriteRender("ChildSprites/ramme", 0.1f, childrenList.Bounds));
             go.AddComponent(new SpriteRender("ChildSprites/SoldierBackground", 0.1f, childrenList.Bounds, new Vector2(9, 9), color));
-            go.AddComponent(new SpriteRender("ChildSprites/Soldier" + soldier.PortraitIndex, 0.1f, childrenList.Bounds, new Vector2(9, 9)));
+            go.AddComponent(new SpriteRender("ChildSprites/Soldier" + soldier.PortraitIndex, 0.1f, childrenList.Bounds, new Vector2(9, 9), color));
             go.AddComponent(new MouseDetector());
             var btn = new Button();
             btn.OnClick += (sender, e) =>
@@ -98,7 +102,10 @@ namespace KonySim
                 //go2.AddComponent(new SpriteRender("Sprites/GO", 0));
                 go2.AddComponent(new TextRenderer(soldier.Name, Color.Black, 1f));
                 var dnd = new DragAndDropAlt(new Vector2(20, 20));
-                //dnd.Released += (sender, e) => { Exit(); };
+                dnd.Released += (dropSender, dropE) =>
+                {
+                    var pos = dropE.DropPosition;
+                };
                 go2.AddComponent(dnd);
                 GameObject.World.AddObject(go2);
             };
