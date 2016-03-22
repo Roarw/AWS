@@ -15,11 +15,11 @@ namespace KonySim
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
 
-        private static float widthMulti;
-        private static float heightMulti;
+        private float widthMulti;
+        private float heightMulti;
 
-        public static int MouseX { get { return Mouse.GetState().Position.X / (int)WidthMulti; } }
-        public static int MouseY { get { return Mouse.GetState().Position.Y / (int)HeightMulti; } }
+        public int MouseX { get { return Mouse.GetState().Position.X / (int)WidthMulti; } }
+        public int MouseY { get { return Mouse.GetState().Position.Y / (int)HeightMulti; } }
 
         private List<GameObject> objects = new List<GameObject>();
         private List<GameObject> objectsToRemove = new List<GameObject>();
@@ -27,13 +27,26 @@ namespace KonySim
 
         private float deltaTime;
 
-        public static float WidthMulti { get { return widthMulti; } }
-        public static float HeightMulti { get { return heightMulti; } }
+        public float WidthMulti { get { return widthMulti; } }
+        public float HeightMulti { get { return heightMulti; } }
 
         private GameState state;
         public GameState State { get { return state; } }
 
-        public GameWorld()
+        private static GameWorld instance;
+        public static GameWorld Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new GameWorld();
+                }
+                return instance;
+            }
+        }
+
+        private GameWorld()
         {
             //Initialize game and create GameState object
             new GameInitializer(this, new Random()).Start();

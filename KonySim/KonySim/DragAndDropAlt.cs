@@ -45,8 +45,8 @@ namespace KonySim
         {
             if (done) return;
 
-            var mouseX = GameWorld.MouseX;
-            var mouseY = GameWorld.MouseY;
+            var mouseX = GameWorld.Instance.MouseX;
+            var mouseY = GameWorld.Instance.MouseY;
 
             transform.Position = new Vector2(mouseX + offset.X, mouseY + offset.Y);
 
