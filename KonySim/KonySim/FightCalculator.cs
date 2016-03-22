@@ -53,14 +53,19 @@ namespace KonySim
 
                 //Mission stuff.
                 GameWorld.Instance.State.Player.Funds += (int)((float)(mission.CivilianCount + mission.AnimalCount * 200) * ((float)r.Next(5, 16) / 100));
-                GameWorld.Instance.State.Player.Score += mission.ChildCount + mission.AnimalCount * 200;
+                GameWorld.Instance.State.Player.Score += mission.CivilianCount + mission.AnimalCount * 200;
 
-                /*Get new children here.*/
+                //Getting new children.
+                for (int i = 0; i < mission.ChildCount; i++)
+                {
+                    GameWorld.Instance.State.Soldiers.Add(Generator.NewChildForDB(0 /*A higher value possible?*/));
+                }
 
                 mission.CivilianCount = 0;
                 mission.AnimalCount = 0;
                 mission.Completed = true;
             }
+
             //Losing battle.
             else
             {
@@ -83,7 +88,7 @@ namespace KonySim
 
                 //Mission stuff.
                 GameWorld.Instance.State.Player.Funds += (int)((float)(mission.CivilianCount + mission.AnimalCount * 200) * ((float)r.Next(5, 16) / 100) * powerDifference);
-                GameWorld.Instance.State.Player.Score += (int)((float)(mission.ChildCount + mission.AnimalCount * 200) * powerDifference);
+                GameWorld.Instance.State.Player.Score += (int)((float)(mission.CivilianCount + mission.AnimalCount * 200) * powerDifference);
 
                 mission.CivilianCount = mission.CivilianCount - (int)((float)mission.CivilianCount * powerDifference);
                 mission.AnimalCount = mission.AnimalCount - (int)((float)mission.AnimalCount * powerDifference);
