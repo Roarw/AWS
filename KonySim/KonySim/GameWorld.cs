@@ -64,21 +64,13 @@ namespace KonySim
 
             CreateGo(Vector2.Zero);
             CreateGo(new Vector2(100, 400));
-            var mis2 = new GameObject(this);
-            mis2.AddComponent(new Transform(new Vector2(100, 100)));
-            mis2.AddComponent(new SpriteRender("Sprites/huse", 0));
-            mis2.AddComponent(new MouseDetector());
-            mis2.AddComponent(new WorldMap(mis2));
-            mis2.AddComponent(new MissionComp(5,5,5,5,5,5));
-            objects.Add(mis2);
-
-            var mis1 = new GameObject(this);
-            mis1.AddComponent(new Transform(new Vector2(300, 200)));
-            mis1.AddComponent(new SpriteRender("Sprites/huse", 0));
-            mis1.AddComponent(new MouseDetector());
-            mis1.AddComponent(new WorldMap(mis1));
-            mis1.AddComponent(new MissionComp(5, 5, 5, 5, 5, 5));
-            objects.Add(mis1);
+            var test = new GameObject(this);
+            test.AddComponent(new Transform(new Vector2(100, 100)));
+            test.AddComponent(new SpriteRender("sprites/iconWarrior", 0));
+            test.AddComponent(new MouseDetector());
+            test.AddComponent(new WorldMap(test));
+            test.AddComponent(new MissionComp(5,5,5,5,5,5));
+            objects.Add(test);
             
             
 

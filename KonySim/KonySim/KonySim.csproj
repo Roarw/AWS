@@ -55,11 +55,16 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Button.cs" />
     <Compile Include="DragAndDropAlt.cs" />
     <Compile Include="DragAndDrop.cs" />
+    <Compile Include="FightCalculator.cs" />
     <Compile Include="GameInitializer.cs" />
+
     <Compile Include="MissionComp.cs" />
-    <Compile Include="NameGenerator.cs" />
+
+    <Compile Include="GameState.cs" />
+
     <Compile Include="Component.cs" />
     <Compile Include="Db\Connection.cs" />
     <Compile Include="Db\Mission.cs" />
@@ -73,13 +78,17 @@
     <Compile Include="Enums.cs" />
     <Compile Include="GameObject.cs" />
     <Compile Include="GameWorld.cs" />
+    <Compile Include="Generator.cs" />
+    <Compile Include="GUIElement.cs" />
     <Compile Include="IDraw.cs" />
     <Compile Include="ILoadcontent.cs" />
     <Compile Include="IMouseDetection.cs" />
     <Compile Include="IUpdate.cs" />
+    <Compile Include="MainMenu.cs" />
     <Compile Include="MouseDetector.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TextRenderer.cs" />
     <Compile Include="SpriteRender.cs" />
     <Compile Include="Transform.cs" />
     <Compile Include="UI.cs" />
@@ -100,10 +109,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\Sprites\btnBack.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <Content Include="Content\Sprites\BackButton.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Sprites\ChildSub.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Sprites\done.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Sprites\goDown.png">
@@ -112,25 +124,42 @@
     <Content Include="Content\Sprites\goUp.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+
     <Content Include="Content\Sprites\huse.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Sprites\iconCrack.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\Sprites\iconSyringe.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\Sprites\iconWarrior.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+
     <Content Include="Content\Sprites\GO.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+
+    </Content>
+    <Content Include="Content\Sprites\Icon_Crack.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Sprites\Icon_Syringe.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Sprites\Icon_Warrior.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Sprites\listBackground.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Sprites\listFrame.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Sprites\menu.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Sprites\name.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Sprites\nameBtn.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Sprites\play.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Icon.ico" />

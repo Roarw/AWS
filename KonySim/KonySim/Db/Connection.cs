@@ -24,7 +24,7 @@ namespace KonySim.Db
                             CREATE TABLE Player(ID integer primary key, score integer not null, funds integer not null, buffs integer not null);
 
                             CREATE TABLE Soldier(ID integer primary key, name string not null, health integer not null, exp integer not null, lvl integer not null,
-                                portraitIndex integer not null, playerID integer not null, weaponID integer,
+                                portraitIndex integer not null, portraitColor integer not null, playerID integer not null, weaponID integer,
                                 FOREIGN KEY (playerID) REFERENCES Player(ID), FOREIGN KEY (weaponID) REFERENCES Weapon(ID));
 
                             CREATE TABLE Weapon (ID integer primary key, name string not null, damage integer not null);
@@ -158,6 +158,20 @@ namespace KonySim.Db
                 cmd.Parameters.AddWithValue("@" + p.Name, p.GetValue(obj, null));
             }
             cmd.ExecuteNonQuery();
+        }
+
+        public void InsertOrUpdateRow<T>(T obj) where T : TableRow, new()
+        {
+            var alreadyExistingRow = GetRow<T>(obj.ID);
+
+            if (alreadyExistingRow != null)
+            {
+                UpdateRow(obj);
+            }
+            else
+            {
+                InsertRow(obj);
+            }
         }
 
         public void DeleteRow<T>(int id)
