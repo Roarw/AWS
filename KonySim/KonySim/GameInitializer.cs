@@ -42,16 +42,8 @@ namespace KonySim
                 //Initial soliders
                 for (int i = 0; i < 5; i++)
                 {
-                    con.InsertRow(new Db.Soldier()
-                    {
-                        Name = "hajeeb #" + i,
-                        Health = 100,
-                        Exp = 0,
-                        Lvl = 0,
-                        PlayerID = playerId,
-                        PortraitIndex = 0,
-                        PortraitColor = 0
-                    });
+                    var s = Generator.NewChildForDB(0);
+                    con.InsertRow(s);
                 }
 
                 //Mission setup

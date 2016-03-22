@@ -1,18 +1,19 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 namespace KonySim
 {
-    class GUIElement : ILoadContent, IDraw, IUpdate
+    internal class GUIElement : ILoadContent, IDraw, IUpdate
     {
         private Texture2D GUITexture;
         private Rectangle GUIRect;
+        private float depth;
 
         private string spriteName;
 
@@ -32,27 +33,27 @@ namespace KonySim
         public delegate void ElementClicked(string element);
 
         public event ElementClicked clickEvent;
-        
-        public GUIElement(string spriteName)
+
+        public GUIElement(string spriteName, float depth)
         {
             this.SpriteName = spriteName;
+            this.depth = depth;
         }
 
         public void LoadContent(ContentManager content)
         {
             GUITexture = content.Load<Texture2D>(SpriteName);
             GUIRect = new Rectangle(0, 0, GUITexture.Width, GUITexture.Height);
-
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(GUITexture,destinationRectangle:GUIRect, color:Color.White, layerDepth:0.3f);
+            spriteBatch.Draw(GUITexture, destinationRectangle: GUIRect, color: Color.White, layerDepth: depth);
         }
 
         public void CenterElement(int height, int width)
         {
-            GUIRect = new Rectangle((width / 2) - (this.GUITexture.Width / 2), (height/2) - (this.GUITexture.Height/2), this.GUITexture.Width, this.GUITexture.Height);
+            GUIRect = new Rectangle((width / 2) - (this.GUITexture.Width / 2), (height / 2) - (this.GUITexture.Height / 2), this.GUITexture.Width, this.GUITexture.Height);
         }
 
         public void MoveElement(int x, int y)
