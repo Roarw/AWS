@@ -17,6 +17,8 @@ namespace KonySim
 
         private Transform transform;
 
+        public string Text { get { return text; } set { text = value; } }
+
         public TextRenderer(string text, Color color, float depth) : base()
         {
             this.text = text;
