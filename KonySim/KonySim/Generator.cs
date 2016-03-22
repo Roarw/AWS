@@ -9,16 +9,8 @@ namespace KonySim
 {
     class Generator
     {
-        static GameWorld gameWorld;
-
         static string[] names = new string[] { "Luim", "Aap", "Swart", "Poef", "Speeksel", "Lelike", "Adebowale", "Ayodele", "Dubaku", "Oog", "Boemelaar", "Jabari", "Imamu", "John", "Mugabe" };
         static Random random = new Random();
-        
-
-        public Generator(GameWorld gameWorld)
-        {
-            Generator.gameWorld = gameWorld;
-        }
 
         public static Soldier NewChildForDB(int exp)
         {
@@ -28,7 +20,7 @@ namespace KonySim
             soldier.Exp = exp;
             soldier.PortraitIndex = GetRandomImageInt();
             soldier.PortraitColor = GetRandomInt();
-            soldier.PlayerID = gameWorld.State.Player.ID;
+            soldier.PlayerID = GameWorld.Instance.State.Player.ID;
             soldier.WeaponID = null;
 
             return soldier;
@@ -45,11 +37,11 @@ namespace KonySim
 
             for (int i = 0; i < 3; i++)
             {
-                int r = random.Next(0, 255);
+                int r = random.Next(100, 255);
 
                 while (tempSet.Contains(r))
                 {
-                    r = random.Next(0, 255);
+                    r = random.Next(100, 255);
                 }
 
                 tempSet.Add(r);

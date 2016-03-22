@@ -80,7 +80,6 @@ namespace KonySim
         {
             // TODO: Add your initialization logic here
             //Creating the generator.
-            new Generator(this);
             main = new MainMenu();
             //Setting graphics.
             graphics.PreferredBackBufferWidth = 1280;
