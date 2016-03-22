@@ -165,6 +165,8 @@ namespace KonySim
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+
+            main.Update(deltaTime);
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
@@ -192,7 +194,6 @@ namespace KonySim
             {
                 objects.Remove(go);
             }
-            main.Update(deltaTime);
             base.Update(gameTime);
         }
 
@@ -207,12 +208,14 @@ namespace KonySim
             // TODO: Add your drawing code here
             spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, null, null, null, null, null);
 
+            main.Draw(spriteBatch);
+
             foreach (GameObject go in objects)
             {
                 go.Draw(spriteBatch);
             }
 
-            main.Draw(spriteBatch);
+            
 
             spriteBatch.End();
 

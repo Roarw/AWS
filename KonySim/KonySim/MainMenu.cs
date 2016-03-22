@@ -26,9 +26,6 @@ namespace KonySim
 
         public MainMenu()
         {
-
-            
-
             main.Add(new GUIElement("Sprites/play"));
             main.Add(new GUIElement("Sprites/nameBtn"));
 
