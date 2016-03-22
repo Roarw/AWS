@@ -28,6 +28,7 @@ namespace KonySim
                 soldiersPower += (0/*replace 0 with drug bool*/ + 1 + ((float)s.Lvl / 5)) * weaponPower;
             }
 
+
             ///*
             /// Win or loss of battle is administrated below.
             /// */
@@ -63,6 +64,7 @@ namespace KonySim
             {
                 float powerDifference = 1 / (1 + ((missionPower - soldiersPower) / soldiersPower));
 
+                //Child stuff.
                 float totalExp = (float)(mission.DefenseMultiplier * mission.CivilianCount) * powerDifference + (float)(mission.DefenseMultiplier * mission.AnimalCount * 200) * powerDifference;
 
                 foreach (Db.Soldier s in soldiers)
@@ -76,12 +78,22 @@ namespace KonySim
                         /*Child dies.*/
                     }
                 }
+
+                //Mission stuff.
                 GameWorld.Instance.State.Player.Funds += (int)((float)(mission.CivilianCount + mission.AnimalCount * 200) * ((float)r.Next(5, 16) / 100) * powerDifference);
                 GameWorld.Instance.State.Player.Score += (int)((float)(mission.ChildCount + mission.AnimalCount * 200) * powerDifference);
 
                 mission.CivilianCount = mission.CivilianCount - (int)((float)mission.CivilianCount * powerDifference);
                 mission.AnimalCount = mission.AnimalCount - (int)((float)mission.AnimalCount * powerDifference);
             }
+
+
+            ///*
+            /// Saving the data to database. We are assuming the soldiers in the fight were contained in GameState.Soldiers.
+            /// */
+
+            GameWorld.Instance.State.Save();
+            con.UpdateRow(mission);
         }
     }
 }
