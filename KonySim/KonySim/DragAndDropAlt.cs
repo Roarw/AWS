@@ -39,6 +39,7 @@ namespace KonySim
         public void LoadContent(ContentManager content)
         {
             transform = GameObject.GetComponent<Transform>();
+            Update(0);
         }
 
         public void Update(float deltaTime)

@@ -48,11 +48,10 @@ namespace KonySim
 
             Rectangle bounds = childrenList.Bounds;
 
-            childrenList.AddItem(ChildCard("Sprites/ChildSub", new Vector2(0, 0), bounds), content);
-            childrenList.AddItem(ChildCard("Sprites/ChildSub", new Vector2(0, 0), bounds), content);
-            childrenList.AddItem(ChildCard("Sprites/ChildSub", new Vector2(0, 0), bounds), content);
-            childrenList.AddItem(ChildCard("Sprites/ChildSub", new Vector2(0, 0), bounds), content);
-            childrenList.AddItem(ChildCard("Sprites/ChildSub", new Vector2(0, 0), bounds), content);
+            foreach (var soldier in GameObject.World.State.Soldiers)
+            {
+                childrenList.AddItem(ChildCard(soldier), content);
+            }
         }
 
         public void Update(float deltaTime)
@@ -80,11 +79,25 @@ namespace KonySim
         }
 
         //Creating a child card.
-        private GameObject ChildCard(string sprite, Vector2 position, Rectangle rect)
+        private GameObject ChildCard(Db.Soldier soldier)
         {
             GameObject go = new GameObject();
-            go.AddComponent(new Transform(position));
-            go.AddComponent(new SpriteRender(sprite, 0.1f, rect));
+            go.AddComponent(new Transform(Vector2.Zero));
+            go.AddComponent(new SpriteRender("Sprites/ChildSub", 0.1f, childrenList.Bounds));
+            go.AddComponent(new MouseDetector());
+            var btn = new Button();
+            btn.OnClick += (sender, e) =>
+            {
+                var go2 = new GameObject(GameObject.World);
+                go2.AddComponent(new Transform(Vector2.Zero));
+                //go2.AddComponent(new SpriteRender("Sprites/GO", 0));
+                go2.AddComponent(new TextRenderer(soldier.Name, Color.Black, 1f));
+                var dnd = new DragAndDropAlt(new Vector2(20, 20));
+                //dnd.Released += (sender, e) => { Exit(); };
+                go2.AddComponent(dnd);
+                GameObject.World.AddObject(go2);
+            };
+            go.AddComponent(btn);
             return go;
         }
     }

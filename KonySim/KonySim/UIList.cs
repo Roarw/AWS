@@ -62,6 +62,11 @@ namespace KonySim
             {
                 go.LoadContent(content);
             }
+
+            foreach (var g in itemInformation.Keys)
+            {
+                g.LoadContent(content);
+            }
         }
 
         public void Update(float deltaTime)
@@ -69,6 +74,11 @@ namespace KonySim
             foreach (GameObject go in frameList)
             {
                 go.Update(deltaTime);
+            }
+
+            foreach (var g in itemInformation.Keys)
+            {
+                g.Update(deltaTime);
             }
 
             //Placing objects accordingly in the UIList.

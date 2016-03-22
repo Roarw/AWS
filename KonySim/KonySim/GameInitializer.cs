@@ -37,7 +37,22 @@ namespace KonySim
                 con.DeleteAllRows<Db.WeaponShop>();
 
                 //Player setup
-                con.InsertRow(new Db.Player { Score = 0, Funds = 100, Buffs = 10 });
+                var playerId = con.InsertRow(new Db.Player { Score = 0, Funds = 100, Buffs = 10 });
+
+                //Initial soliders
+                for (int i = 0; i < 5; i++)
+                {
+                    con.InsertRow(new Db.Soldier()
+                    {
+                        Name = "hajeeb #" + i,
+                        Health = 100,
+                        Exp = 0,
+                        Lvl = 0,
+                        PlayerID = playerId,
+                        PortraitIndex = 0,
+                        PortraitColor = 0
+                    });
+                }
 
                 //Mission setup
                 for (int i = 0; i < 10; i++)
