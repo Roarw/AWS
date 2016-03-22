@@ -28,13 +28,14 @@ namespace KonySim
         {
 
             
+
             main.Add(new GUIElement("Sprites/play"));
             main.Add(new GUIElement("Sprites/nameBtn"));
 
-            enterName.Add(new GUIElement("Sprites/name"));
-            enterName.Add(new GUIElement("Sprites/done"));
-
             main.Add(new GUIElement("Sprites/menu"));
+
+            enterName.Add(new GUIElement("Sprites/done"));
+            enterName.Add(new GUIElement("Sprites/name"));
         }
         
         public void LoadContent(ContentManager content)
@@ -55,7 +56,7 @@ namespace KonySim
                 element.CenterElement(1280, 720);
                 element.clickEvent += OnClick;
             }
-            enterName.Find(x => x.SpriteName == "Sprites/done").MoveElement(0, 60);
+            enterName.Find(x => x.SpriteName == "Sprites/done").MoveElement(0, 50);
         }
 
         public void Update(float deltaTime)
