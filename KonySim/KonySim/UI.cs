@@ -81,9 +81,14 @@ namespace KonySim
         //Creating a child card.
         private GameObject ChildCard(Db.Soldier soldier)
         {
+            int[] rgb = IntToByteArray(soldier.PortraitColor);
+            Color color = new Color(rgb[0], rgb[1], rgb[2]);
+
             GameObject go = new GameObject();
             go.AddComponent(new Transform(Vector2.Zero));
-            go.AddComponent(new SpriteRender("Sprites/ChildSub", 0.1f, childrenList.Bounds));
+            go.AddComponent(new SpriteRender("ChildSprites/ramme", 0.1f, childrenList.Bounds));
+            go.AddComponent(new SpriteRender("ChildSprites/SoldierBackground", 0.1f, childrenList.Bounds, new Vector2(9, 9), color));
+            go.AddComponent(new SpriteRender("ChildSprites/Soldier" + soldier.PortraitIndex, 0.1f, childrenList.Bounds, new Vector2(9, 9)));
             go.AddComponent(new MouseDetector());
             var btn = new Button();
             btn.OnClick += (sender, e) =>
@@ -99,6 +104,18 @@ namespace KonySim
             };
             go.AddComponent(btn);
             return go;
+        }
+
+        private static int[] IntToByteArray(int value)
+        {
+            Stack<int> stack = new Stack<int>();
+
+            for (; value > 0; value /= 1000)
+            {
+                stack.Push(value % 1000);
+            }
+
+            return stack.ToArray();
         }
     }
 }
