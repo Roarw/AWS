@@ -129,6 +129,9 @@
     <Content Include="Content\Sprites\listFrame.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\Sprites\Shop.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Icon.ico" />
     <Content Include="listBackground.png" />
   </ItemGroup>
@@ -139,6 +142,7 @@
     <None Include="Content\Fonts\iconFont.spritefont">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Content\Fonts\shopFont.spritefont" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

@@ -23,6 +23,7 @@ namespace KonySim
 
         private List<GameObject> objects;
         private UI ui;
+        private Shop shop;
         private float deltaTime;
 
         public static float WidthMulti { get { return widthMulti; } }
@@ -59,18 +60,19 @@ namespace KonySim
             CreateGo(new Vector2(100, 400));
 
             ui = new UI();
+            shop = new Shop();
 
             base.Initialize();
         }
 
         private void CreateGo(Vector2 position)
         {
-            GameObject go = new GameObject();
-            go.AddComponent(new Transform(go, position));
-            go.AddComponent(new SpriteRender(go, "Sprites/GO.png", 0, 0, 0));
-            go.AddComponent(new MouseDetector(go));
-            go.AddComponent(new DragAndDrop(go));
-            objects.Add(go);
+            //GameObject go = new GameObject();
+            //go.AddComponent(new Transform(go, position));
+            //go.AddComponent(new SpriteRender(go, "Sprites/GO.png", 0, 0, 0));
+            //go.AddComponent(new MouseDetector(go));
+            //go.AddComponent(new DragAndDrop(go));
+            //objects.Add(go);
         }
 
         /// <summary>
@@ -89,6 +91,7 @@ namespace KonySim
             }
 
             ui.LoadContent(Content);
+            shop.LoadContent(Content);
 
             new GameInitializer(this, new Random()).Start();
         }
@@ -121,6 +124,7 @@ namespace KonySim
             }
 
             ui.Update(deltaTime);
+            shop.Update(deltaTime);
 
             base.Update(gameTime);
         }
@@ -142,6 +146,7 @@ namespace KonySim
             }
 
             ui.Draw(spriteBatch);
+            shop.Draw(spriteBatch);
 
             spriteBatch.End();
 
