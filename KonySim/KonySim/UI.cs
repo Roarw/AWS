@@ -91,8 +91,8 @@ namespace KonySim
             GameObject go = new GameObject();
             go.AddComponent(new Transform(Vector2.Zero));
             go.AddComponent(new SpriteRender("ChildSprites/ramme", 0.1f, childrenList.Bounds));
-            go.AddComponent(new SpriteRender("ChildSprites/SoldierBackground", 0.1f, childrenList.Bounds, new Vector2(9, 9), color));
-            go.AddComponent(new SpriteRender("ChildSprites/Soldier" + soldier.PortraitIndex, 0.1f, childrenList.Bounds, new Vector2(9, 9), color));
+            go.AddComponent(new SpriteRender("ChildSprites/SoldierBackground", 0.2f, childrenList.Bounds, new Vector2(8, 9), color));
+            go.AddComponent(new SpriteRender("ChildSprites/Soldier" + soldier.PortraitIndex, 0.3f, childrenList.Bounds, new Vector2(8, 9)));
             go.AddComponent(new MouseDetector());
             var btn = new Button();
             btn.OnClick += (sender, e) =>
