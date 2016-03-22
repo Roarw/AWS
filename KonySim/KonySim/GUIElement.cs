@@ -47,7 +47,7 @@ namespace KonySim
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(GUITexture, GUIRect, Color.White);
+            spriteBatch.Draw(GUITexture,destinationRectangle:GUIRect, color:Color.White, layerDepth:0.3f);
         }
 
         public void CenterElement(int height, int width)
