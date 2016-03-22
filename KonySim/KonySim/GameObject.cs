@@ -7,23 +7,30 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace KonySim
 {
-    class GameObject : Component, ILoadContent, IUpdate, IDraw, IMouseDetection
+    internal class GameObject : ILoadContent, IUpdate, IDraw, IMouseDetection
     {
-        List<Component> components;
+        private List<Component> components;
+        public GameWorld World { get; }
 
-        public GameObject()
+        public GameObject() : this(null)
         {
-            components = new List<Component>();
         }
 
-        public Component GetComponent(string componentName)
+        public GameObject(GameWorld world)
         {
-            return components.Find(x => x.GetType().Name == componentName);
+            components = new List<Component>();
+            World = world;
+        }
+
+        public T GetComponent<T>() where T : Component
+        {
+            return components.OfType<T>().FirstOrDefault();
         }
 
         public void AddComponent(Component component)
         {
             components.Add(component);
+            component.GameObject = this;
         }
 
         public void LoadContent(ContentManager content)

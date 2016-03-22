@@ -11,7 +11,7 @@ namespace KonySim
     {
         public Vector2 Position { get; set; }
 
-        public Transform(GameObject gameObject, Vector2 position) : base(gameObject)
+        public Transform(Vector2 position) : base()
         {
             this.Position = position;
         }

@@ -5,20 +5,38 @@ using System.Text;
 
 namespace KonySim
 {
-    abstract class Component
+    internal abstract class Component
     {
-        protected GameObject gameObject;
+        private GameObject gameObject;
 
-        public GameObject GameObject { get { return gameObject; } }
+        public GameObject GameObject
+        {
+            get
+            {
+                if (gameObject == null)
+                {
+                    throw new NullReferenceException("This component has not been attached to a GameObject.");
+                }
+                else
+                {
+                    return gameObject;
+                }
+            }
+            set
+            {
+                if (gameObject == null)
+                {
+                    gameObject = value;
+                }
+                else
+                {
+                    throw new InvalidOperationException("This component already has a GameObject attached.");
+                }
+            }
+        }
 
         public Component()
         {
-
-        }
-
-        public Component(GameObject gameObject)
-        {
-            this.gameObject = gameObject;
         }
     }
 }

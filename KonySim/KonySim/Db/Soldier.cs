@@ -12,7 +12,8 @@ namespace KonySim.Db
         public int Exp { get; set; }
         public int Lvl { get; set; }
         public int PortraitIndex { get; set; }
+        public int PortraitColor { get; set; }
         public int PlayerID { get; set; }
-        public int WeaponID { get; set; }
+        public int? WeaponID { get; set; }
     }
 }
