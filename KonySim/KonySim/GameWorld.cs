@@ -108,14 +108,18 @@ namespace KonySim
             uiGo.AddComponent(new UI());
             objectsToAdd.Add(uiGo);
 
-            var fufugo = new GameObject(this);
+            /*var fufugo = new GameObject(this);
             fufugo.AddComponent(new SpriteRender("Sprites/GO", 0));
             fufugo.AddComponent(new MouseDetector());
             var but = new Button();
             but.OnClick += (sender, e) => { RemoveObject(fufugo); };
             fufugo.AddComponent(but);
             fufugo.AddComponent(new Transform(new Vector2(50, 100)));
-            AddObject(fufugo);
+            AddObject(fufugo);*/
+
+            var mission = new GameObject(this);
+            mission.AddComponent(new MissionScreen(new Db.Mission { AnimalCount = 5, ChildCount = 10, CivilianCount = 20, DefenseMultiplier = 1, XpReward = 21312, FundsReward = 555555 }));
+            AddObject(mission);
 
             base.Initialize();
         }

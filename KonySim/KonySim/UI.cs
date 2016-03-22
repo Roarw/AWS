@@ -93,7 +93,10 @@ namespace KonySim
                 //go2.AddComponent(new SpriteRender("Sprites/GO", 0));
                 go2.AddComponent(new TextRenderer(soldier.Name, Color.Black, 1f));
                 var dnd = new DragAndDropAlt(new Vector2(20, 20));
-                //dnd.Released += (sender, e) => { Exit(); };
+                dnd.Released += (dropSender, dropE) =>
+                {
+                    var pos = dropE.DropPosition;
+                };
                 go2.AddComponent(dnd);
                 GameObject.World.AddObject(go2);
             };
