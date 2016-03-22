@@ -106,6 +106,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\ChildSprites\ramme.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\ChildSprites\Soldier1.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -183,7 +186,7 @@
     </Content>
     <Content Include="Content\Sprites\SoldierSlot.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	</Content>
+    </Content>
     <Content Include="Content\Sprites\menu.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
