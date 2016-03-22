@@ -67,7 +67,7 @@ namespace KonySim
 
         private static int GetRandomImageInt()
         {
-            return random.Next(1, 14 /*This value is the highest child picture number +  1*/);
+            return random.Next(1, 14 /*This value is the amount of child pictures + 1*/);
         }
     }
 }
