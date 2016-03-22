@@ -55,6 +55,8 @@ namespace KonySim
                 GameWorld.Instance.State.Player.Funds += (int)((float)(mission.CivilianCount + mission.AnimalCount * 200) * ((float)r.Next(5, 16) / 100));
                 GameWorld.Instance.State.Player.Score += mission.ChildCount + mission.AnimalCount * 200;
 
+                /*Get new children*/
+
                 mission.CivilianCount = 0;
                 mission.AnimalCount = 0;
                 mission.Completed = true;
