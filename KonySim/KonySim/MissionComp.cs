@@ -19,7 +19,6 @@ namespace KonySim
             mission.DefenseMultiplier = DefenseMultiplier;
             mission.XpReward = XpReward;
             mission.FundsReward = FundsReward;
-            
         }
 
         public void Draw(SpriteBatch spriteBatch)

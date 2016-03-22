@@ -8,15 +8,14 @@ using Microsoft.Xna.Framework;
 
 namespace KonySim
 {
-    class WorldMap : IMouseDetection, IDraw, ILoadContent, IUpdate
+    class WorldMap :Component , IMouseDetection
     {
-        new List<GameObject> byer = new List<GameObject>();
-        GameObject go = new GameObject();
+        List<GameObject> byer = new List<GameObject>();
+       
        
 
-        public void gameobject()
+        public WorldMap(GameObject go)
         {
-            go.AddComponent(new Transform(new Vector2(10, 10)));
             byer.Add(go);
         }
 
@@ -32,36 +31,12 @@ namespace KonySim
 
         public void MousePressed()
         {
-            go.GetComponent<MissionComp>().ShowMission();
+            this.GameObject.GetComponent<MissionComp>().ShowMission();
         }
 
         public void MouseReleased()
         {
             
-        }
-
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            foreach (GameObject go in byer)
-            {
-                go.GetComponent<SpriteRender>().Draw(spriteBatch);
-            }
-        }
-
-        public void LoadContent(ContentManager content)
-        {
-            go.LoadContent(content);
-            go.AddComponent(new MissionComp(1, 1, 1, 1, 1, 1));
-            go.AddComponent(new MouseDetector());
-            go.AddComponent(new Transform(new Vector2(10, 10)));
-            go.AddComponent(new SpriteRender("Sprites/iconWarrior", 5));
-            byer.Add(go);
-
-        }
-
-        public void Update(float deltaTime)
-        {
-           
-        }
+        } 
     }
 }

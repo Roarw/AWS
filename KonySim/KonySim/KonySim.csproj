@@ -58,7 +58,7 @@
     <Compile Include="DragAndDropAlt.cs" />
     <Compile Include="DragAndDrop.cs" />
     <Compile Include="GameInitializer.cs" />
-    <Compile Include="Mission.cs" />
+    <Compile Include="MissionComp.cs" />
     <Compile Include="NameGenerator.cs" />
     <Compile Include="Component.cs" />
     <Compile Include="Db\Connection.cs" />
