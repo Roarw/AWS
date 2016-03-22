@@ -95,6 +95,15 @@ namespace KonySim
             uiGo.AddComponent(new UI());
             objectsToAdd.Add(uiGo);
 
+            var fufugo = new GameObject(this);
+            fufugo.AddComponent(new SpriteRender("Sprites/GO", 0));
+            fufugo.AddComponent(new MouseDetector());
+            var but = new Button();
+            but.OnClick += (sender, e) => { RemoveObject(fufugo); };
+            fufugo.AddComponent(but);
+            fufugo.AddComponent(new Transform(new Vector2(50, 100)));
+            AddObject(fufugo);
+
             base.Initialize();
         }
 
