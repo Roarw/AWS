@@ -25,10 +25,7 @@ namespace KonySim
         private List<GameObject> objectsToRemove = new List<GameObject>();
         private UI ui;
         private float deltaTime;
-<<<<<<< HEAD
-    
-=======
->>>>>>> f91dbba6503420906ac27e0855536635b569c69a
+
 
         public static float WidthMulti { get { return widthMulti; } }
         public static float HeightMulti { get { return heightMulti; } }
@@ -67,13 +64,21 @@ namespace KonySim
 
             CreateGo(Vector2.Zero);
             CreateGo(new Vector2(100, 400));
-            var test = new GameObject(this);
-            test.AddComponent(new Transform(new Vector2(100, 100)));
-            test.AddComponent(new SpriteRender("sprites/iconWarrior", 0));
-            test.AddComponent(new MouseDetector());
-            test.AddComponent(new WorldMap(test));
-            test.AddComponent(new MissionComp(5,5,5,5,5,5));
-            objects.Add(test);
+            var mis2 = new GameObject(this);
+            mis2.AddComponent(new Transform(new Vector2(100, 100)));
+            mis2.AddComponent(new SpriteRender("Sprites/huse", 0));
+            mis2.AddComponent(new MouseDetector());
+            mis2.AddComponent(new WorldMap(mis2));
+            mis2.AddComponent(new MissionComp(5,5,5,5,5,5));
+            objects.Add(mis2);
+
+            var mis1 = new GameObject(this);
+            mis1.AddComponent(new Transform(new Vector2(300, 200)));
+            mis1.AddComponent(new SpriteRender("Sprites/huse", 0));
+            mis1.AddComponent(new MouseDetector());
+            mis1.AddComponent(new WorldMap(mis1));
+            mis1.AddComponent(new MissionComp(5, 5, 5, 5, 5, 5));
+            objects.Add(mis1);
             
             
 
@@ -86,10 +91,7 @@ namespace KonySim
             objects.Add(go);
             
             ui = new UI();
-<<<<<<< HEAD
-           
-=======
->>>>>>> f91dbba6503420906ac27e0855536635b569c69a
+
 
             base.Initialize();
         }
@@ -112,11 +114,7 @@ namespace KonySim
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-<<<<<<< HEAD
-            
-=======
 
->>>>>>> f91dbba6503420906ac27e0855536635b569c69a
             // TODO: use this.Content to load your game content here
             foreach (GameObject go in objects)
             {
