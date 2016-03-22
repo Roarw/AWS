@@ -15,6 +15,8 @@ namespace KonySim
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
 
+        MainMenu main;
+
         private float widthMulti;
         private float heightMulti;
 
@@ -79,7 +81,7 @@ namespace KonySim
             // TODO: Add your initialization logic here
             //Creating the generator.
             new Generator(this);
-
+            main = new MainMenu();
             //Setting graphics.
             graphics.PreferredBackBufferWidth = 1280;
             graphics.PreferredBackBufferHeight = 720;
@@ -139,6 +141,7 @@ namespace KonySim
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            main.LoadContent(Content);
             // TODO: use this.Content to load your game content here
         }
 
@@ -185,7 +188,7 @@ namespace KonySim
             {
                 objects.Remove(go);
             }
-
+            main.Update(deltaTime);
             base.Update(gameTime);
         }
 
@@ -204,6 +207,8 @@ namespace KonySim
             {
                 go.Draw(spriteBatch);
             }
+
+            main.Draw(spriteBatch);
 
             spriteBatch.End();
 
