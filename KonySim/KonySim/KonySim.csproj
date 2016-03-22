@@ -146,7 +146,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
 
-    </Content>
+    
     <Content Include="Content\Sprites\Icon_Crack.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
