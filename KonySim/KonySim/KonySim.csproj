@@ -62,7 +62,6 @@
     <Compile Include="GameInitializer.cs" />
 
     <Compile Include="MissionComp.cs" />
-    <Compile Include="NameGenerator.cs" />
 
     <Compile Include="GameState.cs" />
 
