@@ -104,7 +104,7 @@ namespace KonySim
             AddObject(map);
 
             var mis2 = new GameObject(this);
-            mis2.AddComponent(new Transform(new Vector2(400, 250)));
+            mis2.AddComponent(new Transform(new Vector2(630, 200)));
             mis2.AddComponent(new SpriteRender("Sprites/huse", 1));
             mis2.AddComponent(new MouseDetector());
             mis2.AddComponent(new WorldMap(mis2));
@@ -112,14 +112,14 @@ namespace KonySim
             AddObject(mis2);
 
             var mis1 = new GameObject(this);
-            mis1.AddComponent(new Transform(new Vector2(600, 400)));
+            mis1.AddComponent(new Transform(new Vector2(610, 400)));
             mis1.AddComponent(new SpriteRender("Sprites/huse", 1));
             mis1.AddComponent(new MouseDetector());
             mis1.AddComponent(new WorldMap(mis1));
             mis1.AddComponent(new MissionComp(5, 5, 5, 5, 5, 5));
             AddObject(mis1);
             var Weapon = new GameObject(this);
-            Weapon.AddComponent(new Transform(new Vector2(300, 400)));
+            Weapon.AddComponent(new Transform(new Vector2(150, 500)));
             Weapon.AddComponent(new SpriteRender("sprites/weaponshop", 1));
             AddObject(Weapon);
             
