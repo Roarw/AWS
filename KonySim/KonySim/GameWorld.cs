@@ -82,7 +82,7 @@ namespace KonySim
         {
             // TODO: Add your initialization logic here
             //Creating the generator.
-            main = new MainMenu();
+            //main = new MainMenu();
             //Setting graphics.
             graphics.PreferredBackBufferWidth = 1280;
             graphics.PreferredBackBufferHeight = 720;
@@ -146,7 +146,7 @@ namespace KonySim
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            main.LoadContent(Content);
+            //main.LoadContent(Content);
             // TODO: use this.Content to load your game content here
         }
 
@@ -166,7 +166,7 @@ namespace KonySim
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            main.Update(deltaTime);
+            //main.Update(deltaTime);
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
@@ -208,7 +208,7 @@ namespace KonySim
             // TODO: Add your drawing code here
             spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, null, null, null, null, null);
 
-            main.Draw(spriteBatch);
+            //main.Draw(spriteBatch);
 
             foreach (GameObject go in objects)
             {

@@ -9,12 +9,31 @@ namespace KonySim
     internal class SoldierSlot : Component, ILoadContent
     {
         private TextRenderer text;
+        private MissionScreen mission;
+        private int slotId;
 
-        private Db.Soldier content;
-        public Db.Soldier Content
+        public SoldierSlot(MissionScreen mission, int slotId)
         {
-            get { return content; }
-            set { content = value; System.Diagnostics.Debug.WriteLine(value.Name); text.Text = value.Name; }
+            this.mission = mission;
+            this.slotId = slotId;
+
+            mission.SoldierSet += Mission_SoldierSet;
+        }
+
+        private void Mission_SoldierSet(object sender, SoldierSetArgs e)
+        {
+            if (e.Slot == slotId)
+            {
+                if (e.Soldier != null)
+                    text.Text = e.Soldier.Name;
+                else
+                    text.Text = "";
+            }
+        }
+
+        public void SetSoldier(Db.Soldier soldier)
+        {
+            mission.SetSoldier(slotId, soldier);
         }
 
         public void LoadContent(ContentManager content)
