@@ -53,7 +53,6 @@ namespace KonySim
                 childrenList.AddItem(ChildCard(soldier), content);
             }
 
-
             Db.Soldier ss = Generator.NewChildForDB(0);
             childrenList.AddItem(ChildCard(ss), content);
         }
@@ -104,7 +103,21 @@ namespace KonySim
                 var dnd = new DragAndDropAlt(new Vector2(20, 20));
                 dnd.Released += (dropSender, dropE) =>
                 {
-                    var pos = dropE.DropPosition;
+                    foreach (var obj in GameObject.World.Objects)
+                    {
+                        SpriteRender md = obj.GetComponent<SpriteRender>();
+                        SoldierSlot slot = obj.GetComponent<SoldierSlot>();
+                        Transform trans = obj.GetComponent<Transform>();
+                        if (md != null && slot != null && trans != null)
+                        {
+                            var rect = new Rectangle(md.Rectangle.Location, md.Rectangle.Size);
+                            rect.Offset(trans.Position);
+                            if (rect.Contains(dropE.DropPosition))
+                            {
+                                slot.Content = soldier;
+                            }
+                        }
+                    }
                 };
                 go2.AddComponent(dnd);
                 GameObject.World.AddObject(go2);

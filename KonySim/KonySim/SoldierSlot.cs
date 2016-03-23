@@ -14,7 +14,7 @@ namespace KonySim
         public Db.Soldier Content
         {
             get { return content; }
-            set { content = value; text.Text = value.Name; }
+            set { content = value; System.Diagnostics.Debug.WriteLine(value.Name); text.Text = value.Name; }
         }
 
         public void LoadContent(ContentManager content)

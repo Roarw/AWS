@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data.SQLite;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -15,7 +16,7 @@ namespace KonySim
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
 
-        MainMenu main;
+        private MainMenu main;
 
         private float widthMulti;
         private float heightMulti;
@@ -24,6 +25,7 @@ namespace KonySim
         public int MouseY { get { return Mouse.GetState().Position.Y / (int)HeightMulti; } }
 
         private List<GameObject> objects = new List<GameObject>();
+        public ReadOnlyCollection<GameObject> Objects { get { return objects.AsReadOnly(); } }
         private List<GameObject> objectsToRemove = new List<GameObject>();
         private List<GameObject> objectsToAdd = new List<GameObject>();
 
@@ -164,7 +166,6 @@ namespace KonySim
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-
             main.Update(deltaTime);
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
@@ -213,8 +214,6 @@ namespace KonySim
             {
                 go.Draw(spriteBatch);
             }
-
-            
 
             spriteBatch.End();
 
