@@ -31,6 +31,11 @@ namespace KonySim
             this.spriteName = spriteName;
             this.depth = depth;
         }
+        //^
+        public SpriteRender(string spriteName, float depth, Color color) : this(spriteName, depth)
+        {
+            this.color = color;
+        }
 
         public SpriteRender(string spriteName, float depth, int yTopOffset, int yBottomOffset) : base()
         {

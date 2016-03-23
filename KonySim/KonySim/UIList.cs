@@ -122,7 +122,7 @@ namespace KonySim
         {
             GameObject go = new GameObject();
             go.AddComponent(new Transform(position));
-            go.AddComponent(new SpriteRender(sprite, 0.5f, 0, 0));
+            go.AddComponent(new SpriteRender(sprite, 0.5f));
             go.AddComponent(new MouseDetector());
             go.AddComponent(new ListScroller(this, factor));
             return go;

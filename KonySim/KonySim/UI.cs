@@ -52,10 +52,6 @@ namespace KonySim
             {
                 childrenList.AddItem(ChildCard(soldier), content);
             }
-
-
-            Db.Soldier ss = Generator.NewChildForDB(0);
-            childrenList.AddItem(ChildCard(ss), content);
         }
 
         public void Update(float deltaTime)

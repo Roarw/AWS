@@ -119,7 +119,7 @@ namespace KonySim
             AddObject(fufugo);*/
 
             var mission = new GameObject(this);
-            mission.AddComponent(new MissionScreen(new Db.Mission { AnimalCount = 5, ChildCount = 10, CivilianCount = 20, DefenseMultiplier = 1, XpReward = 21312, FundsReward = 555555 }));
+            mission.AddComponent(new MissionScreen(new Db.Mission { AnimalCount = 5, ChildCount = 10, CivilianCount = 20, DefenseMultiplier = 1 }));
             AddObject(mission);
 
             base.Initialize();
