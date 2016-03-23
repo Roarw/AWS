@@ -51,7 +51,7 @@ namespace KonySim
                     SetSoldier(i2, null);
                 };
                 slot.AddComponent(button);
-                GameObject.World.AddObject(slot);
+                GameWorld.Instance.AddObject(slot);
             }
 
             Text("Animals " + mission.AnimalCount, 10, 150);
@@ -83,7 +83,7 @@ namespace KonySim
             var f = new GameObject();
             f.AddComponent(new Transform(new Vector2(x, y)));
             f.AddComponent(new TextRenderer(t, Color.Black, 0.1f));
-            GameObject.World.AddObject(f);
+            GameWorld.Instance.AddObject(f);
         }
     }
 }

@@ -34,7 +34,7 @@ namespace KonySim
         {
             foreach (var o in uiObjects)
             {
-                GameObject.World.AddObject(o);
+                GameWorld.Instance.AddObject(o);
             }
 
             //Setting ContentManager.
@@ -48,7 +48,7 @@ namespace KonySim
 
             Rectangle bounds = childrenList.Bounds;
 
-            foreach (var soldier in GameObject.World.State.Soldiers)
+            foreach (var soldier in GameWorld.Instance.State.Soldiers)
             {
                 childrenList.AddItem(ChildCard(soldier), content);
             }
@@ -64,7 +64,7 @@ namespace KonySim
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            var player = GameObject.World.State.Player;
+            var player = GameWorld.Instance.State.Player;
             spriteBatch.DrawString(iconFont, player.Buffs.ToString(), new Vector2(60 + statStart, 20), Color.White);
             spriteBatch.DrawString(iconFont, "100", new Vector2(60 + statStart + statDist, 20), Color.White);
             spriteBatch.DrawString(iconFont, player.Funds.ToString(), new Vector2(60 + statStart + statDist * 2, 20), Color.White);
@@ -98,13 +98,13 @@ namespace KonySim
             var btn = new Button();
             btn.OnClick += (sender, e) =>
             {
-                var go2 = new GameObject(GameObject.World);
+                var go2 = new GameObject();
                 go2.AddComponent(new Transform(Vector2.Zero));
                 go2.AddComponent(new TextRenderer(soldier.Name, Color.Black, 1f));
                 var dnd = new DragAndDropAlt(new Vector2(20, 20));
                 dnd.Released += (dropSender, dropE) =>
                 {
-                    foreach (var obj in GameObject.World.Objects)
+                    foreach (var obj in GameWorld.Instance.Objects)
                     {
                         SpriteRender md = obj.GetComponent<SpriteRender>();
                         SoldierSlot slot = obj.GetComponent<SoldierSlot>();
@@ -121,7 +121,7 @@ namespace KonySim
                     }
                 };
                 go2.AddComponent(dnd);
-                GameObject.World.AddObject(go2);
+                GameWorld.Instance.AddObject(go2);
             };
             go.AddComponent(btn);
             return go;

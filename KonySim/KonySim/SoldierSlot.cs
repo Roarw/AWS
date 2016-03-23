@@ -32,7 +32,7 @@ namespace KonySim
             bgObj.AddComponent(new Transform(new Microsoft.Xna.Framework.Vector2(trans.Position.X, trans.Position.Y)));
             background = new SpriteRender("ChildSprites/SoldierBackground", 0.01f);
             bgObj.AddComponent(background);
-            GameObject.World.AddObject(bgObj);
+            GameWorld.Instance.AddObject(bgObj);
         }
 
         private void Mission_SoldierSet(object sender, SoldierSetArgs e)

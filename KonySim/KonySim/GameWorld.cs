@@ -99,7 +99,7 @@ namespace KonySim
             //CreateGo(Vector2.Zero);
             //CreateGo(new Vector2(100, 400));
 
-            var go = new GameObject(this);
+            var go = new GameObject();
             go.AddComponent(new Transform(Vector2.Zero));
             go.AddComponent(new SpriteRender("Sprites/GO", 0));
             var dnd = new DragAndDropAlt(new Vector2(20, 20));
@@ -107,7 +107,7 @@ namespace KonySim
             go.AddComponent(dnd);
             objectsToAdd.Add(go);
 
-            var uiGo = new GameObject(this);
+            var uiGo = new GameObject();
             uiGo.AddComponent(new UI());
             objectsToAdd.Add(uiGo);
 
@@ -120,7 +120,7 @@ namespace KonySim
             fufugo.AddComponent(new Transform(new Vector2(50, 100)));
             AddObject(fufugo);*/
 
-            var mission = new GameObject(this);
+            var mission = new GameObject();
             mission.AddComponent(new MissionScreen(new Db.Mission { AnimalCount = 5, ChildCount = 10, CivilianCount = 20, DefenseMultiplier = 1, XpReward = 21312, FundsReward = 555555 }));
             AddObject(mission);
 
@@ -129,7 +129,7 @@ namespace KonySim
 
         private void CreateGo(Vector2 position)
         {
-            GameObject go = new GameObject(this);
+            GameObject go = new GameObject();
             go.AddComponent(new Transform(position));
             go.AddComponent(new SpriteRender("Sprites/GO.png", 0));
             go.AddComponent(new MouseDetector());
