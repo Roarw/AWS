@@ -12,7 +12,5 @@ namespace KonySim.Db
         public int CivilianCount { get; set; }
         public int ChildCount { get; set; }
         public int DefenseMultiplier { get; set; }
-        public int XpReward { get; set; }
-        public int FundsReward { get; set; }
     }
 }

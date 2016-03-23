@@ -32,7 +32,7 @@ namespace KonySim.Db
                             CREATE TABLE WeaponShop (ID integer primary key);
 
                             CREATE TABLE Mission (ID integer primary key, completed boolean not null, animalCount integer not null, civilianCount integer not null, childCount integer not null,
-                                defenseMultiplier integer not null, xpReward integer not null, fundsReward integer not null);
+                                defenseMultiplier integer not null);
 
                             CREATE TABLE StoredWeapon(ID integer primary key, playerID integer, weaponID integer,
                                 FOREIGN KEY (playerID) REFERENCES Player(ID), FOREIGN KEY (weaponID) REFERENCES Weapon(ID));
