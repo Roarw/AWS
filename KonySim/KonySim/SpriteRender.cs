@@ -37,7 +37,7 @@ namespace KonySim
         }
 
 
-        public virtual void LoadContent(ContentManager content)
+
 
         public SpriteRender(string spriteName, float depth, Rectangle bounds) : base()
         {

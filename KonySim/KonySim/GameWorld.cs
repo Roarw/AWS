@@ -25,9 +25,6 @@ namespace KonySim
         private List<GameObject> objectsToRemove = new List<GameObject>();
         private List<GameObject> objectsToAdd = new List<GameObject>();
 
-
-        private List<GameObject> objects;
-        private UI ui;
         private Shop shop;
 
 		
@@ -110,14 +107,14 @@ namespace KonySim
             go.AddComponent(dnd);
             objectsToAdd.Add(go);
 
-
-            ui = new UI();
+            //shop test
             shop = new Shop();
 
             var uiGo = new GameObject(this);
             uiGo.AddComponent(new UI());
             objectsToAdd.Add(uiGo);
 
+            //button
             var fufugo = new GameObject(this);
             fufugo.AddComponent(new SpriteRender("Sprites/GO", 0));
             fufugo.AddComponent(new MouseDetector());
@@ -166,7 +163,7 @@ namespace KonySim
                 go.LoadContent(Content);
             }
 
-            ui.LoadContent(Content);
+            //ui.LoadContent(Content);
             shop.LoadContent(Content);
 
             new GameInitializer(this, new Random()).Start();
@@ -202,7 +199,7 @@ namespace KonySim
             }
 
 
-            ui.Update(deltaTime);
+            //ui.Update(deltaTime);
             shop.Update(deltaTime);
 
             var tempAdd = new List<GameObject>(objectsToAdd);
@@ -243,7 +240,7 @@ namespace KonySim
             }
 
 
-            ui.Draw(spriteBatch);
+            //ui.Draw(spriteBatch);
             shop.Draw(spriteBatch);
 
 
