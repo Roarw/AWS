@@ -15,6 +15,8 @@ namespace KonySim
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
 
+        MainMenu main;
+
         private float widthMulti;
         private float heightMulti;
 
@@ -81,8 +83,7 @@ namespace KonySim
         {
             // TODO: Add your initialization logic here
             //Creating the generator.
-            new Generator(this);
-
+            main = new MainMenu();
             //Setting graphics.
             graphics.PreferredBackBufferWidth = 1280;
             graphics.PreferredBackBufferHeight = 720;
@@ -114,15 +115,19 @@ namespace KonySim
             uiGo.AddComponent(new UI());
             objectsToAdd.Add(uiGo);
 
-            //button
-            var fufugo = new GameObject(this);
+
+            /*var fufugo = new GameObject(this);
             fufugo.AddComponent(new SpriteRender("Sprites/GO", 0));
             fufugo.AddComponent(new MouseDetector());
             var but = new Button();
             but.OnClick += (sender, e) => { RemoveObject(fufugo); };
             fufugo.AddComponent(but);
             fufugo.AddComponent(new Transform(new Vector2(50, 100)));
-            AddObject(fufugo);
+            AddObject(fufugo);*/
+
+            var mission = new GameObject(this);
+            mission.AddComponent(new MissionScreen(new Db.Mission { AnimalCount = 5, ChildCount = 10, CivilianCount = 20, DefenseMultiplier = 1 }));
+            AddObject(mission);
 
 
             base.Initialize();
@@ -156,6 +161,7 @@ namespace KonySim
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            main.LoadContent(Content);
             // TODO: use this.Content to load your game content here
 
             foreach (GameObject go in objects)
@@ -187,6 +193,8 @@ namespace KonySim
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+
+            main.Update(deltaTime);
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
@@ -219,7 +227,6 @@ namespace KonySim
                 objects.Remove(go);
             }
 
-
             base.Update(gameTime);
         }
 
@@ -234,13 +241,13 @@ namespace KonySim
             // TODO: Add your drawing code here
             spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, null, null, null, null, null);
 
+            main.Draw(spriteBatch);
+
             foreach (GameObject go in objects)
             {
                 go.Draw(spriteBatch);
             }
 
-
-            //ui.Draw(spriteBatch);
             shop.Draw(spriteBatch);
 
 

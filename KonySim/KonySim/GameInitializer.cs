@@ -37,7 +37,14 @@ namespace KonySim
                 con.DeleteAllRows<Db.WeaponShop>();
 
                 //Player setup
-                con.InsertRow(new Db.Player { Score = 0, Funds = 100, Buffs = 10 });
+                var playerId = con.InsertRow(new Db.Player { Score = 0, Funds = 100, Buffs = 10 });
+
+                //Initial soliders
+                for (int i = 0; i < 5; i++)
+                {
+                    var s = Generator.NewChildForDB(0);
+                    con.InsertRow(s);
+                }
 
                 //Mission setup
                 for (int i = 0; i < 10; i++)
@@ -50,8 +57,6 @@ namespace KonySim
                         ChildCount = random.Next(1, 30),
                         DefenseMultiplier = random.Next(1, 4),
                     };
-                    m.XpReward = (m.CivilianCount + m.ChildCount + m.AnimalCount) * m.DefenseMultiplier;
-                    m.FundsReward = (m.CivilianCount + m.AnimalCount) * m.DefenseMultiplier;
 
                     con.InsertRow(m);
                 }
