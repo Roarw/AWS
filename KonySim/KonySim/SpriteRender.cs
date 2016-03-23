@@ -47,11 +47,13 @@ namespace KonySim
             this.bounds = bounds;
             checkBounds = true;
         }
+
         //^
         public SpriteRender(string spriteName, float depth, Rectangle bounds, Vector2 imageOffset) : this(spriteName, depth, bounds)
         {
             this.imageOffset = imageOffset;
         }
+
         //^
         public SpriteRender(string spriteName, float depth, Rectangle bounds, Vector2 imageOffset, Color color) : this(spriteName, depth, bounds, imageOffset)
         {
@@ -63,6 +65,16 @@ namespace KonySim
             this.sprite = content.Load<Texture2D>(spriteName);
             this.Rectangle = new Rectangle(0, 0 + yTopOffset, sprite.Width, sprite.Height + yBottomOffset);
             this.transform = GameObject.GetComponent<Transform>();
+        }
+
+        public void SetSprite(Texture2D sprite)
+        {
+            this.sprite = sprite;
+        }
+
+        public void SetColor(Color color)
+        {
+            this.color = color;
         }
 
         public void Draw(SpriteBatch spriteBatch)

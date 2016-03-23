@@ -1,16 +1,16 @@
-﻿using KonySim.Db;
-using Microsoft.Xna.Framework;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using KonySim.Db;
+using Microsoft.Xna.Framework;
 
 namespace KonySim
 {
-    class Generator
+    internal class Generator
     {
-        static string[] names = new string[] { "Luim", "Aap", "Swart", "Poef", "Speeksel", "Lelike", "Adebowale", "Ayodele", "Dubaku", "Oog", "Boemelaar", "Jabari", "Imamu", "John", "Mugabe" };
-        static Random random = new Random();
+        private static string[] names = new string[] { "Luim", "Aap", "Swart", "Poef", "Speeksel", "Lelike", "Adebowale", "Ayodele", "Dubaku", "Oog", "Boemelaar", "Jabari", "Imamu", "John", "Mugabe" };
+        private static Random random = new Random();
 
         public static Soldier NewChildForDB(int exp)
         {
@@ -26,7 +26,7 @@ namespace KonySim
             return soldier;
         }
 
-        static string GetRandomName()
+        private static string GetRandomName()
         {
             return names[random.Next(names.Length)];
         }
