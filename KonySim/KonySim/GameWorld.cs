@@ -105,9 +105,14 @@ namespace KonySim
             go.AddComponent(dnd);
             objectsToAdd.Add(go);
 
+            GameObject mwManager = new GameObject(this);
+            mwManager.AddComponent(new MainWindowManager());
+            objectsToAdd.Add(mwManager);
+
             var uiGo = new GameObject(this);
             uiGo.AddComponent(new UI());
             objectsToAdd.Add(uiGo);
+            
 
             /*var fufugo = new GameObject(this);
             fufugo.AddComponent(new SpriteRender("Sprites/GO", 0));

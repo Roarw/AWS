@@ -80,6 +80,7 @@
     <Compile Include="ILoadcontent.cs" />
     <Compile Include="IMouseDetection.cs" />
     <Compile Include="IUpdate.cs" />
+    <Compile Include="MainWindowManager.cs" />
     <Compile Include="MissionScreen.cs" />
     <Compile Include="MainMenu.cs" />
     <Compile Include="MouseDetector.cs" />
@@ -154,6 +155,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Sprites\BackButton.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Sprites\BackGround.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Sprites\ChildSub.png">
