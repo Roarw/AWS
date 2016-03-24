@@ -77,12 +77,12 @@ namespace KonySim
 
         private GameObject CreateWeaponCard(Db.Weapon weapon, UIList weaponList)
         {
-            string picName = "ChildSprites/Soldier" + weapon.PortraitIndex;
+            string picName = "WeaponSprites/Weapon" + weapon.PortraitIndex;
 
             GameObject go = new GameObject();
             go.AddComponent(new Transform(Vector2.Zero));
             go.AddComponent(new TextRenderer(weapon.Name, Color.Black, 0.3f));
-            go.AddComponent(new SpriteRender("ChildSprites/wepRamme", 0.3f, weaponList.Bounds));
+            go.AddComponent(new SpriteRender("WeaponSprites/wepRamme", 0.3f, weaponList.Bounds));
             go.AddComponent(new SpriteRender(picName, 0.4f, weaponList.Bounds, new Vector2(8, 9)));
             go.AddComponent(new MouseDetector());
             var btn = new Button();

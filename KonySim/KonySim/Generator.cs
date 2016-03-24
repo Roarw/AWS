@@ -22,7 +22,6 @@ namespace KonySim
             soldier.PortraitIndex = random.Next(1, 14 /*This value is the amount of child pictures + 1*/);
             soldier.PortraitColor = RandomImageInt();
             soldier.PlayerID = GameWorld.Instance.State.Player.ID;
-            soldier.WeaponID = null;
 
             return soldier;
         }

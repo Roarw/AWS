@@ -75,8 +75,17 @@ namespace KonySim
             startBtnGo.AddComponent(new Transform(new Vector2(400, 600)));
             startBtnGo.AddComponent(new SpriteRender("Sprites/StartMissionButton", 0.4f));
             startBtnGo.AddComponent(new MouseDetector());
+
             var btn = new Button();
-            btn.OnClick += (sender, e) => { /* TODO START BATTLE HERE */ };
+            btn.OnClick += (sender, e) => {
+                if (!mission.Completed)
+                {
+                    using (Db.Connection con = new Db.Connection())
+                    {
+                        FightCalculator.MissionFight(con, soldiers, weapons, mission);
+                    }
+                }
+            };
             startBtnGo.AddComponent(btn);
 
             GameWorld.Instance.AddObject(startBtnGo);

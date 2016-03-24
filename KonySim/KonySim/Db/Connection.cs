@@ -26,7 +26,7 @@ namespace KonySim.Db
 
                             CREATE TABLE Soldier(ID integer primary key, name string not null, health integer not null, exp integer not null, lvl integer not null,
                                 portraitIndex integer not null, portraitColor integer not null, playerID integer not null, weaponID integer,
-                                FOREIGN KEY (playerID) REFERENCES Player(ID), FOREIGN KEY (weaponID) REFERENCES Weapon(ID));
+                                FOREIGN KEY (playerID) REFERENCES Player(ID));
 
                             CREATE TABLE Weapon (ID integer primary key, name string not null, damage integer not null, portraitIndex integer not null);
 
