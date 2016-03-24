@@ -28,7 +28,7 @@ namespace KonySim.Db
                                 portraitIndex integer not null, portraitColor integer not null, playerID integer not null, weaponID integer,
                                 FOREIGN KEY (playerID) REFERENCES Player(ID), FOREIGN KEY (weaponID) REFERENCES Weapon(ID));
 
-                            CREATE TABLE Weapon (ID integer primary key, name string not null, damage integer not null);
+                            CREATE TABLE Weapon (ID integer primary key, name string not null, damage integer not null, portraitIndex integer not null);
 
                             CREATE TABLE WeaponShop (ID integer primary key);
 

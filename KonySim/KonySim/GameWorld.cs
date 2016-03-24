@@ -95,15 +95,18 @@ namespace KonySim
 
             objectsToAdd.Add(go);
 
+            GameObject uiGo = new GameObject();
+            uiGo.AddComponent(new UI());
+            objectsToAdd.Add(uiGo);
+
             GameObject mwGo = new GameObject();
             MainWindowManager mwManager = new MainWindowManager();
             mwGo.AddComponent(mwManager);
             mwGo.LoadContent(Content);
             objectsToAdd.Add(mwGo);
 
-            GameObject uiGo = new GameObject();
-            uiGo.AddComponent(new UI());
-            objectsToAdd.Add(uiGo);
+            //mwManager.GotoWorldmap(new List<Db.Mission>());
+            mwManager.GotoMission(new Db.Mission { AnimalCount = 5, ChildCount = 10, CivilianCount = 25, DefenseMultiplier = 1 });
 
             /*var fufugo = new GameObject(this);
             fufugo.AddComponent(new SpriteRender("Sprites/GO", 0));
@@ -113,9 +116,6 @@ namespace KonySim
             fufugo.AddComponent(but);
             fufugo.AddComponent(new Transform(new Vector2(50, 100)));
             AddObject(fufugo);*/
-
-            //mwManager.GotoWorldmap(new List<Db.Mission>());
-            mwManager.GotoMission(new Db.Mission { AnimalCount = 5, ChildCount = 10, CivilianCount = 25, DefenseMultiplier = 1 });
 
             base.Initialize();
         }
