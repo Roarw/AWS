@@ -8,57 +8,48 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace KonySim
 {
-    internal class UI : Component, ILoadContent, IUpdate, IDraw
+    internal class UI : Component, ILoadContent, IDraw
     {
-        private ContentManager content;
-
-        private List<GameObject> uiObjects;
         private SpriteFont iconFont;
         private UIList childrenList;
-        private GameObject childrenListGO;
 
         private int statStart = 50;
         private int statDist = 220;
-
-        //Initializing stuff.
-        public UI()
-        {
-            uiObjects = new List<GameObject>();
-
-            uiObjects.Add(UIBuilders.CreateImage("Sprites/Icon_Warrior", new Vector2(statStart + statDist * 0, 20)));
-            uiObjects.Add(UIBuilders.CreateImage("Sprites/Icon_Syringe", new Vector2(statStart + statDist * 1, 20)));
-            uiObjects.Add(UIBuilders.CreateImage("Sprites/Icon_Crack", new Vector2(statStart + statDist * 2, 20)));
-        }
+        
 
         public void LoadContent(ContentManager content)
         {
-            foreach (var o in uiObjects)
-            {
-                GameWorld.Instance.AddObject(o);
-            }
-
             //Setting ContentManager.
-            this.content = content;
-
             iconFont = content.Load<SpriteFont>("Fonts/IconFont");
 
-            //Children list.
-            childrenListGO = new GameObject();
-            childrenList = new UIList(new Vector2(980, 0), 720, 0);
-            childrenListGO.AddComponent(childrenList);
-            childrenListGO.LoadContent(content);
+            //Icons.
+            GameObject iWar = UIBuilders.CreateImage("Sprites/Icon_Warrior", new Vector2(statStart + statDist * 0, 20));
+            GameObject iSyr = UIBuilders.CreateImage("Sprites/Icon_Syringe", new Vector2(statStart + statDist * 1, 20));
+            GameObject iCrack = UIBuilders.CreateImage("Sprites/Icon_Crack", new Vector2(statStart + statDist * 2, 20));
+            
+            GameWorld.Instance.AddObject(iWar);
+            GameWorld.Instance.AddObject(iSyr);
+            GameWorld.Instance.AddObject(iCrack);
 
-            Rectangle bounds = childrenList.Bounds;
+            //Children list.
+            GameObject childrenListGo = new GameObject();
+            childrenList = new UIList(new Vector2(980, 0), 720, 0);
+            childrenListGo.AddComponent(childrenList);
 
             foreach (var soldier in GameWorld.Instance.State.Soldiers)
             {
                 childrenList.AddItem(CreateChildCard(soldier), content);
             }
-        }
 
-        public void Update(float deltaTime)
-        {
-            childrenListGO.Update(deltaTime);
+            GameWorld.Instance.AddObject(childrenListGo);
+
+            GameObject.OnDeleted += (sender, e) =>
+            {
+                iWar.Delete();
+                iSyr.Delete();
+                iCrack.Delete();
+                childrenListGo.Delete();
+            };
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -67,8 +58,6 @@ namespace KonySim
             spriteBatch.DrawString(iconFont, player.Buffs.ToString(), new Vector2(60 + statStart, 20), Color.White);
             spriteBatch.DrawString(iconFont, "100", new Vector2(60 + statStart + statDist * 1, 20), Color.White);
             spriteBatch.DrawString(iconFont, player.Funds.ToString(), new Vector2(60 + statStart + statDist * 2, 20), Color.White);
-
-            childrenListGO.Draw(spriteBatch);
         }
 
         //Creating a child card.

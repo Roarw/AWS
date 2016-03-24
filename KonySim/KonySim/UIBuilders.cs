@@ -26,6 +26,7 @@ namespace KonySim
             return go;
         }
 
+        //Creating an image with bounds.
         public static GameObject CreateWithBounds(string sprite, Vector2 position, float depth, Rectangle bounds)
         {
             GameObject go = new GameObject();

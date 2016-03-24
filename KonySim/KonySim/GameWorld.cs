@@ -101,7 +101,7 @@ namespace KonySim
             mwGo.LoadContent(Content);
             objectsToAdd.Add(mwGo);
 
-            var uiGo = new GameObject();
+            GameObject uiGo = new GameObject();
             uiGo.AddComponent(new UI());
             objectsToAdd.Add(uiGo);
 
