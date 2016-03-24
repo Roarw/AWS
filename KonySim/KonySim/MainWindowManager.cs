@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework;
 
 namespace KonySim
 {
-    class MainWindowManager : Component, ILoadContent, IUpdate, IDraw
+    internal class MainWindowManager : Component, ILoadContent, IUpdate, IDraw
     {
         private ContentManager content;
-    
+
         private List<GameObject> frameList;
         private List<GameObject> currentObjects;
 
@@ -69,24 +69,74 @@ namespace KonySim
             weaponListGO.AddComponent(weaponList);
             GameWorld.Instance.AddObject(weaponListGO);
 
-            weaponList.AddItem(UIBuilders.CreateWithBounds("ChildSprites/ramme", Vector2.Zero, 0.5f, weaponList.Bounds), content);
-            weaponList.AddItem(UIBuilders.CreateWithBounds("ChildSprites/ramme", Vector2.Zero, 0.5f, weaponList.Bounds), content);
-            weaponList.AddItem(UIBuilders.CreateWithBounds("ChildSprites/ramme", Vector2.Zero, 0.5f, weaponList.Bounds), content);
-            weaponList.AddItem(UIBuilders.CreateWithBounds("ChildSprites/ramme", Vector2.Zero, 0.5f, weaponList.Bounds), content);
+            using (var con = new Db.Connection())
+            {
+                //Find all weapons attacked to the active player
+                var storedWeapons = con.GetAllRows<Db.StoredWeapon>();
+                foreach (var s in storedWeapons)
+                {
+                    if (s.PlayerID == GameWorld.Instance.State.Player.ID)
+                    {
+                        var w = con.GetRow<Db.Weapon>(s.WeaponID);
+                        var weaponCardGo = CreateWeaponCard(w, weaponList);
+                        weaponList.AddItem(weaponCardGo, GameWorld.Instance.Content);
+                        GameWorld.Instance.AddObject(weaponCardGo);
+                    }
+                }
+            }
 
             /*Add weapons to the weaponlist like you did with children cards.*/
 
             currentObjects.Add(go);
         }
 
+        private GameObject CreateWeaponCard(Db.Weapon weapon, UIList weaponList)
+        {
+            GameObject go = new GameObject();
+            go.AddComponent(new Transform(Vector2.Zero));
+            go.AddComponent(new TextRenderer(weapon.Name, Color.Black, 0.3f));
+            go.AddComponent(new SpriteRender("ChildSprites/ramme", 0.2f, weaponList.Bounds));
+            go.AddComponent(new MouseDetector());
+            var btn = new Button();
+            btn.OnClick += (sender, e) =>
+            {
+                //When the weapon card is clicked, it spawns a drag'n'drop object that disappears when the mouse is released.
+                var go2 = new GameObject();
+                go2.AddComponent(new Transform(Vector2.Zero));
+                go2.AddComponent(new TextRenderer(weapon.Name, Color.Black, 1f));
+                var dnd = new DragAndDropAlt(new Vector2(20, 20));
+                dnd.Released += (sender2, e2) =>
+                {
+                    //When the drag'n'drop object disappears, check if it was dropped on a soldier slot
+                    foreach (var obj in GameWorld.Instance.Objects)
+                    {
+                        SpriteRender md = obj.GetComponent<SpriteRender>();
+                        SoldierSlot slot = obj.GetComponent<SoldierSlot>();
+                        Transform trans = obj.GetComponent<Transform>();
+                        if (md != null && slot != null && trans != null)
+                        {
+                            var rect = new Rectangle(md.Rectangle.Location, md.Rectangle.Size);
+                            rect.Offset(trans.Position);
+                            if (rect.Contains(e2.DropPosition))
+                            {
+                                slot.SetWeapon(weapon);
+                            }
+                        }
+                    }
+                };
+                go2.AddComponent(dnd);
+                GameWorld.Instance.AddObject(go2);
+            };
+            go.AddComponent(btn);
+            return go;
+        }
+
         public void GotoShop(Db.WeaponShop weaponShop)
         {
-
         }
 
         public void GotoDrugstore()
         {
-
         }
 
         public void GotoWorldmap(List<Db.Mission> missions)
