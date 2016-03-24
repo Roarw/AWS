@@ -26,14 +26,7 @@ namespace KonySim
             GameObject iWar = UIBuilders.CreateImage("Sprites/Icon_Warrior", new Vector2(statStart + statDist * 0, 20));
             GameObject iSyr = UIBuilders.CreateImage("Sprites/Icon_Syringe", new Vector2(statStart + statDist * 1, 20));
             GameObject iCrack = UIBuilders.CreateImage("Sprites/Icon_Crack", new Vector2(statStart + statDist * 2, 20));
-
-            GameObject.OnDeleted += (sender, e) =>
-            {
-                iWar.Delete();
-                iSyr.Delete();
-                iCrack.Delete();
-            };
-
+            
             GameWorld.Instance.AddObject(iWar);
             GameWorld.Instance.AddObject(iSyr);
             GameWorld.Instance.AddObject(iCrack);
@@ -48,12 +41,15 @@ namespace KonySim
                 childrenList.AddItem(CreateChildCard(soldier), content);
             }
 
+            GameWorld.Instance.AddObject(childrenListGo);
+
             GameObject.OnDeleted += (sender, e) =>
             {
+                iWar.Delete();
+                iSyr.Delete();
+                iCrack.Delete();
                 childrenListGo.Delete();
             };
-
-            GameWorld.Instance.AddObject(childrenListGo);
         }
 
         public void Draw(SpriteBatch spriteBatch)

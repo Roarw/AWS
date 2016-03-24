@@ -94,7 +94,8 @@ namespace KonySim
 
                     int weaponId = con.InsertRow(w);
 
-                    con.InsertRow(new Db.ShopWeapon { ShopID = shopId, WeaponID = weaponId, Price = dmg });
+                    //con.InsertRow(new Db.ShopWeapon { ShopID = shopId, WeaponID = weaponId, Price = dmg });
+                    con.InsertRow(new Db.StoredWeapon { PlayerID = playerId, WeaponID = weaponId });
                 }
             }
         }
