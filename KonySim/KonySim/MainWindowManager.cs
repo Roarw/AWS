@@ -68,7 +68,7 @@ namespace KonySim
 
         }
 
-        public void GotoWorldmap(List<Db.Mission> missions)
+        public void GotoWorldmap()
         {
            
             var map = new GameObject();

@@ -123,7 +123,7 @@ namespace KonySim
             fufugo.AddComponent(new Transform(new Vector2(50, 100)));
             AddObject(fufugo);*/
 
-            mwManager.GotoWorldmap(new List<Db.Mission>());
+            mwManager.GotoWorldmap();
             //mwManager.GotoMission(new Db.Mission { AnimalCount = 5, ChildCount = 10, CivilianCount = 25, DefenseMultiplier = 1 });
 
 
