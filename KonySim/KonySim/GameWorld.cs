@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data.SQLite;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -15,8 +16,6 @@ namespace KonySim
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
 
-        MainMenu main;
-
         private float widthMulti;
         private float heightMulti;
 
@@ -24,6 +23,7 @@ namespace KonySim
         public int MouseY { get { return Mouse.GetState().Position.Y / (int)HeightMulti; } }
 
         private List<GameObject> objects = new List<GameObject>();
+        public ReadOnlyCollection<GameObject> Objects { get { return objects.AsReadOnly(); } }
         private List<GameObject> objectsToRemove = new List<GameObject>();
         private List<GameObject> objectsToAdd = new List<GameObject>();
 
@@ -83,7 +83,7 @@ namespace KonySim
             
             // TODO: Add your initialization logic here
             //Creating the generator.
-            main = new MainMenu();
+            //main = new MainMenu();
             //Setting graphics.
             graphics.PreferredBackBufferWidth = 1280;
             graphics.PreferredBackBufferHeight = 720;
@@ -126,7 +126,7 @@ namespace KonySim
             
 
 
-            var go = new GameObject(this);
+            var go = new GameObject();
             go.AddComponent(new Transform(Vector2.Zero));
             go.AddComponent(new SpriteRender("Sprites/play", 0));
             var dnd = new DragAndDropAlt(new Vector2(20, 20));
@@ -135,14 +135,15 @@ namespace KonySim
 
             objectsToAdd.Add(go);
 
-            GameObject mwManager = new GameObject(this);
-            mwManager.AddComponent(new MainWindowManager());
-            objectsToAdd.Add(mwManager);
+            GameObject mwGo = new GameObject();
+            MainWindowManager mwManager = new MainWindowManager();
+            mwGo.AddComponent(mwManager);
+            objectsToAdd.Add(mwGo);
 
-            var uiGo = new GameObject(this);
+            var uiGo = new GameObject();
             uiGo.AddComponent(new UI());
             objectsToAdd.Add(uiGo);
-            
+
 
             /*var fufugo = new GameObject(this);
             fufugo.AddComponent(new SpriteRender("Sprites/GO", 0));
@@ -153,9 +154,7 @@ namespace KonySim
             fufugo.AddComponent(new Transform(new Vector2(50, 100)));
             AddObject(fufugo);*/
 
-            var mission = new GameObject(this);
-            mission.AddComponent(new MissionScreen(new Db.Mission { AnimalCount = 5, ChildCount = 10, CivilianCount = 20, DefenseMultiplier = 1 }));
-            AddObject(mission);
+            mwManager.GotoMission(new Db.Mission { AnimalCount = 5, ChildCount = 10, CivilianCount = 25, DefenseMultiplier = 1 });
 
 
 
@@ -164,7 +163,7 @@ namespace KonySim
 
         private void CreateGo(Vector2 position)
         {
-            GameObject go = new GameObject(this);
+            GameObject go = new GameObject();
             go.AddComponent(new Transform(position));
             go.AddComponent(new SpriteRender("Sprites/play", 0));
             go.AddComponent(new MouseDetector());
@@ -181,7 +180,7 @@ namespace KonySim
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            main.LoadContent(Content);
+            //main.LoadContent(Content);
             // TODO: use this.Content to load your game content here
         }
 
@@ -201,8 +200,7 @@ namespace KonySim
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-
-            main.Update(deltaTime);
+            //main.Update(deltaTime);
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
@@ -244,15 +242,12 @@ namespace KonySim
             // TODO: Add your drawing code here
             spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, null, null, null, null, null);
 
-            main.Draw(spriteBatch);
+            //main.Draw(spriteBatch);
 
             foreach (GameObject go in objects)
             {
                 go.Draw(spriteBatch);
             }
-
-
-
 
             spriteBatch.End();
 

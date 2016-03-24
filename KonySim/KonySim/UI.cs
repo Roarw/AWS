@@ -33,7 +33,7 @@ namespace KonySim
         {
             foreach (var o in uiObjects)
             {
-                GameObject.World.AddObject(o);
+                GameWorld.Instance.AddObject(o);
             }
 
             //Setting ContentManager.
@@ -47,7 +47,7 @@ namespace KonySim
 
             Rectangle bounds = childrenList.Bounds;
 
-            foreach (var soldier in GameObject.World.State.Soldiers)
+            foreach (var soldier in GameWorld.Instance.State.Soldiers)
             {
                 childrenList.AddItem(ChildCard(soldier), content);
             }
@@ -60,7 +60,7 @@ namespace KonySim
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            var player = GameObject.World.State.Player;
+            var player = GameWorld.Instance.State.Player;
             spriteBatch.DrawString(iconFont, player.Buffs.ToString(), new Vector2(60 + statStart, 20), Color.White);
             spriteBatch.DrawString(iconFont, "100", new Vector2(60 + statStart + statDist * 1, 20), Color.White);
             spriteBatch.DrawString(iconFont, player.Funds.ToString(), new Vector2(60 + statStart + statDist * 2, 20), Color.White);
@@ -74,26 +74,41 @@ namespace KonySim
             int[] rgb = IntToByteArray(soldier.PortraitColor);
             Color color = new Color(rgb[0], rgb[1], rgb[2]);
 
+            string picName = "ChildSprites/Soldier" + soldier.PortraitIndex;
+
             GameObject go = new GameObject();
             go.AddComponent(new Transform(Vector2.Zero));
             go.AddComponent(new SpriteRender("ChildSprites/ramme", 0.1f, childrenList.Bounds));
             go.AddComponent(new SpriteRender("ChildSprites/SoldierBackground", 0.2f, childrenList.Bounds, new Vector2(8, 9), color));
-            go.AddComponent(new SpriteRender("ChildSprites/Soldier" + soldier.PortraitIndex, 0.3f, childrenList.Bounds, new Vector2(8, 9)));
+            go.AddComponent(new SpriteRender(picName, 0.3f, childrenList.Bounds, new Vector2(8, 9)));
             go.AddComponent(new MouseDetector());
             var btn = new Button();
             btn.OnClick += (sender, e) =>
             {
-                var go2 = new GameObject(GameObject.World);
+                var go2 = new GameObject();
                 go2.AddComponent(new Transform(Vector2.Zero));
-                //go2.AddComponent(new SpriteRender("Sprites/GO", 0));
                 go2.AddComponent(new TextRenderer(soldier.Name, Color.Black, 1f));
                 var dnd = new DragAndDropAlt(new Vector2(20, 20));
                 dnd.Released += (dropSender, dropE) =>
                 {
-                    var pos = dropE.DropPosition;
+                    foreach (var obj in GameWorld.Instance.Objects)
+                    {
+                        SpriteRender md = obj.GetComponent<SpriteRender>();
+                        SoldierSlot slot = obj.GetComponent<SoldierSlot>();
+                        Transform trans = obj.GetComponent<Transform>();
+                        if (md != null && slot != null && trans != null)
+                        {
+                            var rect = new Rectangle(md.Rectangle.Location, md.Rectangle.Size);
+                            rect.Offset(trans.Position);
+                            if (rect.Contains(dropE.DropPosition))
+                            {
+                                slot.SetSoldier(soldier);
+                            }
+                        }
+                    }
                 };
                 go2.AddComponent(dnd);
-                GameObject.World.AddObject(go2);
+                GameWorld.Instance.AddObject(go2);
             };
             go.AddComponent(btn);
             return go;
