@@ -2,21 +2,22 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework;
 
 namespace KonySim
 {
-    class MainMenu : IUpdate, ILoadContent, IDraw
+    internal class MainMenu : IUpdate, ILoadContent, IDraw
     {
-        enum GameState { mainMenu, enterName, inGame }
+        private enum GameState
+        { mainMenu, enterName, inGame }
 
-        GameState gameState;
+        private GameState gameState;
 
-        List<GUIElement> main = new List<GUIElement>();
-        List<GUIElement> enterName = new List<GUIElement>();
+        private List<GUIElement> main = new List<GUIElement>();
+        private List<GUIElement> enterName = new List<GUIElement>();
 
         private Keys[] lastPressedKeys = new Keys[5];
 
@@ -26,15 +27,14 @@ namespace KonySim
 
         public MainMenu()
         {
-            main.Add(new GUIElement("Sprites/play"));
-            main.Add(new GUIElement("Sprites/nameBtn"));
+            enterName.Add(new GUIElement("Sprites/done", 0.9f));
+            enterName.Add(new GUIElement("Sprites/name", 0.5f));
 
-            main.Add(new GUIElement("Sprites/menu"));
-
-            enterName.Add(new GUIElement("Sprites/done"));
-            enterName.Add(new GUIElement("Sprites/name"));
+            main.Add(new GUIElement("Sprites/nameBtn", 0.5f));
+            main.Add(new GUIElement("Sprites/menu", 0.2f));
+            main.Add(new GUIElement("Sprites/play", 0.5f));
         }
-        
+
         public void LoadContent(ContentManager content)
         {
             sf = content.Load<SpriteFont>("Fonts/iconFont");
@@ -46,7 +46,7 @@ namespace KonySim
                 element.clickEvent += OnClick;
             }
             main.Find(x => x.SpriteName == "Sprites/play").MoveElement(0, -100);
-            
+
             foreach (GUIElement element in enterName)
             {
                 element.LoadContent(content);
@@ -78,10 +78,6 @@ namespace KonySim
                 default:
                     break;
             }
-
-            
-
-            
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -154,12 +150,11 @@ namespace KonySim
 
         public void OnKeyUp(Keys key)
         {
-            
         }
 
         public void OnKeyDown(Keys key)
         {
-            if (key==Keys.Back && myName.Length > 0)
+            if (key == Keys.Back && myName.Length > 0)
             {
                 myName = myName.Remove(myName.Length - 1);
             }
@@ -167,7 +162,6 @@ namespace KonySim
             {
                 myName += key.ToString();
             }
-
         }
     }
 }
