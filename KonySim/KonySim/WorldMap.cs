@@ -11,11 +11,11 @@ namespace KonySim
 
     class WorldMap :Component , IMouseDetection
     {
-        List<GameObject> byer = new List<GameObject>();
-       
-        public WorldMap(GameObject go)
-        {
-            byer.Add(go);
+        private MainWindowManager gi;
+
+        public WorldMap(MainWindowManager gi)
+        { 
+            this.gi = gi;
         }
 
         public void MouseEnter()
@@ -30,7 +30,8 @@ namespace KonySim
 
         public void MousePressed()
         {
-            this.GameObject.GetComponent<MissionComp>().ShowMission();
+            
+            
         }
 
         public void MouseReleased()
