@@ -12,13 +12,14 @@ namespace KonySim
     /// Idea: Make a dictionary with a bool, that checks if an object is bound or not.
     /// </summary>
 
-    internal class UIList : ILoadContent, IUpdate, IDraw
+    internal class UIList : Component, ILoadContent, IUpdate, IDraw
     {
         private List<GameObject> frameList;
         private Dictionary<GameObject, List<Component>> itemInformation;
 
         private Vector2 position;
         private int height;
+        private float depth;
         private int elementHeight;
         private int maxHeight;
         private float scrollerPosition;
@@ -35,22 +36,23 @@ namespace KonySim
         }
 
         //Initializing stuff.
-        public UIList(Vector2 position, int height)
+        public UIList(Vector2 position, int height, float depth)
         {
             frameList = new List<GameObject>();
             itemInformation = new Dictionary<GameObject, List<Component>>();
 
             this.position = position;
             this.height = height;
+            this.depth = depth;
             this.elementHeight = 0;
             this.scrollerPosition = 0;
 
             listArea = new Rectangle((int)position.X + 5, (int)position.Y + 50, 290, height - 100);
 
             //Creating the frame and buttons for the list.
-            frameList.Add(UIBuilders.CreateImageWOffset("Sprites/listFrame", new Vector2(position.X, position.Y), 0, height - 5));
-            frameList.Add(UIBuilders.CreateImageWOffset("Sprites/listFrame", new Vector2(position.X + 295, position.Y), 0, height - 5));
-            frameList.Add(UIBuilders.CreateImageWOffset("Sprites/listBackground", new Vector2(position.X + 5, position.Y + 50), 0, height - 105));
+            frameList.Add(UIBuilders.CreateImageWOffset("Sprites/listFrame", new Vector2(position.X, position.Y), depth, 0, height - 5));
+            frameList.Add(UIBuilders.CreateImageWOffset("Sprites/listFrame", new Vector2(position.X + 295, position.Y), depth, 0, height - 5));
+            frameList.Add(UIBuilders.CreateImageWOffset("Sprites/listBackground", new Vector2(position.X + 5, position.Y + 50), depth, 0, height - 105));
 
             frameList.Add(CreateScroller("Sprites/goUp", new Vector2(position.X + 5, position.Y), 5));
             frameList.Add(CreateScroller("Sprites/goDown", new Vector2(position.X + 5, position.Y + height - 50), -5));
@@ -171,7 +173,7 @@ namespace KonySim
         {
             GameObject go = new GameObject();
             go.AddComponent(new Transform(position));
-            go.AddComponent(new SpriteRender(sprite, 0.5f));
+            go.AddComponent(new SpriteRender(sprite, depth + 0.5f));
             go.AddComponent(new MouseDetector());
             go.AddComponent(new ListScroller(this, factor));
             return go;

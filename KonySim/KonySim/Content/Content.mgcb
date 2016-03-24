@@ -19,3 +19,9 @@
 /processorParam:TextureFormat=Compressed
 /build:Fonts/iconFont.spritefont
 
+#begin Fonts/smallIconFont.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:TextureFormat=Compressed
+/build:Fonts/smallIconFont.spritefont
+

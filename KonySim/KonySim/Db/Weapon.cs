@@ -9,5 +9,6 @@ namespace KonySim.Db
     {
         public string Name { get; set; }
         public int Damage { get; set; }
+        public int PortraitIndex { get; set; }
     }
 }

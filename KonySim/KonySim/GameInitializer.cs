@@ -66,35 +66,11 @@ namespace KonySim
 
                 for (int i = 0; i < 10; i++)
                 {
-                    string n = "";
-                    int dmg = 0;
-
-                    int pick = random.Next(3);
-                    switch (pick)
-                    {
-                        case 0:
-                            n = "AK-47";
-                            dmg = 5;
-                            break;
-                        case 1:
-                            n = "RPG";
-                            dmg = 15;
-                            break;
-                        case 2:
-                            n = "Nerf gun";
-                            dmg = 1;
-                            break;
-                    }
-
-                    var w = new Db.Weapon
-                    {
-                        Name = n,
-                        Damage = dmg
-                    };
-
+                    var w = Generator.NewWeaponForDB(0);
                     int weaponId = con.InsertRow(w);
 
-                    con.InsertRow(new Db.ShopWeapon { ShopID = shopId, WeaponID = weaponId, Price = dmg });
+                    //con.InsertRow(new Db.ShopWeapon { ShopID = shopId, WeaponID = weaponId, Price = dmg });
+                    con.InsertRow(new Db.StoredWeapon { PlayerID = playerId, WeaponID = weaponId });
                 }
             }
         }
