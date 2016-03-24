@@ -26,6 +26,14 @@ namespace KonySim
             return go;
         }
 
+        public static GameObject CreateWithBounds(string sprite, Vector2 position, float depth, Rectangle bounds)
+        {
+            GameObject go = new GameObject();
+            go.AddComponent(new Transform(position));
+            go.AddComponent(new SpriteRender(sprite, depth, bounds));
+            return go;
+        }
+
         //Creating an image with offset.
         public static GameObject CreateImageWOffset(string sprite, Vector2 position, float depth, int yTopOffset, int yBottomOffset, int xRightOffset, int xLeftOffset)
         {

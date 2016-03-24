@@ -172,9 +172,8 @@ namespace KonySim
                 if (go.Deleted)
                 {
                     objectsToRemove.Add(go);
-                    return;
                 }
-
+            
                 go.Update(deltaTime);
             }
 

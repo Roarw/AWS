@@ -69,6 +69,11 @@ namespace KonySim
             weaponListGO.AddComponent(weaponList);
             GameWorld.Instance.AddObject(weaponListGO);
 
+            weaponList.AddItem(UIBuilders.CreateWithBounds("ChildSprites/ramme", Vector2.Zero, 0.5f, weaponList.Bounds), content);
+            weaponList.AddItem(UIBuilders.CreateWithBounds("ChildSprites/ramme", Vector2.Zero, 0.5f, weaponList.Bounds), content);
+            weaponList.AddItem(UIBuilders.CreateWithBounds("ChildSprites/ramme", Vector2.Zero, 0.5f, weaponList.Bounds), content);
+            weaponList.AddItem(UIBuilders.CreateWithBounds("ChildSprites/ramme", Vector2.Zero, 0.5f, weaponList.Bounds), content);
+
             /*Add weapons to the weaponlist like you did with children cards.*/
 
             currentObjects.Add(go);

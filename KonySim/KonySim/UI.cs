@@ -54,14 +54,16 @@ namespace KonySim
             {
                 childrenList.AddItem(CreateChildCard(soldier), content);
             }
+
+            childrenList.AddItem(UIBuilders.CreateWithBounds("ChildSprites/ramme", Vector2.Zero, 0.5f, childrenList.Bounds), content);
+            childrenList.AddItem(UIBuilders.CreateWithBounds("ChildSprites/ramme", Vector2.Zero, 0.5f, childrenList.Bounds), content);
+            childrenList.AddItem(UIBuilders.CreateWithBounds("ChildSprites/ramme", Vector2.Zero, 0.5f, childrenList.Bounds), content);
+            childrenList.AddItem(UIBuilders.CreateWithBounds("ChildSprites/ramme", Vector2.Zero, 0.5f, childrenList.Bounds), content);
         }
 
         public void Update(float deltaTime)
         {
-            foreach (GameObject go in uiObjects)
-            {
-                go.Update(deltaTime);
-            }
+            childrenListGO.Update(deltaTime);
         }
 
         public void Draw(SpriteBatch spriteBatch)
