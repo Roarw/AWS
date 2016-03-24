@@ -36,6 +36,9 @@ namespace KonySim
         private GameState state;
         public GameState State { get { return state; } }
 
+        private MainWindowManager mwManager;
+        public MainWindowManager MWManager { get { return mwManager; } }
+
         private static GameWorld instance;
         public static GameWorld Instance
         {
@@ -95,17 +98,17 @@ namespace KonySim
 
             this.IsMouseVisible = true;
 
-            var go = new GameObject();
-            go.AddComponent(new Transform(Vector2.Zero));
-            go.AddComponent(new SpriteRender("Sprites/play", 0));
-            var dnd = new DragAndDropAlt(new Vector2(20, 20));
-            //dnd.Released += (sender, e) => { Exit(); };
-            go.AddComponent(dnd);
+            //var go = new GameObject();
+            //go.AddComponent(new Transform(Vector2.Zero));
+            //go.AddComponent(new SpriteRender("Sprites/play", 0));
+            //var dnd = new DragAndDropAlt(new Vector2(20, 20));
+            ////dnd.Released += (sender, e) => { Exit(); };
+            //go.AddComponent(dnd);
 
-            objectsToAdd.Add(go);
+            //objectsToAdd.Add(go);
 
             GameObject mwGo = new GameObject();
-            MainWindowManager mwManager = new MainWindowManager();
+            mwManager = new MainWindowManager();
             mwGo.AddComponent(mwManager);
             objectsToAdd.Add(mwGo);
 

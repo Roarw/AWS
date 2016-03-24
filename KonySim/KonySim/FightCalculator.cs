@@ -44,13 +44,16 @@ namespace KonySim
 
                 foreach (Db.Soldier s in soldiers)
                 {
-                    s.Exp += (int)((float)totalExp / (float)soldiers.Length);
-                    s.Lvl = (int)(Math.Pow((double)s.Exp, 0.8) / 100);
-                    s.Health -= r.Next(10, 21);
-
-                    if (s.Health <= 0)
+                    if (s != null)
                     {
-                        /*Child dies.*/
+                        s.Exp += (int)((float)totalExp / (float)soldiers.Length);
+                        s.Lvl = (int)(Math.Pow((double)s.Exp, 0.8) / 100);
+                        s.Health -= r.Next(10, 21);
+
+                        if (s.Health <= 0)
+                        {
+                            /*Child dies.*/
+                        }
                     }
                 }
 
@@ -95,10 +98,7 @@ namespace KonySim
                 //Mission stuff.
                 GameWorld.Instance.State.Player.Funds += (int)((float)(mission.CivilianCount + mission.AnimalCount * 200) * ((float)r.Next(5, 16) / 100) * powerDifference);
                 GameWorld.Instance.State.Player.Score += (int)((float)(mission.CivilianCount + mission.AnimalCount * 200) * powerDifference);
-
-                System.Diagnostics.Debug.WriteLine(GameWorld.Instance.State.Player.Funds);
-                System.Diagnostics.Debug.WriteLine(GameWorld.Instance.State.Player.Score);
-
+                
                 mission.CivilianCount = mission.CivilianCount - (int)((float)mission.CivilianCount * powerDifference);
                 mission.AnimalCount = mission.AnimalCount - (int)((float)mission.AnimalCount * powerDifference);
             }
@@ -107,6 +107,8 @@ namespace KonySim
             ///*
             /// Saving the data to database. We are assuming the soldiers in the fight were contained in GameState.Soldiers.
             /// */
+            System.Diagnostics.Debug.WriteLine(GameWorld.Instance.State.Player.Funds);
+            System.Diagnostics.Debug.WriteLine(GameWorld.Instance.State.Player.Score);
 
             GameWorld.Instance.State.Save();
             con.UpdateRow(mission);

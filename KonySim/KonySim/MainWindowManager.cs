@@ -68,6 +68,11 @@ namespace KonySim
 
             /*Add weapons to the weaponlist like you did with children cards.*/
 
+            GameObject.OnDeleted += (sender, e) =>
+            {
+                go.Delete();
+            };
+
             go.OnDeleted += (sender, e) =>
             {
                 backBtn.Delete();
@@ -123,17 +128,18 @@ namespace KonySim
         {
         }
 
-        public void GotoDrugstore()
-        {
-        }
-
         public void GotoWorldmap()
         {
             var map = new GameObject();
             map.AddComponent(new Transform(new Vector2(0, 90)));
             map.AddComponent(new SpriteRender("Sprites/map", 0.1f));
-            map.AddComponent(new Map(map));
+            map.AddComponent(new Map());
             GameWorld.Instance.AddObject(map);
+
+            GameObject.OnDeleted += (sender, e) =>
+            {
+                map.Delete();
+            };
         }
     }
 }

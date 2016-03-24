@@ -8,53 +8,72 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace KonySim
 {
-    class Map : Component, ILoadContent, IDraw, IUpdate
+    class Map : Component, ILoadContent
     {
-     
-        private List<Db.Mission> missions = new List<Db.Mission>();
+        private List<Db.Mission> missions;
 
-        public Map(GameObject go)
+        public Map()
         {
+            missions = new List<Db.Mission>();
+
+            missions.Add(new Db.Mission());
+            missions.Add(new Db.Mission());
+            missions.Add(new Db.Mission());
+            missions.Add(new Db.Mission());
+            missions.Add(new Db.Mission());
+            missions.Add(new Db.Mission());
+            missions.Add(new Db.Mission());
+            missions.Add(new Db.Mission());
+            missions.Add(new Db.Mission());
+            missions.Add(new Db.Mission());
+            missions.Add(new Db.Mission());
+            missions.Add(new Db.Mission());
+            missions.Add(new Db.Mission());
+            missions.Add(new Db.Mission());
+            missions.Add(new Db.Mission());
+            missions.Add(new Db.Mission());
+            missions.Add(new Db.Mission());
+            missions.Add(new Db.Mission());
+            missions.Add(new Db.Mission());
+
             using (Db.Connection con = new Db.Connection())
             {
                 missions.AddRange(con.GetAllRows<Db.Mission>());
             }
-           
         }
      
         public void LoadContent(ContentManager content)
         {
-            var i = 0;
+            double i = 1;
+
             foreach(Db.Mission mis in missions)
             {
-                var mis1 = new GameObject();
-                mis1.AddComponent(new Transform(new Vector2(i * 100, 400)));
-                mis1.AddComponent(new SpriteRender("Sprites/huse", 1));
-                mis1.AddComponent(new MouseDetector());
+                var misGo = new GameObject();
+                
+                double factor = 20;
+                double x = 400 + Math.Sin(i * 0.8) * (i * Math.Pow(factor, 1 + 0.5 / i));
+                double y = 400 + Math.Cos(i * 0.8) * (i * Math.Pow(factor, 1 + 0.5 / i));
+
+                misGo.AddComponent(new Transform(new Vector2((int)x, (int)y)));
+                misGo.AddComponent(new SpriteRender("Sprites/huse", 1));
+                misGo.AddComponent(new MouseDetector());
                 Button btn = new Button();
-                mis1.AddComponent(btn);
-                i++;
-                GameWorld.Instance.AddObject(mis1);
+                misGo.AddComponent(btn);
                 btn.OnClick += (sender, e) =>
-                 {
-                     GameObject go = new GameObject();
-                     go.AddComponent(new MissionScreen(mis));
-                     GameWorld.Instance.AddObject(go);
-                 };
+                {
+                    GameWorld.Instance.MWManager.GotoMission(mis);
+                    GameObject.Delete();
+                };
+
+                GameObject.OnDeleted += (sender, e) =>
+                {
+                    misGo.Delete();
+                };
+
+                GameWorld.Instance.AddObject(misGo);
+
+                i++;
             }
-            
         }
-       
-        public void Update(float deltaTime)
-        {
-           
-        }
-
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            
-        }
-
-      
     }
 }
