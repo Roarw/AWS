@@ -74,7 +74,7 @@ namespace KonySim
             GameWorld.Instance.CreateGo(new Vector2(100, 400));
             var map = new GameObject();
             map.AddComponent(new Transform(new Vector2(0, 90)));
-            map.AddComponent(new SpriteRender("Sprites/map", 0));
+            map.AddComponent(new SpriteRender("Sprites/map", 0.1f));
             GameWorld.Instance.AddObject(map);
 
             var mis2 = new GameObject();
