@@ -11,6 +11,7 @@ namespace KonySim
     internal class SoldierSlot : Component, ILoadContent
     {
         private TextRenderer text;
+        private TextRenderer weaponText;
         private MissionScreen mission;
         private int slotId;
         private Texture2D startTexture;
@@ -23,6 +24,7 @@ namespace KonySim
             this.slotId = slotId;
 
             mission.SoldierSet += Mission_SoldierSet;
+            mission.WeaponSet += Mission_WeaponSet;
         }
 
         public void LoadContent(ContentManager content)
@@ -40,6 +42,12 @@ namespace KonySim
             textGo.AddComponent(text);
             GameWorld.Instance.AddObject(textGo);
 
+            var weaponTextGo = new GameObject();
+            weaponTextGo.AddComponent(new Transform(new Vector2(trans.Position.X, trans.Position.Y + 110)));
+            weaponText = new TextRenderer("No weapon", Color.Black, 0.6f, "Fonts/smallIconFont");
+            weaponTextGo.AddComponent(weaponText);
+            GameWorld.Instance.AddObject(weaponTextGo);
+
             startTexture = GameObject.GetComponent<SpriteRender>().Sprite;
         }
 
@@ -53,18 +61,7 @@ namespace KonySim
                     var texture = GameWorld.Instance.Content.Load<Texture2D>("ChildSprites/Soldier" + e.Soldier.PortraitIndex);
                     GameObject.GetComponent<SpriteRender>().Sprite = texture;
 
-                    int value = e.Soldier.PortraitColor;
-
-                    Stack<int> stack = new Stack<int>();
-
-                    for (; value > 0; value /= 1000)
-                    {
-                        stack.Push(value % 1000);
-                    }
-
-                    var array = stack.ToArray();
-                    var col = new Color(array[0], array[1], array[2]);
-
+                    var col = Utils.IntToColor(e.Soldier.PortraitColor);
                     background.SetColor(col);
                 }
                 else
@@ -76,9 +73,29 @@ namespace KonySim
             }
         }
 
+        private void Mission_WeaponSet(object sender, WeaponSetArgs e)
+        {
+            if (e.Slot == slotId)
+            {
+                if (e.Weapon != null)
+                {
+                    weaponText.Text = e.Weapon.Name;
+                }
+                else
+                {
+                    weaponText.Text = "No weapon";
+                }
+            }
+        }
+
         public void SetSoldier(Db.Soldier soldier)
         {
             mission.SetSoldier(slotId, soldier);
+        }
+
+        public void SetWeapon(Db.Weapon weapon)
+        {
+            mission.SetWeapon(slotId, weapon);
         }
     }
 }

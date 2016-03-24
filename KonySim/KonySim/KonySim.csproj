@@ -97,6 +97,7 @@
     <Compile Include="UIBuilders.cs" />
     <Compile Include="UIList.cs" />
     <Compile Include="ListScroller.cs" />
+    <Compile Include="Utils.cs" />
     <Compile Include="WorldMap.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -175,12 +176,10 @@
     <Content Include="Content\Sprites\goUp.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-
     <Content Include="Content\Sprites\huse.png">
-<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Sprites\GO.png">
-
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Sprites\Icon_Crack.png">
@@ -201,12 +200,10 @@
     <Content Include="Content\Sprites\listFrame.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-
     <Content Include="Content\Sprites\map.jpg">
-<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Sprites\rightArrow.png">
-
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Sprites\SoldierSlot.png">

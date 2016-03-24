@@ -71,8 +71,7 @@ namespace KonySim
         //Creating a child card.
         private GameObject ChildCard(Db.Soldier soldier)
         {
-            int[] rgb = IntToByteArray(soldier.PortraitColor);
-            Color color = new Color(rgb[0], rgb[1], rgb[2]);
+            Color color = Utils.IntToColor(soldier.PortraitColor);
 
             string picName = "ChildSprites/Soldier" + soldier.PortraitIndex;
 
@@ -112,18 +111,6 @@ namespace KonySim
             };
             go.AddComponent(btn);
             return go;
-        }
-
-        private static int[] IntToByteArray(int value)
-        {
-            Stack<int> stack = new Stack<int>();
-
-            for (; value > 0; value /= 1000)
-            {
-                stack.Push(value % 1000);
-            }
-
-            return stack.ToArray();
         }
     }
 }
