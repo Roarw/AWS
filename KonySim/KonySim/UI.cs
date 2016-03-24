@@ -16,18 +16,17 @@ namespace KonySim
         private SpriteFont iconFont;
         private UIList childrenList;
 
-        private int statStart = 100;
-        private int statDist = 300;
+        private int statStart = 50;
+        private int statDist = 220;
 
         //Initializing stuff.
         public UI()
         {
             uiObjects = new List<GameObject>();
 
-            uiObjects.Add(CreateImage("Sprites/BackButton", new Vector2(0, 0)));
-            uiObjects.Add(CreateImage("Sprites/Icon_Syringe", new Vector2(statStart, 20)));
-            uiObjects.Add(CreateImage("Sprites/Icon_Warrior", new Vector2(statStart + statDist, 20)));
-            uiObjects.Add(CreateImage("Sprites/Icon_Crack", new Vector2(statStart + statDist * 2, 20)));
+            uiObjects.Add(UIBuilders.CreateImage("Sprites/Icon_Warrior", new Vector2(statStart + statDist * 0, 20)));
+            uiObjects.Add(UIBuilders.CreateImage("Sprites/Icon_Syringe", new Vector2(statStart + statDist * 1, 20)));
+            uiObjects.Add(UIBuilders.CreateImage("Sprites/Icon_Crack", new Vector2(statStart + statDist * 2, 20)));
         }
 
         public void LoadContent(ContentManager content)
@@ -63,19 +62,10 @@ namespace KonySim
         {
             var player = GameObject.World.State.Player;
             spriteBatch.DrawString(iconFont, player.Buffs.ToString(), new Vector2(60 + statStart, 20), Color.White);
-            spriteBatch.DrawString(iconFont, "100", new Vector2(60 + statStart + statDist, 20), Color.White);
+            spriteBatch.DrawString(iconFont, "100", new Vector2(60 + statStart + statDist * 1, 20), Color.White);
             spriteBatch.DrawString(iconFont, player.Funds.ToString(), new Vector2(60 + statStart + statDist * 2, 20), Color.White);
 
             childrenList.Draw(spriteBatch);
-        }
-
-        //Creating an image.
-        private GameObject CreateImage(string sprite, Vector2 position)
-        {
-            GameObject go = new GameObject();
-            go.AddComponent(new Transform(position));
-            go.AddComponent(new SpriteRender(sprite, 0.1f));
-            return go;
         }
 
         //Creating a child card.

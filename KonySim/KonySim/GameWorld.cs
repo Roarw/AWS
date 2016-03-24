@@ -32,6 +32,7 @@ namespace KonySim
 		
         private float deltaTime;
 
+
         public float WidthMulti { get { return widthMulti; } }
         public float HeightMulti { get { return heightMulti; } }
 
@@ -50,6 +51,7 @@ namespace KonySim
                 return instance;
             }
         }
+
 
         private GameWorld()
         {
@@ -81,13 +83,14 @@ namespace KonySim
         /// </summary>
         protected override void Initialize()
         {
+            
             // TODO: Add your initialization logic here
             //Creating the generator.
             main = new MainMenu();
             //Setting graphics.
             graphics.PreferredBackBufferWidth = 1280;
             graphics.PreferredBackBufferHeight = 720;
-            Window.Position = new Point(-10, 0);
+            Window.Position = new Point(0, 0);
             graphics.ApplyChanges();
 
             widthMulti = (float)Window.ClientBounds.Width / (float)graphics.PreferredBackBufferWidth;
@@ -95,25 +98,59 @@ namespace KonySim
 
             this.IsMouseVisible = true;
 
-            //Managing GameObjects.
 
-            //CreateGo(Vector2.Zero);
-            //CreateGo(new Vector2(100, 400));
+            CreateGo(Vector2.Zero);
+            CreateGo(new Vector2(100, 400));
+            var map = new GameObject(this);
+            map.AddComponent(new Transform(new Vector2(0, 90)));
+            map.AddComponent(new SpriteRender("Sprites/map",0));
+            AddObject(map);
+
+            var mis2 = new GameObject(this);
+            mis2.AddComponent(new Transform(new Vector2(630, 200)));
+            mis2.AddComponent(new SpriteRender("Sprites/huse", 1));
+            mis2.AddComponent(new MouseDetector());
+            mis2.AddComponent(new WorldMap(mis2));
+            mis2.AddComponent(new MissionComp(5,5,5,5,5,5));
+            AddObject(mis2);
+
+            var mis1 = new GameObject(this);
+            mis1.AddComponent(new Transform(new Vector2(610, 400)));
+            mis1.AddComponent(new SpriteRender("Sprites/huse", 1));
+            mis1.AddComponent(new MouseDetector());
+            mis1.AddComponent(new WorldMap(mis1));
+            mis1.AddComponent(new MissionComp(5, 5, 5, 5, 5, 5));
+            AddObject(mis1);
+            var Weapon = new GameObject(this);
+            Weapon.AddComponent(new Transform(new Vector2(150, 500)));
+            Weapon.AddComponent(new SpriteRender("sprites/weaponshop", 1));
+            AddObject(Weapon);
+            
+            
+
 
             var go = new GameObject(this);
             go.AddComponent(new Transform(Vector2.Zero));
-            go.AddComponent(new SpriteRender("Sprites/GO", 0));
+            go.AddComponent(new SpriteRender("Sprites/play", 0));
             var dnd = new DragAndDropAlt(new Vector2(20, 20));
             //dnd.Released += (sender, e) => { Exit(); };
             go.AddComponent(dnd);
+
             objectsToAdd.Add(go);
 
+<<<<<<< HEAD
             //shop test
             shop = new Shop();
+=======
+            GameObject mwManager = new GameObject(this);
+            mwManager.AddComponent(new MainWindowManager());
+            objectsToAdd.Add(mwManager);
+>>>>>>> origin/master
 
             var uiGo = new GameObject(this);
             uiGo.AddComponent(new UI());
             objectsToAdd.Add(uiGo);
+            
 
 
             /*var fufugo = new GameObject(this);
@@ -130,6 +167,10 @@ namespace KonySim
             AddObject(mission);
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/master
             base.Initialize();
         }
 
@@ -145,11 +186,15 @@ namespace KonySim
 
             GameObject go = new GameObject(this);
             go.AddComponent(new Transform(position));
-            go.AddComponent(new SpriteRender("Sprites/GO.png", 0));
+            go.AddComponent(new SpriteRender("Sprites/play", 0));
             go.AddComponent(new MouseDetector());
             go.AddComponent(new DragAndDrop());
+<<<<<<< HEAD
             objects.Add(go);
 
+=======
+            objectsToAdd.Add(go);
+>>>>>>> origin/master
         }
 
         /// <summary>
@@ -237,7 +282,7 @@ namespace KonySim
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Peru);
-
+           
             // TODO: Add your drawing code here
             spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, null, null, null, null, null);
 
@@ -249,6 +294,7 @@ namespace KonySim
             }
 
             shop.Draw(spriteBatch);
+
 
 
             spriteBatch.End();

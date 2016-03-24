@@ -48,9 +48,9 @@ namespace KonySim
             listArea = new Rectangle((int)position.X + 5, (int)position.Y + 50, 290, height - 100);
 
             //Creating the frame and buttons for the list.
-            frameList.Add(CreateImageOffset("Sprites/listFrame", new Vector2(position.X, position.Y), 0, height - 5));
-            frameList.Add(CreateImageOffset("Sprites/listFrame", new Vector2(position.X + 295, position.Y), 0, height - 5));
-            frameList.Add(CreateImageOffset("Sprites/listBackground", new Vector2(position.X + 5, position.Y + 50), 0, height - 105));
+            frameList.Add(UIBuilders.CreateImageWOffset("Sprites/listFrame", new Vector2(position.X, position.Y), 0, height - 5));
+            frameList.Add(UIBuilders.CreateImageWOffset("Sprites/listFrame", new Vector2(position.X + 295, position.Y), 0, height - 5));
+            frameList.Add(UIBuilders.CreateImageWOffset("Sprites/listBackground", new Vector2(position.X + 5, position.Y + 50), 0, height - 105));
 
             frameList.Add(CreateScroller("Sprites/goUp", new Vector2(position.X + 5, position.Y), 5));
             frameList.Add(CreateScroller("Sprites/goDown", new Vector2(position.X + 5, position.Y + height - 50), -5));
@@ -106,26 +106,6 @@ namespace KonySim
                     item.Draw(spriteBatch);
                 }
             }
-        }
-
-        //Creating an image with offset.
-        private GameObject CreateImageOffset(string sprite, Vector2 position, int yTopOffset, int yBottomOffset)
-        {
-            GameObject go = new GameObject();
-            go.AddComponent(new Transform(position));
-            go.AddComponent(new SpriteRender(sprite, 0, yTopOffset, yBottomOffset));
-            return go;
-        }
-
-        //Creating a scroller button.
-        private GameObject CreateScroller(string sprite, Vector2 position, int factor)
-        {
-            GameObject go = new GameObject();
-            go.AddComponent(new Transform(position));
-            go.AddComponent(new SpriteRender(sprite, 0.5f));
-            go.AddComponent(new MouseDetector());
-            go.AddComponent(new ListScroller(this, factor));
-            return go;
         }
 
         //Adding an item to the UIList.
@@ -184,6 +164,17 @@ namespace KonySim
                     scrollerPosition = 0;
                 }
             }
+        }
+
+        //Creating a scroller button.
+        private GameObject CreateScroller(string sprite, Vector2 position, int factor)
+        {
+            GameObject go = new GameObject();
+            go.AddComponent(new Transform(position));
+            go.AddComponent(new SpriteRender(sprite, 0.5f));
+            go.AddComponent(new MouseDetector());
+            go.AddComponent(new ListScroller(this, factor));
+            return go;
         }
     }
 }

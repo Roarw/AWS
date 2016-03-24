@@ -17,6 +17,8 @@ namespace KonySim
         private Color color = Color.White;
         private int yTopOffset = 0;
         private int yBottomOffset = 0;
+        private int xRightOffset = 0;
+        private int xLeftOffset = 0;
         private Rectangle bounds = new Rectangle();
         private Vector2 imageOffset = Vector2.Zero;
         private bool checkBounds = false;
@@ -44,6 +46,12 @@ namespace KonySim
             this.yTopOffset = yTopOffset;
             this.yBottomOffset = yBottomOffset;
         }
+        //^
+        public SpriteRender(string spriteName, float depth, int yTopOffset, int yBottomOffset, int xRightOffset, int xLeftOffset) : this(spriteName, depth, yTopOffset, yBottomOffset)
+        {
+            this.xRightOffset = xRightOffset;
+            this.xLeftOffset = xLeftOffset;
+        }
 
 
 
@@ -70,7 +78,7 @@ namespace KonySim
  
         {
             this.sprite = content.Load<Texture2D>(spriteName);
-            this.Rectangle = new Rectangle(0, 0 + yTopOffset, sprite.Width, sprite.Height + yBottomOffset);
+            this.Rectangle = new Rectangle(0 + xRightOffset, 0 + yTopOffset, sprite.Width + xLeftOffset, sprite.Height + yBottomOffset);
             this.transform = GameObject.GetComponent<Transform>();
         }
 
