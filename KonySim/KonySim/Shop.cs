@@ -10,11 +10,11 @@ namespace KonySim
 {
     class Shop : Component, ILoadContent, IUpdate, IDraw
     {
-        ContentManager content;
+        private ContentManager content;
 
-        List<GameObject> shopObjects;
-        SpriteFont shopFont;
-
+        private List<GameObject> shopObjects;
+        private SpriteFont shopFont;
+        private NextClicker weaponList;
         
         
 
@@ -24,31 +24,11 @@ namespace KonySim
 
             shopObjects.Add(CreateImage("Sprites/Shop.png", new Vector2(-100, 55)));
 
-            //Right arrow button
-            var btnRight = new GameObject(GameWorld.Instance);
-            btnRight.AddComponent(new SpriteRender("Sprites/rightArrow", 0));
-            btnRight.AddComponent(new MouseDetector());
-            var btn = new Button();
-            btn.OnClick += (sender, e) => { GameWorld.Instance.RemoveObject(btnRight); };
-            btnRight.AddComponent(btn);
-            btnRight.AddComponent(new Transform(new Vector2(660, 600)));
-            GameWorld.Instance.AddObject(btnRight);
-
-            //Left arrow button
-            var btnLeft = new GameObject(GameWorld.Instance);
-            btnLeft.AddComponent(new SpriteRender("Sprites/leftArrow", 0));
-            btnLeft.AddComponent(new MouseDetector());
-            btn = new Button();
-            btn.OnClick += (sender, e) => { GameWorld.Instance.RemoveObject(btnLeft); };
-            btnLeft.AddComponent(btn);
-            btnLeft.AddComponent(new Transform(new Vector2(265, 600)));
-            GameWorld.Instance.AddObject(btnLeft);
-
             //Buy button
             var btnBuy = new GameObject(GameWorld.Instance);
             btnBuy.AddComponent(new SpriteRender("Sprites/btnBuy", 0));
             btnBuy.AddComponent(new MouseDetector());
-            btn = new Button();
+            var btn = new Button();
             btn.OnClick += (sender, e) => { GameWorld.Instance.RemoveObject(btnBuy); };
             btnBuy.AddComponent(btn);
             btnBuy.AddComponent(new Transform(new Vector2(710, 655)));
@@ -57,16 +37,20 @@ namespace KonySim
 
         public void LoadContent(ContentManager content)
         {
-
-
-            this.content = content;
-
+            //Loads Content on every gameobject in the shopObjects list
             foreach (GameObject go in shopObjects)
             {
                 go.LoadContent(content);
             }
 
+            //setting ContentManager
+            this.content = content;
+            
             shopFont = content.Load<SpriteFont>("Fonts/shopFont");
+
+            //Weapon list
+            weaponList = new NextClicker(new Vector2(265, 600), 430);
+            weaponList.LoadContent(content);
         }
 
         public void Update(float deltaTime)
@@ -75,6 +59,8 @@ namespace KonySim
             {
                 go.Update(deltaTime);
             }
+
+            weaponList.Update(deltaTime);
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -88,7 +74,7 @@ namespace KonySim
             spriteBatch.DrawString(shopFont, "Damage: ", new Vector2(710, 605), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 1);
             spriteBatch.DrawString(shopFont, "Price: ", new Vector2(710, 625), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 1);
 
-            
+            weaponList.Draw(spriteBatch);
         }
 
         private GameObject CreateImage(string sprite, Vector2 position)

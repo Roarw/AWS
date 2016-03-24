@@ -31,6 +31,14 @@ namespace KonySim
 
             frameList.Add(CreateClicker("Sprites/leftArrow", new Vector2(position.X, position.Y), false));
             frameList.Add(CreateClicker("Sprites/rightArrow", new Vector2(position.X + width - 35, position.Y), true));
+
+            items.Add(CreateWeapon("Sprites/WeaponAK47", new Vector2(320, 595)));
+            items.Add(CreateWeapon("Sprites/WeaponBizon", new Vector2(320, 595)));
+            items.Add(CreateWeapon("Sprites/WeaponDP12", new Vector2(320, 595)));
+            items.Add(CreateWeapon("Sprites/WeaponMAC10", new Vector2(320, 595)));
+            items.Add(CreateWeapon("Sprites/WeaponRPG7", new Vector2(320, 595)));
+
+
         }
 
         public void LoadContent(ContentManager content)
@@ -88,6 +96,14 @@ namespace KonySim
             go.AddComponent(new SpriteRender(sprite, 0.5f));
             go.AddComponent(new MouseDetector());
             go.AddComponent(new NextButton(this, rightButton));
+            return go;
+        }
+
+        private GameObject CreateWeapon(string sprite, Vector2 position)
+        {
+            GameObject go = new GameObject();
+            go.AddComponent(new Transform(position));
+            go.AddComponent(new SpriteRender(sprite, 0.5f));
             return go;
         }
     }
