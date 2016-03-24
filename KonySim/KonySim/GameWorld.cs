@@ -29,7 +29,6 @@ namespace KonySim
 
         private float deltaTime;
 
-
         public float WidthMulti { get { return widthMulti; } }
         public float HeightMulti { get { return heightMulti; } }
 
@@ -49,7 +48,6 @@ namespace KonySim
             }
         }
 
-
         private GameWorld()
         {
             //Initialize game and create GameState object
@@ -66,12 +64,6 @@ namespace KonySim
                 objectsToAdd.Add(go);
         }
 
-        public void RemoveObject(GameObject go)
-        {
-            if (!objectsToRemove.Contains(go))
-                objectsToRemove.Add(go);
-        }
-
         /// <summary>
         /// Allows the game to perform any initialization it needs to before starting to run.
         /// This is where it can query for any required services and load any non-graphic
@@ -80,7 +72,6 @@ namespace KonySim
         /// </summary>
         protected override void Initialize()
         {
-            
             // TODO: Add your initialization logic here
             //Creating the generator.
             //main = new MainMenu();
@@ -113,7 +104,6 @@ namespace KonySim
             uiGo.AddComponent(new UI());
             objectsToAdd.Add(uiGo);
 
-
             /*var fufugo = new GameObject(this);
             fufugo.AddComponent(new SpriteRender("Sprites/GO", 0));
             fufugo.AddComponent(new MouseDetector());
@@ -125,8 +115,6 @@ namespace KonySim
 
             //mwManager.GotoWorldmap(new List<Db.Mission>());
             mwManager.GotoMission(new Db.Mission { AnimalCount = 5, ChildCount = 10, CivilianCount = 25, DefenseMultiplier = 1 });
-
-
 
             base.Initialize();
         }
@@ -179,9 +167,16 @@ namespace KonySim
 
             foreach (GameObject go in objects)
             {
+                if (go.Deleted)
+                {
+                    objectsToRemove.Add(go);
+                    return;
+                }
+
                 go.Update(deltaTime);
             }
 
+            //Objectstoadd needs to be put in a temporary list for this foreach because calling LoadContent might create new objects (Thus modifying the original collection)
             var tempAdd = new List<GameObject>(objectsToAdd);
             objectsToAdd.Clear();
 
@@ -191,13 +186,11 @@ namespace KonySim
                 go.LoadContent(Content);
             }
 
-            var tempRemove = new List<GameObject>(objectsToRemove);
-            objectsToRemove.Clear();
-
-            foreach (var go in tempRemove)
+            foreach (var go in objectsToRemove)
             {
                 objects.Remove(go);
             }
+            objectsToRemove.Clear();
             base.Update(gameTime);
         }
 
@@ -208,7 +201,7 @@ namespace KonySim
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Peru);
-           
+
             // TODO: Add your drawing code here
             spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, null, null, null, null, null);
 

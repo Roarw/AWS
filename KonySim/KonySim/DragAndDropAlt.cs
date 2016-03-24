@@ -54,7 +54,7 @@ namespace KonySim
             if (Mouse.GetState().LeftButton == ButtonState.Released)
             {
                 done = true;
-                GameWorld.Instance.RemoveObject(GameObject);
+                GameObject.Delete();
                 if (Released != null)
                 {
                     Released(this, new DragAndDropArgs(new Vector2(mouseX, mouseY)));

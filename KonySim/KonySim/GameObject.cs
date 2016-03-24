@@ -11,9 +11,25 @@ namespace KonySim
     {
         private List<Component> components;
 
+        public bool Deleted { get; private set; }
+        public event EventHandler OnDeleted;
+
         public GameObject()
         {
             components = new List<Component>();
+        }
+
+        /// <summary>
+        /// Marks this GameObject as deleted, which makes the GameWorld remove it from its object list asap
+        /// </summary>
+        public void Delete()
+        {
+            if (!Deleted)
+            {
+                Deleted = true;
+                if (OnDeleted != null)
+                    OnDeleted(this, EventArgs.Empty);
+            }
         }
 
         public T GetComponent<T>() where T : Component
