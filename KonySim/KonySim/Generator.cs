@@ -9,11 +9,11 @@ namespace KonySim
 {
     internal class Generator
     {
-        static string[] childNames = new string[] { "Luim", "Aap", "Swart", "Poef", "Speeksel", "Lelike", "Adebowale", "Ayodele", "Dubaku", "Oog", "Boemelaar", "Jabari", "Imamu", "John", "Mugabe" };
-        static string[] weaponNames = new string[] { "Gun" };
-        static Random random = new Random();
+        private static string[] childNames = new string[] { "Luim", "Aap", "Swart", "Poef", "Speeksel", "Lelike", "Adebowale", "Ayodele", "Dubaku", "Oog", "Boemelaar", "Jabari", "Imamu", "John", "Mugabe" };
+        private static string[] weaponNames = new string[] { "Gun" };
+        private static Random random = new Random();
 
-        public static Soldier NewChildForDB(int exp)
+        public static Soldier NewChildForDB(int exp, int playerId)
         {
             Soldier soldier = new Soldier();
             soldier.Name = childNames[random.Next(childNames.Length)];
@@ -21,11 +21,11 @@ namespace KonySim
             soldier.Exp = exp;
             soldier.PortraitIndex = random.Next(1, 14 /*This value is the amount of child pictures + 1*/);
             soldier.PortraitColor = RandomImageInt();
-            soldier.PlayerID = GameWorld.Instance.State.Player.ID;
+            soldier.PlayerID = playerId;
 
             return soldier;
         }
-		
+
         public static Weapon NewWeaponForDB(int missionsCompleted)
         {
             Weapon weapon = new Weapon();

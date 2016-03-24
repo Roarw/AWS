@@ -6,16 +6,16 @@ using System.Text;
 
 namespace KonySim
 {
-    class FightCalculator
+    internal class FightCalculator
     {
-        static Random r = new Random();
+        private static Random r = new Random();
 
         public static void MissionFight(Db.Connection con, Db.Soldier[] soldiers, Db.Weapon[] weapons, Db.Mission mission)
         {
             float soldiersPower = 0;
-            float missionPower = (float)(mission.CivilianCount * (mission.DefenseMultiplier + r.Next(4))) * (1/99) +
+            float missionPower = (float)(mission.CivilianCount * (mission.DefenseMultiplier + r.Next(4))) * (1 / 99) +
                 mission.AnimalCount * (mission.DefenseMultiplier + r.Next(4)) * 2;
-            
+
             for (int i = 0; i < soldiers.Length; i++)
             {
                 float weaponPower = 0;
@@ -30,7 +30,6 @@ namespace KonySim
                     soldiersPower += (0/*replace 0 with drug bool*/ + 1 + ((float)soldiers[i].Lvl / 5)) * weaponPower;
                 }
             }
-
 
             ///*
             /// Win or loss of battle is administrated below.
@@ -64,7 +63,7 @@ namespace KonySim
                 //Getting new children.
                 for (int i = 0; i < mission.ChildCount; i++)
                 {
-                    GameWorld.Instance.State.Soldiers.Add(Generator.NewChildForDB(0 /*A higher value possible?*/));
+                    GameWorld.Instance.State.Soldiers.Add(Generator.NewChildForDB(0 /*A higher value possible?*/, GameWorld.Instance.State.Player.ID));
                 }
 
                 mission.CivilianCount = 0;
@@ -98,11 +97,10 @@ namespace KonySim
                 //Mission stuff.
                 GameWorld.Instance.State.Player.Funds += (int)((float)(mission.CivilianCount + mission.AnimalCount * 200) * ((float)r.Next(5, 16) / 100) * powerDifference);
                 GameWorld.Instance.State.Player.Score += (int)((float)(mission.CivilianCount + mission.AnimalCount * 200) * powerDifference);
-                
+
                 mission.CivilianCount = mission.CivilianCount - (int)((float)mission.CivilianCount * powerDifference);
                 mission.AnimalCount = mission.AnimalCount - (int)((float)mission.AnimalCount * powerDifference);
             }
-
 
             ///*
             /// Saving the data to database. We are assuming the soldiers in the fight were contained in GameState.Soldiers.

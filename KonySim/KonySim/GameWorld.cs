@@ -53,10 +53,6 @@ namespace KonySim
 
         private GameWorld()
         {
-            //Initialize game and create GameState object
-            new GameInitializer(this, new Random()).Start();
-            state = new GameState();
-
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
         }
@@ -75,6 +71,10 @@ namespace KonySim
         /// </summary>
         protected override void Initialize()
         {
+            //Initialize game and create GameState object
+            new GameInitializer(this, new Random()).Start();
+            state = new GameState();
+
             // TODO: Add your initialization logic here
             //Creating the generator.
             //main = new MainMenu();
@@ -120,16 +120,6 @@ namespace KonySim
             //mwManager.GotoMission(new Db.Mission { AnimalCount = 5, ChildCount = 10, CivilianCount = 25, DefenseMultiplier = 1 });
 
             base.Initialize();
-        }
-
-        public void CreateGo(Vector2 position)
-        {
-            GameObject go = new GameObject();
-            go.AddComponent(new Transform(position));
-            go.AddComponent(new SpriteRender("Sprites/play", 0));
-            go.AddComponent(new MouseDetector());
-            go.AddComponent(new DragAndDrop());
-            objectsToAdd.Add(go);
         }
 
         /// <summary>

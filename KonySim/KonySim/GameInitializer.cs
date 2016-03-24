@@ -42,7 +42,7 @@ namespace KonySim
                 //Initial soliders
                 for (int i = 0; i < 5; i++)
                 {
-                    var s = Generator.NewChildForDB(0);
+                    var s = Generator.NewChildForDB(0, playerId);
                     con.InsertRow(s);
                 }
 
