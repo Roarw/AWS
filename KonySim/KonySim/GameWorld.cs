@@ -116,7 +116,6 @@ namespace KonySim
 
             //mwManager.GotoWorldmap(new List<Db.Mission>());
             mwManager.GotoMission(new Db.Mission { AnimalCount = 5, ChildCount = 10, CivilianCount = 25, DefenseMultiplier = 1 });
-            
 
             base.Initialize();
         }
@@ -172,10 +171,11 @@ namespace KonySim
                 if (go.Deleted)
                 {
                     objectsToRemove.Add(go);
-                    return;
                 }
-
-                go.Update(deltaTime);
+                else
+                {
+                    go.Update(deltaTime);
+                }
             }
 
             //Objectstoadd needs to be put in a temporary list for this foreach because calling LoadContent might create new objects (Thus modifying the original collection)
