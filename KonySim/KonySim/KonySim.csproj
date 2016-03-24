@@ -99,7 +99,6 @@
     <Compile Include="UIList.cs" />
     <Compile Include="ListScroller.cs" />
     <Compile Include="Utils.cs" />
-    <Compile Include="WorldMap.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">

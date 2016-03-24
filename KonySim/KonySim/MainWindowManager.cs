@@ -8,14 +8,14 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace KonySim
 {
-    class MainWindowManager : Component, ILoadContent
+    internal class MainWindowManager : Component, ILoadContent
     {
         private ContentManager content;
 
         public void LoadContent(ContentManager content)
         {
             this.content = content;
-            
+
             GameObject leftFrame = UIBuilders.CreateImageWOffset("Sprites/listFrame", new Vector2(0, 80), 0, 0, 635, 0, 0);
             GameObject topFrame = UIBuilders.CreateImageWOffset("Sprites/listFrame", new Vector2(5, 80), 0, 0, 10, 0, 970);
             GameObject bottomFrame = UIBuilders.CreateImageWOffset("Sprites/listFrame", new Vector2(5, 705), 0, 0, 10, 0, 970);
@@ -86,9 +86,9 @@ namespace KonySim
 
             GameObject go = new GameObject();
             go.AddComponent(new Transform(Vector2.Zero));
-            go.AddComponent(new TextRenderer(weapon.Name, Color.Black, 0.3f));
+            go.AddComponent(new TextRenderer(weapon.Name, Color.Black, 0.4f, new Vector2(10, 50), "Fonts/smallIconFont"));
             go.AddComponent(new SpriteRender("WeaponSprites/wepRamme", 0.3f, weaponList.Bounds));
-            go.AddComponent(new SpriteRender(picName, 0.4f, weaponList.Bounds, new Vector2(8, 9)));
+            go.AddComponent(new SpriteRender(picName, 0.4f, weaponList.Bounds, new Vector2(10, 9)));
             go.AddComponent(new MouseDetector());
             var btn = new Button();
             btn.OnClick += (sender, e) =>

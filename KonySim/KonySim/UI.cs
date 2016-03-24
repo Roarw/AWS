@@ -15,7 +15,6 @@ namespace KonySim
 
         private int statStart = 50;
         private int statDist = 220;
-        
 
         public void LoadContent(ContentManager content)
         {
@@ -26,7 +25,7 @@ namespace KonySim
             GameObject iWar = UIBuilders.CreateImage("Sprites/Icon_Warrior", new Vector2(statStart + statDist * 0, 20));
             GameObject iSyr = UIBuilders.CreateImage("Sprites/Icon_Syringe", new Vector2(statStart + statDist * 1, 20));
             GameObject iCrack = UIBuilders.CreateImage("Sprites/Icon_Crack", new Vector2(statStart + statDist * 2, 20));
-            
+
             GameWorld.Instance.AddObject(iWar);
             GameWorld.Instance.AddObject(iSyr);
             GameWorld.Instance.AddObject(iCrack);

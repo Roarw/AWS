@@ -47,16 +47,17 @@ namespace KonySim
                 }
 
                 //Mission setup
-                for (int i = 0; i < 10; i++)
+                for (int i = 0; i < 16; i++)
                 {
-                    var m = new Db.Mission
+                    /*var m = new Db.Mission
                     {
                         Completed = false,
                         AnimalCount = random.Next(3, 20),
                         CivilianCount = random.Next(1, 100),
                         ChildCount = random.Next(1, 30),
                         DefenseMultiplier = random.Next(1, 4),
-                    };
+                    };*/
+                    var m = Generator.NewMissionForDB(random.Next(1, 20), random.Next(2) == 0);
 
                     con.InsertRow(m);
                 }
