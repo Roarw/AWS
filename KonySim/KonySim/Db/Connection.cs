@@ -192,7 +192,7 @@ namespace KonySim.Db
             }
         }
 
-        public void DeleteRow<T>(int id)
+        public void DeleteRow<T>(int id) where T : TableRow, new()
         {
             using (var cmd = new SQLiteCommand("DELETE FROM " + typeof(T).Name + " WHERE ID = " + id, con))
             {
@@ -200,7 +200,7 @@ namespace KonySim.Db
             }
         }
 
-        public void DeleteAllRows<T>()
+        public void DeleteAllRows<T>() where T : TableRow, new()
         {
             using (var cmd = new SQLiteCommand("DELETE FROM " + typeof(T).Name, con))
             {
