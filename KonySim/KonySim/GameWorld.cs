@@ -86,7 +86,7 @@ namespace KonySim
             //Setting graphics.
             graphics.PreferredBackBufferWidth = 1280;
             graphics.PreferredBackBufferHeight = 720;
-            Window.Position = new Point(-10, 0);
+            Window.Position = new Point(0, 0);
             graphics.ApplyChanges();
 
             widthMulti = (float)Window.ClientBounds.Width / (float)graphics.PreferredBackBufferWidth;
@@ -107,9 +107,14 @@ namespace KonySim
             go.AddComponent(dnd);
             objectsToAdd.Add(go);
 
+            GameObject mwManager = new GameObject();
+            mwManager.AddComponent(new MainWindowManager());
+            objectsToAdd.Add(mwManager);
+
             var uiGo = new GameObject();
             uiGo.AddComponent(new UI());
             objectsToAdd.Add(uiGo);
+            
 
             /*var fufugo = new GameObject(this);
             fufugo.AddComponent(new SpriteRender("Sprites/GO", 0));
@@ -121,7 +126,7 @@ namespace KonySim
             AddObject(fufugo);*/
 
             var mission = new GameObject();
-            mission.AddComponent(new MissionScreen(new Db.Mission { AnimalCount = 5, ChildCount = 10, CivilianCount = 20, DefenseMultiplier = 1, XpReward = 21312, FundsReward = 555555 }));
+            mission.AddComponent(new MissionScreen(new Db.Mission { AnimalCount = 5, ChildCount = 10, CivilianCount = 20, DefenseMultiplier = 1 }));
             AddObject(mission);
 
             base.Initialize();
