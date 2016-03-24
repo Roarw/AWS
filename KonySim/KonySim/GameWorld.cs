@@ -16,8 +16,6 @@ namespace KonySim
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
 
-        private MainMenu main;
-
         private float widthMulti;
         private float heightMulti;
 
@@ -107,14 +105,15 @@ namespace KonySim
             go.AddComponent(dnd);
             objectsToAdd.Add(go);
 
-            GameObject mwManager = new GameObject();
-            mwManager.AddComponent(new MainWindowManager());
-            objectsToAdd.Add(mwManager);
+            GameObject mwGo = new GameObject();
+            MainWindowManager mwManager = new MainWindowManager();
+            mwGo.AddComponent(mwManager);
+            objectsToAdd.Add(mwGo);
 
             var uiGo = new GameObject();
             uiGo.AddComponent(new UI());
             objectsToAdd.Add(uiGo);
-            
+
 
             /*var fufugo = new GameObject(this);
             fufugo.AddComponent(new SpriteRender("Sprites/GO", 0));
@@ -125,9 +124,7 @@ namespace KonySim
             fufugo.AddComponent(new Transform(new Vector2(50, 100)));
             AddObject(fufugo);*/
 
-            var mission = new GameObject();
-            mission.AddComponent(new MissionScreen(new Db.Mission { AnimalCount = 5, ChildCount = 10, CivilianCount = 20, DefenseMultiplier = 1 }));
-            AddObject(mission);
+            mwManager.GotoMission(new Db.Mission { AnimalCount = 5, ChildCount = 10, CivilianCount = 25, DefenseMultiplier = 1 });
 
             base.Initialize();
         }

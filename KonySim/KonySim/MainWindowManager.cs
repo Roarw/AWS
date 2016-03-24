@@ -49,7 +49,9 @@ namespace KonySim
 
         public void GotoMission(Db.Mission mission)
         {
-
+            var go = new GameObject();
+            go.AddComponent(new MissionScreen(mission));
+            GameWorld.Instance.AddObject(go);
         }
 
         public void GotoShop(Db.WeaponShop weaponShop)
