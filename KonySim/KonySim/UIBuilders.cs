@@ -18,11 +18,11 @@ namespace KonySim
         }
 
         //Creating an image with offset.
-        public static GameObject CreateImageWOffset(string sprite, Vector2 position, int yTopOffset, int yBottomOffset)
+        public static GameObject CreateImageWOffset(string sprite, Vector2 position, float depth, int yTopOffset, int yBottomOffset)
         {
             GameObject go = new GameObject();
             go.AddComponent(new Transform(position));
-            go.AddComponent(new SpriteRender(sprite, 0, yTopOffset, yBottomOffset));
+            go.AddComponent(new SpriteRender(sprite, depth, yTopOffset, yBottomOffset));
             return go;
         }
 

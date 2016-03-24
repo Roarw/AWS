@@ -53,7 +53,7 @@ namespace KonySim
             for (int i = 0; i < slotCount; i++)
             {
                 var slot = new GameObject();
-                slot.AddComponent(new Transform(new Vector2(10 + i * 128, 400)));
+                slot.AddComponent(new Transform(new Vector2(400 + i * 128, 400)));
                 slot.AddComponent(new SpriteRender("Sprites/SoldierSlot", 0.1f));
                 slot.AddComponent(new SoldierSlot(this, i));
                 slot.AddComponent(new TextRenderer("", Color.Red, 0.4f));
@@ -69,9 +69,9 @@ namespace KonySim
                 GameWorld.Instance.AddObject(slot);
             }
 
-            Text("Animals " + mission.AnimalCount, 10, 150);
-            Text("Civilians " + mission.CivilianCount, 10, 200);
-            Text("Children " + mission.ChildCount, 10, 250);
+            Text("Animals " + mission.AnimalCount, 400, 150);
+            Text("Civilians " + mission.CivilianCount, 400, 200);
+            Text("Children " + mission.ChildCount, 400, 250);
         }
 
         public void SetSoldier(int slot, Db.Soldier s)

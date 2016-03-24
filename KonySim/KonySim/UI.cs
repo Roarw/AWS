@@ -15,6 +15,7 @@ namespace KonySim
         private List<GameObject> uiObjects;
         private SpriteFont iconFont;
         private UIList childrenList;
+        private GameObject childrenListGO;
 
         private int statStart = 50;
         private int statDist = 220;
@@ -42,8 +43,10 @@ namespace KonySim
             iconFont = content.Load<SpriteFont>("Fonts/IconFont");
 
             //Children list.
-            childrenList = new UIList(new Vector2(980, 0), 720);
-            childrenList.LoadContent(content);
+            childrenListGO = new GameObject();
+            childrenList = new UIList(new Vector2(980, 0), 720, 0);
+            childrenListGO.AddComponent(childrenList);
+            childrenListGO.LoadContent(content);
 
             Rectangle bounds = childrenList.Bounds;
 
@@ -55,7 +58,10 @@ namespace KonySim
 
         public void Update(float deltaTime)
         {
-            childrenList.Update(deltaTime);
+            foreach (GameObject go in uiObjects)
+            {
+                go.Update(deltaTime);
+            }
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -65,7 +71,7 @@ namespace KonySim
             spriteBatch.DrawString(iconFont, "100", new Vector2(60 + statStart + statDist * 1, 20), Color.White);
             spriteBatch.DrawString(iconFont, player.Funds.ToString(), new Vector2(60 + statStart + statDist * 2, 20), Color.White);
 
-            childrenList.Draw(spriteBatch);
+            childrenListGO.Draw(spriteBatch);
         }
 
         //Creating a child card.
