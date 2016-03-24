@@ -138,14 +138,12 @@ namespace KonySim
 
             objectsToAdd.Add(go);
 
-<<<<<<< HEAD
             //shop test
             shop = new Shop();
-=======
             GameObject mwManager = new GameObject(this);
             mwManager.AddComponent(new MainWindowManager());
             objectsToAdd.Add(mwManager);
->>>>>>> origin/master
+
 
             var uiGo = new GameObject(this);
             uiGo.AddComponent(new UI());
@@ -167,10 +165,6 @@ namespace KonySim
             AddObject(mission);
 
 
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/master
             base.Initialize();
         }
 
@@ -189,12 +183,10 @@ namespace KonySim
             go.AddComponent(new SpriteRender("Sprites/play", 0));
             go.AddComponent(new MouseDetector());
             go.AddComponent(new DragAndDrop());
-<<<<<<< HEAD
-            objects.Add(go);
 
-=======
+            objects.Add(go);
             objectsToAdd.Add(go);
->>>>>>> origin/master
+
         }
 
         /// <summary>

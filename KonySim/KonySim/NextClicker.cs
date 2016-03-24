@@ -52,6 +52,8 @@ namespace KonySim
             {
                 go.LoadContent(content);
             }
+
+
         }
 
         public void Update(float deltaTime)
@@ -103,8 +105,19 @@ namespace KonySim
         {
             GameObject go = new GameObject();
             go.AddComponent(new Transform(position));
-            go.AddComponent(new SpriteRender(sprite, 0.5f));
+            go.AddComponent(new SpriteRender(sprite, 1f));
             return go;
         }
+
+        private GameObject Weapon(Db.Weapon wpn)
+        {
+            GameObject go = new GameObject();
+            go.AddComponent(new Transform(position));
+            go.AddComponent(new SpriteRender("Sprites/Weapon" + wpn.ID, 0.5f));
+            go.AddComponent(new TextRenderer(wpn.Name, Color.White, 1f));
+            go.AddComponent(new TextRenderer(wpn.Damage.ToString(), Color.White, 1f));
+            return go;
+        }
+
     }
 }

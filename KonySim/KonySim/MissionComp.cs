@@ -17,8 +17,8 @@ namespace KonySim
             mission.CivilianCount = CivilianCount;
             mission.ChildCount = ChildCount;
             mission.DefenseMultiplier = DefenseMultiplier;
-            mission.XpReward = XpReward;
-            mission.FundsReward = FundsReward;
+            //mission.XpReward = XpReward;
+            //mission.FundsReward = FundsReward;
         }
 
         public void Draw(SpriteBatch spriteBatch)
