@@ -10,7 +10,7 @@ namespace KonySim
     internal class Generator
     {
         private static string[] childNames = new string[] { "Luim", "Aap", "Swart", "Poef", "Speeksel", "Lelike", "Adebowale", "Ayodele", "Dubaku", "Oog", "Boemelaar", "Jabari", "Imamu", "John", "Mugabe" };
-        private static string[] weaponNames = new string[] { "Gun" };
+        private static string[] weaponNames = new string[] { "Machine pistol", "Submachine gun", "Assault rifle", "Shotgun", "Rocket launcher" };
         private static Random random = new Random();
 
         public static Soldier NewChildForDB(int exp, int playerId)
@@ -29,9 +29,10 @@ namespace KonySim
         public static Weapon NewWeaponForDB(int missionsCompleted)
         {
             Weapon weapon = new Weapon();
-            weapon.Name = weaponNames[random.Next(weaponNames.Length)];
-            weapon.Damage = 10 + random.Next(missionsCompleted, (int)((float)missionsCompleted * 1.5f));
-            weapon.PortraitIndex = random.Next(1, 6 /*This value is the amount of child pictures + 1*/);
+            int wep = random.Next(weaponNames.Length);
+            weapon.Name = weaponNames[wep];
+            weapon.Damage = 10 + (10 * wep) + random.Next(0, wep * 8) + random.Next(missionsCompleted, (int)(missionsCompleted * 1.5f));
+            weapon.PortraitIndex = wep;
 
             return weapon;
         }
