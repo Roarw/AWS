@@ -98,6 +98,7 @@ namespace KonySim
             GameObject mwGo = new GameObject();
             MainWindowManager mwManager = new MainWindowManager();
             mwGo.AddComponent(mwManager);
+            mwGo.LoadContent(Content);
             objectsToAdd.Add(mwGo);
 
             var uiGo = new GameObject();
@@ -115,6 +116,7 @@ namespace KonySim
 
             //mwManager.GotoWorldmap(new List<Db.Mission>());
             mwManager.GotoMission(new Db.Mission { AnimalCount = 5, ChildCount = 10, CivilianCount = 25, DefenseMultiplier = 1 });
+            
 
             base.Initialize();
         }
