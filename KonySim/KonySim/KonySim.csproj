@@ -221,6 +221,9 @@
     <Content Include="Content\Sprites\play.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\Sprites\StartMissionButton.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\Sprites\WeaponShop.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

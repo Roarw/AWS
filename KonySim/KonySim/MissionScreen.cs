@@ -71,6 +71,17 @@ namespace KonySim
                 GameObject.OnDeleted += (sender, e) => { slot.Delete(); };
             }
 
+            var startBtnGo = new GameObject();
+            startBtnGo.AddComponent(new Transform(new Vector2(400, 600)));
+            startBtnGo.AddComponent(new SpriteRender("Sprites/StartMissionButton", 0.4f));
+            startBtnGo.AddComponent(new MouseDetector());
+            var btn = new Button();
+            btn.OnClick += (sender, e) => { /* TODO START BATTLE HERE */ };
+            startBtnGo.AddComponent(btn);
+
+            GameWorld.Instance.AddObject(startBtnGo);
+            GameObject.OnDeleted += (sender, e) => { startBtnGo.Delete(); };
+
             Text("Animals " + mission.AnimalCount, 400, 150);
             Text("Civilians " + mission.CivilianCount, 400, 200);
             Text("Children " + mission.ChildCount, 400, 250);
@@ -125,6 +136,7 @@ namespace KonySim
             f.AddComponent(new Transform(new Vector2(x, y)));
             f.AddComponent(new TextRenderer(t, Color.Black, 0.1f));
             GameWorld.Instance.AddObject(f);
+            GameObject.OnDeleted += (sender, e) => { f.Delete(); };
         }
     }
 }
