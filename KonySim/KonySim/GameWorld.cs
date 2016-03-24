@@ -95,37 +95,6 @@ namespace KonySim
 
             this.IsMouseVisible = true;
 
-
-            CreateGo(Vector2.Zero);
-            CreateGo(new Vector2(100, 400));
-            var map = new GameObject(this);
-            map.AddComponent(new Transform(new Vector2(0, 90)));
-            map.AddComponent(new SpriteRender("Sprites/map",0));
-            AddObject(map);
-
-            var mis2 = new GameObject(this);
-            mis2.AddComponent(new Transform(new Vector2(630, 200)));
-            mis2.AddComponent(new SpriteRender("Sprites/huse", 1));
-            mis2.AddComponent(new MouseDetector());
-            mis2.AddComponent(new WorldMap(mis2));
-            mis2.AddComponent(new MissionComp(5,5,5,5,5,5));
-            AddObject(mis2);
-
-            var mis1 = new GameObject(this);
-            mis1.AddComponent(new Transform(new Vector2(610, 400)));
-            mis1.AddComponent(new SpriteRender("Sprites/huse", 1));
-            mis1.AddComponent(new MouseDetector());
-            mis1.AddComponent(new WorldMap(mis1));
-            mis1.AddComponent(new MissionComp(5, 5, 5, 5, 5, 5));
-            AddObject(mis1);
-            var Weapon = new GameObject(this);
-            Weapon.AddComponent(new Transform(new Vector2(150, 500)));
-            Weapon.AddComponent(new SpriteRender("sprites/weaponshop", 1));
-            AddObject(Weapon);
-            
-            
-
-
             var go = new GameObject();
             go.AddComponent(new Transform(Vector2.Zero));
             go.AddComponent(new SpriteRender("Sprites/play", 0));
@@ -154,14 +123,15 @@ namespace KonySim
             fufugo.AddComponent(new Transform(new Vector2(50, 100)));
             AddObject(fufugo);*/
 
-            mwManager.GotoMission(new Db.Mission { AnimalCount = 5, ChildCount = 10, CivilianCount = 25, DefenseMultiplier = 1 });
+            mwManager.GotoWorldmap(new List<Db.Mission>());
+            //mwManager.GotoMission(new Db.Mission { AnimalCount = 5, ChildCount = 10, CivilianCount = 25, DefenseMultiplier = 1 });
 
 
 
             base.Initialize();
         }
 
-        private void CreateGo(Vector2 position)
+        public void CreateGo(Vector2 position)
         {
             GameObject go = new GameObject();
             go.AddComponent(new Transform(position));
