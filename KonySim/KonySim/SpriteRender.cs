@@ -33,6 +33,7 @@ namespace KonySim
             this.spriteName = spriteName;
             this.depth = depth;
         }
+
         //^
         public SpriteRender(string spriteName, float depth, Color color) : this(spriteName, depth)
         {
@@ -46,6 +47,7 @@ namespace KonySim
             this.yTopOffset = yTopOffset;
             this.yBottomOffset = yBottomOffset;
         }
+
         //^
         public SpriteRender(string spriteName, float depth, int yTopOffset, int yBottomOffset, int xRightOffset, int xLeftOffset) : this(spriteName, depth, yTopOffset, yBottomOffset)
         {
@@ -76,7 +78,7 @@ namespace KonySim
         public void LoadContent(ContentManager content)
         {
             this.Sprite = content.Load<Texture2D>(spriteName);
-            this.Rectangle = new Rectangle(0 + xRightOffset, 0 + yTopOffset, sprite.Width + xLeftOffset, sprite.Height + yBottomOffset);
+            this.Rectangle = new Rectangle(0 + xRightOffset, 0 + yTopOffset, Sprite.Width + xLeftOffset, Sprite.Height + yBottomOffset);
             this.transform = GameObject.GetComponent<Transform>();
         }
 
