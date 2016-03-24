@@ -64,11 +64,12 @@ namespace KonySim
                 //Getting new children.
                 for (int i = 0; i < mission.ChildCount; i++)
                 {
-                    GameWorld.Instance.State.Soldiers.Add(Generator.NewChildForDB(0 /*A higher value possible?*/));
+                    GameWorld.Instance.State.Soldiers.Add(Generator.NewChildForDB(0));
                 }
 
                 mission.CivilianCount = 0;
                 mission.AnimalCount = 0;
+                mission.ChildCount = 0;
                 mission.Completed = true;
             }
 

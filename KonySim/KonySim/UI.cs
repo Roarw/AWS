@@ -54,8 +54,8 @@ namespace KonySim
         public void Draw(SpriteBatch spriteBatch)
         {
             var player = GameWorld.Instance.State.Player;
-            spriteBatch.DrawString(iconFont, player.Buffs.ToString(), new Vector2(60 + statStart, 20), Color.White);
-            spriteBatch.DrawString(iconFont, "100", new Vector2(60 + statStart + statDist * 1, 20), Color.White);
+            spriteBatch.DrawString(iconFont, GameWorld.Instance.State.Soldiers.Count + "", new Vector2(60 + statStart, 20), Color.White);
+            spriteBatch.DrawString(iconFont, player.Buffs.ToString(), new Vector2(60 + statStart + statDist * 1, 20), Color.White);
             spriteBatch.DrawString(iconFont, player.Funds.ToString(), new Vector2(60 + statStart + statDist * 2, 20), Color.White);
         }
 
