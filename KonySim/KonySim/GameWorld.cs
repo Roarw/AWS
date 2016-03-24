@@ -16,8 +16,6 @@ namespace KonySim
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
 
-        private MainMenu main;
-
         private float widthMulti;
         private float heightMulti;
 
@@ -30,6 +28,7 @@ namespace KonySim
         private List<GameObject> objectsToAdd = new List<GameObject>();
 
         private float deltaTime;
+
 
         public float WidthMulti { get { return widthMulti; } }
         public float HeightMulti { get { return heightMulti; } }
@@ -49,6 +48,7 @@ namespace KonySim
                 return instance;
             }
         }
+
 
         private GameWorld()
         {
@@ -80,13 +80,14 @@ namespace KonySim
         /// </summary>
         protected override void Initialize()
         {
+            
             // TODO: Add your initialization logic here
             //Creating the generator.
             //main = new MainMenu();
             //Setting graphics.
             graphics.PreferredBackBufferWidth = 1280;
             graphics.PreferredBackBufferHeight = 720;
-            Window.Position = new Point(-10, 0);
+            Window.Position = new Point(0, 0);
             graphics.ApplyChanges();
 
             widthMulti = (float)Window.ClientBounds.Width / (float)graphics.PreferredBackBufferWidth;
@@ -94,22 +95,24 @@ namespace KonySim
 
             this.IsMouseVisible = true;
 
-            //Managing GameObjects.
-
-            //CreateGo(Vector2.Zero);
-            //CreateGo(new Vector2(100, 400));
-
             var go = new GameObject();
             go.AddComponent(new Transform(Vector2.Zero));
-            go.AddComponent(new SpriteRender("Sprites/GO", 0));
+            go.AddComponent(new SpriteRender("Sprites/play", 0));
             var dnd = new DragAndDropAlt(new Vector2(20, 20));
             //dnd.Released += (sender, e) => { Exit(); };
             go.AddComponent(dnd);
+
             objectsToAdd.Add(go);
+
+            GameObject mwGo = new GameObject();
+            MainWindowManager mwManager = new MainWindowManager();
+            mwGo.AddComponent(mwManager);
+            objectsToAdd.Add(mwGo);
 
             var uiGo = new GameObject();
             uiGo.AddComponent(new UI());
             objectsToAdd.Add(uiGo);
+
 
             /*var fufugo = new GameObject(this);
             fufugo.AddComponent(new SpriteRender("Sprites/GO", 0));
@@ -120,21 +123,22 @@ namespace KonySim
             fufugo.AddComponent(new Transform(new Vector2(50, 100)));
             AddObject(fufugo);*/
 
-            var mission = new GameObject();
-            mission.AddComponent(new MissionScreen(new Db.Mission { AnimalCount = 5, ChildCount = 10, CivilianCount = 20, DefenseMultiplier = 1, XpReward = 21312, FundsReward = 555555 }));
-            AddObject(mission);
+            //mwManager.GotoWorldmap(new List<Db.Mission>());
+            mwManager.GotoMission(new Db.Mission { AnimalCount = 5, ChildCount = 10, CivilianCount = 25, DefenseMultiplier = 1 });
+
+
 
             base.Initialize();
         }
 
-        private void CreateGo(Vector2 position)
+        public void CreateGo(Vector2 position)
         {
             GameObject go = new GameObject();
             go.AddComponent(new Transform(position));
-            go.AddComponent(new SpriteRender("Sprites/GO.png", 0));
+            go.AddComponent(new SpriteRender("Sprites/play", 0));
             go.AddComponent(new MouseDetector());
             go.AddComponent(new DragAndDrop());
-            objects.Add(go);
+            objectsToAdd.Add(go);
         }
 
         /// <summary>
@@ -204,7 +208,7 @@ namespace KonySim
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Peru);
-
+           
             // TODO: Add your drawing code here
             spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, null, null, null, null, null);
 

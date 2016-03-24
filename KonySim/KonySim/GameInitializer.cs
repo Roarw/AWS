@@ -57,8 +57,6 @@ namespace KonySim
                         ChildCount = random.Next(1, 30),
                         DefenseMultiplier = random.Next(1, 4),
                     };
-                    m.XpReward = (m.CivilianCount + m.ChildCount + m.AnimalCount) * m.DefenseMultiplier;
-                    m.FundsReward = (m.CivilianCount + m.AnimalCount) * m.DefenseMultiplier;
 
                     con.InsertRow(m);
                 }

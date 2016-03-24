@@ -60,6 +60,7 @@
     <Compile Include="DragAndDrop.cs" />
     <Compile Include="FightCalculator.cs" />
     <Compile Include="GameInitializer.cs" />
+    <Compile Include="MissionComp.cs" />
     <Compile Include="GameState.cs" />
     <Compile Include="Component.cs" />
     <Compile Include="Db\Connection.cs" />
@@ -80,9 +81,12 @@
     <Compile Include="ILoadcontent.cs" />
     <Compile Include="IMouseDetection.cs" />
     <Compile Include="IUpdate.cs" />
+    <Compile Include="MainWindowManager.cs" />
     <Compile Include="MissionScreen.cs" />
     <Compile Include="MainMenu.cs" />
     <Compile Include="MouseDetector.cs" />
+    <Compile Include="NextButton.cs" />
+    <Compile Include="NextClicker.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SoldierSlot.cs" />
@@ -90,8 +94,10 @@
     <Compile Include="SpriteRender.cs" />
     <Compile Include="Transform.cs" />
     <Compile Include="UI.cs" />
+    <Compile Include="UIBuilders.cs" />
     <Compile Include="UIList.cs" />
     <Compile Include="ListScroller.cs" />
+    <Compile Include="WorldMap.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
@@ -152,7 +158,10 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Sprites\BackButton.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Sprites\BackGround.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Sprites\ChildSub.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -166,17 +175,25 @@
     <Content Include="Content\Sprites\goUp.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+
+    <Content Include="Content\Sprites\huse.png">
+<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\Sprites\GO.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Sprites\Icon_Crack.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Sprites\Icon_Syringe.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Sprites\Icon_Warrior.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Sprites\leftArrow.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Sprites\listBackground.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -184,8 +201,16 @@
     <Content Include="Content\Sprites\listFrame.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+
+    <Content Include="Content\Sprites\map.jpg">
+<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Sprites\rightArrow.png">
+
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\Sprites\SoldierSlot.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Sprites\menu.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -197,6 +222,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Sprites\play.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Sprites\WeaponShop.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Icon.ico" />
