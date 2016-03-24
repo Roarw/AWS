@@ -67,6 +67,8 @@ namespace KonySim
                 };
                 slot.AddComponent(button);
                 GameWorld.Instance.AddObject(slot);
+
+                GameObject.OnDeleted += (sender, e) => { slot.Delete(); };
             }
 
             Text("Animals " + mission.AnimalCount, 400, 150);

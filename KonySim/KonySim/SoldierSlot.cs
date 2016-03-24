@@ -48,6 +48,13 @@ namespace KonySim
             weaponTextGo.AddComponent(weaponText);
             GameWorld.Instance.AddObject(weaponTextGo);
 
+            GameObject.OnDeleted += (sender, e) =>
+            {
+                bgObj.Delete();
+                textGo.Delete();
+                weaponTextGo.Delete();
+            };
+
             startTexture = GameObject.GetComponent<SpriteRender>().Sprite;
         }
 
