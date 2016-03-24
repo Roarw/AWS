@@ -60,6 +60,7 @@
     <Compile Include="DragAndDrop.cs" />
     <Compile Include="FightCalculator.cs" />
     <Compile Include="GameInitializer.cs" />
+    <Compile Include="MissionComp.cs" />
     <Compile Include="GameState.cs" />
     <Compile Include="Component.cs" />
     <Compile Include="Db\Connection.cs" />
@@ -96,6 +97,7 @@
     <Compile Include="UIBuilders.cs" />
     <Compile Include="UIList.cs" />
     <Compile Include="ListScroller.cs" />
+    <Compile Include="WorldMap.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
@@ -173,7 +175,12 @@
     <Content Include="Content\Sprites\goUp.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+
+    <Content Include="Content\Sprites\huse.png">
+<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\Sprites\GO.png">
+
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Sprites\Icon_Crack.png">
@@ -194,7 +201,12 @@
     <Content Include="Content\Sprites\listFrame.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+
+    <Content Include="Content\Sprites\map.jpg">
+<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\Sprites\rightArrow.png">
+
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Sprites\SoldierSlot.png">
@@ -210,6 +222,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Sprites\play.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Sprites\WeaponShop.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Icon.ico" />
