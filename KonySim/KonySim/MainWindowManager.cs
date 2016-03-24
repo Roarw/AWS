@@ -16,12 +16,11 @@ namespace KonySim
         {
             frameList = new List<GameObject>();
 
-            frameList.Add(CreateImageOffset("Sprites/listFrame", new Vector2(0, 80), 0, 0, 625, 0, 0));
-            frameList.Add(CreateImageOffset("Sprites/listFrame", new Vector2(5, 80), 0, 0, 10, 0, 970));
-            frameList.Add(CreateImageOffset("Sprites/listFrame", new Vector2(5, 705), 0, 0, 10, 0, 970));
-            frameList.Add(CreateImageOffset("Sprites/BackGround", new Vector2(5, 95), 0, 0, 0, 0, 0));
-
-            frameList.Add(CreateImageOffset("Sprites/BackButton", new Vector2(5, 95), 1f, 0, 0, 0, 0));
+            frameList.Add(UIBuilders.CreateImageWOffset("Sprites/listFrame", new Vector2(0, 80), 0, 0, 635, 0, 0));
+            frameList.Add(UIBuilders.CreateImageWOffset("Sprites/listFrame", new Vector2(5, 80), 0, 0, 10, 0, 970));
+            frameList.Add(UIBuilders.CreateImageWOffset("Sprites/listFrame", new Vector2(5, 705), 0, 0, 10, 0, 970));
+            frameList.Add(UIBuilders.CreateImageWOffset("Sprites/BackGround", new Vector2(5, 95), 0, 0, 0, 0, 0));
+            frameList.Add(UIBuilders.CreateImageWOffset("Sprites/BackButton", new Vector2(5, 95), 1f, 0, 0, 0, 0));
         }
 
         public void LoadContent(ContentManager content)
@@ -66,15 +65,6 @@ namespace KonySim
         public void GotoWorldmap(List<Db.Mission> missions)
         {
 
-        }
-
-        //Creating an image with offset.
-        private GameObject CreateImageOffset(string sprite, Vector2 position, float depth, int yTopOffset, int yBottomOffset, int xRightOffset, int xLeftOffset)
-        {
-            GameObject go = new GameObject();
-            go.AddComponent(new Transform(position));
-            go.AddComponent(new SpriteRender(sprite, depth, yTopOffset, yBottomOffset, xRightOffset, xLeftOffset));
-            return go;
         }
     }
 }

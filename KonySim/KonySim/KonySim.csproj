@@ -93,6 +93,7 @@
     <Compile Include="SpriteRender.cs" />
     <Compile Include="Transform.cs" />
     <Compile Include="UI.cs" />
+    <Compile Include="UIBuilders.cs" />
     <Compile Include="UIList.cs" />
     <Compile Include="ListScroller.cs" />
   </ItemGroup>

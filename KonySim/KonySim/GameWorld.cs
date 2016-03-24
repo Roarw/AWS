@@ -84,7 +84,7 @@ namespace KonySim
             //Setting graphics.
             graphics.PreferredBackBufferWidth = 1280;
             graphics.PreferredBackBufferHeight = 720;
-            Window.Position = new Point(-10, 0);
+            Window.Position = new Point(0, 0);
             graphics.ApplyChanges();
 
             widthMulti = (float)Window.ClientBounds.Width / (float)graphics.PreferredBackBufferWidth;
