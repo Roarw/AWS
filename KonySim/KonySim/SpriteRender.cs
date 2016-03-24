@@ -21,7 +21,7 @@ namespace KonySim
         private Vector2 imageOffset = Vector2.Zero;
         private bool checkBounds = false;
 
-        private Texture2D sprite;
+        public Texture2D Sprite { get; set; }
         private Transform transform;
 
         public Rectangle Rectangle { get; set; }
@@ -62,14 +62,9 @@ namespace KonySim
 
         public void LoadContent(ContentManager content)
         {
-            this.sprite = content.Load<Texture2D>(spriteName);
-            this.Rectangle = new Rectangle(0, 0 + yTopOffset, sprite.Width, sprite.Height + yBottomOffset);
+            this.Sprite = content.Load<Texture2D>(spriteName);
+            this.Rectangle = new Rectangle(0, 0 + yTopOffset, Sprite.Width, Sprite.Height + yBottomOffset);
             this.transform = GameObject.GetComponent<Transform>();
-        }
-
-        public void SetSprite(Texture2D sprite)
-        {
-            this.sprite = sprite;
         }
 
         public void SetColor(Color color)
@@ -89,19 +84,19 @@ namespace KonySim
                     y1 = bounds.Top - transform.Position.Y;
                     y2 = -(bounds.Top - transform.Position.Y);
                 }
-                if (transform.Position.Y + sprite.Height > bounds.Bottom)
+                if (transform.Position.Y + Sprite.Height > bounds.Bottom)
                 {
-                    y2 = bounds.Bottom - (transform.Position.Y + sprite.Height);
+                    y2 = bounds.Bottom - (transform.Position.Y + Sprite.Height);
                 }
 
-                Rectangle rect = new Rectangle(0, 0 + (int)y1, sprite.Width, sprite.Height + (int)y2);
+                Rectangle rect = new Rectangle(0, 0 + (int)y1, Sprite.Width, Sprite.Height + (int)y2);
                 Vector2 pos = new Vector2(transform.Position.X + imageOffset.X, transform.Position.Y + y1 + imageOffset.Y);
 
-                spriteBatch.Draw(sprite, pos, rect, color, 0, Vector2.Zero, Vector2.One, SpriteEffects.None, depth);
+                spriteBatch.Draw(Sprite, pos, rect, color, 0, Vector2.Zero, Vector2.One, SpriteEffects.None, depth);
             }
             else
             {
-                spriteBatch.Draw(sprite, transform.Position, Rectangle, color, 0, Vector2.Zero, Vector2.One, SpriteEffects.None, depth);
+                spriteBatch.Draw(Sprite, transform.Position, Rectangle, color, 0, Vector2.Zero, Vector2.One, SpriteEffects.None, depth);
             }
         }
     }
