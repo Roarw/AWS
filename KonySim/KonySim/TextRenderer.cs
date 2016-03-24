@@ -15,17 +15,23 @@ namespace KonySim
         private float depth;
         private string fontPath;
         private SpriteFont font;
+        private Vector2 offset;
 
         private Transform transform;
 
         public string Text { get { return text; } set { text = value; } }
 
-        public TextRenderer(string text, Color color, float depth, string fontPath = "Fonts/iconFont") : base()
+        public TextRenderer(string text, Color color, float depth, Vector2 offset, string fontPath = "Fonts/iconFont") : base()
         {
             this.text = text;
             this.color = color;
             this.depth = depth;
             this.fontPath = fontPath;
+            this.offset = offset;
+        }
+
+        public TextRenderer(string text, Color color, float depth, string fontPath = "Fonts/iconFont") : this(text, color, depth, Vector2.Zero, fontPath)
+        {
         }
 
         public void LoadContent(ContentManager content)
@@ -36,7 +42,7 @@ namespace KonySim
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.DrawString(font, text, transform.Position, color, 0, Vector2.Zero, 1, SpriteEffects.None, depth);
+            spriteBatch.DrawString(font, text, transform.Position + offset, color, 0, Vector2.Zero, 1, SpriteEffects.None, depth);
         }
     }
 }
