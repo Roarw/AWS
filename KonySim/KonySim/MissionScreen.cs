@@ -76,6 +76,10 @@ namespace KonySim
             startBtnGo.AddComponent(new SpriteRender("Sprites/StartMissionButton", 0.4f));
             startBtnGo.AddComponent(new MouseDetector());
 
+            GameObject f1 = Text("Animals " + mission.AnimalCount, 400, 150);
+            GameObject f2 = Text("Civilians " + mission.CivilianCount, 400, 200);
+            GameObject f3 = Text("Children " + mission.ChildCount, 400, 250);
+
             var btn = new Button();
             btn.OnClick += (sender, e) => {
                 if (!mission.Completed)
@@ -83,6 +87,10 @@ namespace KonySim
                     using (Db.Connection con = new Db.Connection())
                     {
                         FightCalculator.MissionFight(con, soldiers, weapons, mission);
+                        f1.Delete(); f2.Delete(); f3.Delete();
+                        f1 = Text("Animals " + mission.AnimalCount, 400, 150);
+                        f2 = Text("Civilians " + mission.CivilianCount, 400, 200);
+                        f3 = Text("Children " + mission.ChildCount, 400, 250);
                     }
                 }
             };
@@ -90,10 +98,6 @@ namespace KonySim
 
             GameWorld.Instance.AddObject(startBtnGo);
             GameObject.OnDeleted += (sender, e) => { startBtnGo.Delete(); };
-
-            Text("Animals " + mission.AnimalCount, 400, 150);
-            Text("Civilians " + mission.CivilianCount, 400, 200);
-            Text("Children " + mission.ChildCount, 400, 250);
         }
 
         public void SetSoldier(int slot, Db.Soldier s)
@@ -139,13 +143,15 @@ namespace KonySim
                 WeaponSet(this, new WeaponSetArgs(slot, w));
         }
 
-        private void Text(string t, float x, float y)
+        private GameObject Text(string t, float x, float y)
         {
             var f = new GameObject();
             f.AddComponent(new Transform(new Vector2(x, y)));
             f.AddComponent(new TextRenderer(t, Color.Black, 0.1f));
             GameWorld.Instance.AddObject(f);
             GameObject.OnDeleted += (sender, e) => { f.Delete(); };
+
+            return f;
         }
     }
 }

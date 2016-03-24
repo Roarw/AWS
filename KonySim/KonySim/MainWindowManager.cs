@@ -41,8 +41,16 @@ namespace KonySim
             go.AddComponent(new MissionScreen(mission));
             GameWorld.Instance.AddObject(go);
 
-            GameObject backBtn = UIBuilders.CreateImageWOffset("Sprites/BackButton", new Vector2(305, 95), 1f, 0, 0, 0, 0);
-            GameWorld.Instance.AddObject(backBtn);
+            GameObject backBtnGo = UIBuilders.CreateImageWOffset("Sprites/BackButton", new Vector2(305, 95), 1f, 0, 0, 0, 0);
+            GameWorld.Instance.AddObject(backBtnGo);
+            backBtnGo.AddComponent(new MouseDetector());
+            Button backBtn = new Button();
+            backBtnGo.AddComponent(backBtn);
+            backBtn.OnClick += (sender, e) =>
+            {
+                GotoWorldmap();
+                go.Delete();
+            };
 
             //Children list.
             GameObject weaponListGO = new GameObject();
@@ -61,7 +69,6 @@ namespace KonySim
                         var w = con.GetRow<Db.Weapon>(s.WeaponID);
                         var weaponCardGo = CreateWeaponCard(w, weaponList);
                         weaponList.AddItem(weaponCardGo, GameWorld.Instance.Content);
-                        GameWorld.Instance.AddObject(weaponCardGo);
                     }
                 }
             }
@@ -75,7 +82,7 @@ namespace KonySim
 
             go.OnDeleted += (sender, e) =>
             {
-                backBtn.Delete();
+                backBtnGo.Delete();
                 weaponListGO.Delete();
             };
         }

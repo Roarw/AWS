@@ -57,7 +57,7 @@ namespace KonySim
                         ChildCount = random.Next(1, 30),
                         DefenseMultiplier = random.Next(1, 4),
                     };*/
-                    var m = Generator.NewMissionForDB(random.Next(1, 20), random.Next(2) == 0);
+                    var m = Generator.NewMissionForDB(random.Next(1, 8), random.Next(2) == 0);
 
                     con.InsertRow(m);
                 }
