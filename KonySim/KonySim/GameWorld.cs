@@ -116,7 +116,6 @@ namespace KonySim
 
             //mwManager.GotoWorldmap(new List<Db.Mission>());
             mwManager.GotoMission(new Db.Mission { AnimalCount = 5, ChildCount = 10, CivilianCount = 25, DefenseMultiplier = 1 });
-            
 
             base.Initialize();
         }
@@ -173,7 +172,6 @@ namespace KonySim
                 {
                     objectsToRemove.Add(go);
                 }
-            
                 go.Update(deltaTime);
             }
 
