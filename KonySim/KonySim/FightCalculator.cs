@@ -105,6 +105,12 @@ namespace KonySim
                 mission.AnimalCount = mission.AnimalCount - (int)((float)mission.AnimalCount * powerDifference);
             }
 
+            var missionScreen = GameWorld.Instance.Objects.FirstOrDefault(a => a.GetComponent<MissionScreen>() != null);
+            if (missionScreen != null)
+            {
+                missionScreen.GetComponent<MissionScreen>().RefreshSlots();
+            }
+
             ///*
             /// Saving the data to database.
             /// */

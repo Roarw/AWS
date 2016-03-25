@@ -81,7 +81,8 @@ namespace KonySim
             GameObject f3 = Text("Children " + mission.ChildCount, 400, 250);
 
             var btn = new Button();
-            btn.OnClick += (sender, e) => {
+            btn.OnClick += (sender, e) =>
+            {
                 if (!mission.Completed)
                 {
                     using (Db.Connection con = new Db.Connection())
@@ -141,6 +142,19 @@ namespace KonySim
 
             if (WeaponSet != null)
                 WeaponSet(this, new WeaponSetArgs(slot, w));
+        }
+
+        public void RefreshSlots()
+        {
+            for (int i = 0; i < slotCount; i++)
+            {
+                var s = soldiers[i];
+                if (s != null && s.Health < 0)
+                {
+                    SetSoldier(i, null);
+                    SetWeapon(i, null);
+                }
+            }
         }
 
         private GameObject Text(string t, float x, float y)

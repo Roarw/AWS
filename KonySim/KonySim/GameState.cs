@@ -13,6 +13,8 @@ namespace KonySim
         private List<Db.Soldier> soldiers;
         public List<Db.Soldier> Soldiers { get { return soldiers; } }
 
+        private List<Db.Soldier> unsavedRemovals = new List<Db.Soldier>();
+
         public GameState()
         {
             using (Db.Connection con = new Db.Connection())
@@ -28,6 +30,12 @@ namespace KonySim
             {
                 con.UpdateRow(player);
                 foreach (var s in soldiers) con.InsertOrUpdateRow(s);
+
+                foreach (var s in unsavedRemovals)
+                {
+                    con.DeleteRow<Db.Soldier>(s.ID);
+                }
+                unsavedRemovals.Clear();
             }
         }
 
@@ -44,6 +52,7 @@ namespace KonySim
             if (soldiers.Contains(s))
             {
                 soldiers.Remove(s);
+                unsavedRemovals.Add(s);
             }
         }
     }
