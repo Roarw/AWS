@@ -22,7 +22,7 @@ namespace KonySim
         {
             shopObjects = new List<GameObject>();
 
-            shopObjects.Add(CreateImage("Sprites/Shop.png", new Vector2(-100, 55)));
+            shopObjects.Add(UIBuilders.CreateImage("Sprites/Shop.png", new Vector2(-100, 55)));
 
             //Buy button
             var btnBuy = new GameObject();
@@ -76,15 +76,5 @@ namespace KonySim
 
             weaponList.Draw(spriteBatch);
         }
-
-        private GameObject CreateImage(string sprite, Vector2 position)
-        {
-            GameObject go = new GameObject();
-            go.AddComponent(new Transform(position));
-            go.AddComponent(new SpriteRender(sprite, 0, 0, 0));
-            return go;
-        }
-
-        
     }
 }

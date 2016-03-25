@@ -12,6 +12,8 @@ namespace KonySim
     {
         private ContentManager content;
 
+        GameObject map;
+
         public void LoadContent(ContentManager content)
         {
             this.content = content;
@@ -37,6 +39,11 @@ namespace KonySim
 
         public void GotoMission(Db.Mission mission)
         {
+            if (map != null)
+            {
+                map.Delete();
+            }
+
             var go = new GameObject();
             go.AddComponent(new MissionScreen(mission));
             GameWorld.Instance.AddObject(go);
@@ -134,8 +141,13 @@ namespace KonySim
             return go;
         }
 
-        public void GotoShop(Db.WeaponShop weaponShop)
+        public void GotoShop()
         {
+            if (map != null)
+            {
+                map.Delete();
+            }
+
             GameObject go = new GameObject();
             go.AddComponent(new Shop());
             GameWorld.Instance.AddObject(go);
@@ -150,11 +162,20 @@ namespace KonySim
                 GotoWorldmap();
                 go.Delete();
             };
+
+            GameObject.OnDeleted += (sender, e) =>
+            {
+                go.Delete();
+            };
+            go.OnDeleted += (sender, e) =>
+            {
+                backBtnGo.Delete();
+            };
         }
 
         public void GotoWorldmap()
         {
-            var map = new GameObject();
+            map = new GameObject();
             map.AddComponent(new Transform(new Vector2(0, 90)));
             map.AddComponent(new SpriteRender("Sprites/map", 0.1f));
             map.AddComponent(new Map());

@@ -24,8 +24,31 @@ namespace KonySim
         {
             double i = 1;
 
+
+
             foreach (Db.Mission mis in missions)
             {
+                //Adding shop.
+                GameObject shopGo = new GameObject();
+                shopGo.AddComponent(new Transform(new Vector2(0, 90)));
+                shopGo.AddComponent(new SpriteRender("Sprites/WeaponShop", 0.245f));
+                shopGo.AddComponent(new MouseDetector());
+                Button shopBtn = new Button();
+                shopGo.AddComponent(shopBtn);
+                shopBtn.OnClick += (sender, e) =>
+                {
+                    GameWorld.Instance.MWManager.GotoShop();
+                    GameObject.Delete();
+                };
+
+                GameObject.OnDeleted += (sender, e) =>
+                {
+                    shopGo.Delete();
+                };
+
+                GameWorld.Instance.AddObject(shopGo);
+
+                //Adding missions.
                 var misGo = new GameObject();
 
                 double factor = 20;
