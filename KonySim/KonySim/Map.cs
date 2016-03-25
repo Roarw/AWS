@@ -22,33 +22,30 @@ namespace KonySim
 
         public void LoadContent(ContentManager content)
         {
+            //Adding shop.
+            GameObject shopGo = new GameObject();
+            shopGo.AddComponent(new Transform(new Vector2(700, 150)));
+            shopGo.AddComponent(new SpriteRender("Sprites/shopIcon", 0.245f));
+            shopGo.AddComponent(new MouseDetector());
+            Button shopBtn = new Button();
+            shopGo.AddComponent(shopBtn);
+            shopBtn.OnClick += (sender, e) =>
+            {
+                GameWorld.Instance.MWManager.GotoShop();
+                GameObject.Delete();
+            };
+            GameWorld.Instance.AddObject(shopGo);
+
+            GameObject.OnDeleted += (sender, e) =>
+            {
+                shopGo.Delete();
+            };
+
+            //Adding missions.
             double i = 1;
-
-
 
             foreach (Db.Mission mis in missions)
             {
-                //Adding shop.
-                GameObject shopGo = new GameObject();
-                shopGo.AddComponent(new Transform(new Vector2(0, 90)));
-                shopGo.AddComponent(new SpriteRender("Sprites/WeaponShop", 0.245f));
-                shopGo.AddComponent(new MouseDetector());
-                Button shopBtn = new Button();
-                shopGo.AddComponent(shopBtn);
-                shopBtn.OnClick += (sender, e) =>
-                {
-                    GameWorld.Instance.MWManager.GotoShop();
-                    GameObject.Delete();
-                };
-
-                GameObject.OnDeleted += (sender, e) =>
-                {
-                    shopGo.Delete();
-                };
-
-                GameWorld.Instance.AddObject(shopGo);
-
-                //Adding missions.
                 var misGo = new GameObject();
 
                 double factor = 20;
@@ -65,13 +62,12 @@ namespace KonySim
                     GameWorld.Instance.MWManager.GotoMission(mis);
                     GameObject.Delete();
                 };
+                GameWorld.Instance.AddObject(misGo);
 
                 GameObject.OnDeleted += (sender, e) =>
                 {
                     misGo.Delete();
                 };
-
-                GameWorld.Instance.AddObject(misGo);
 
                 i++;
             }

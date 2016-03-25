@@ -39,17 +39,11 @@ namespace KonySim
 
         public void GotoMission(Db.Mission mission)
         {
-            if (map != null)
-            {
-                map.Delete();
-            }
-
             var go = new GameObject();
             go.AddComponent(new MissionScreen(mission));
             GameWorld.Instance.AddObject(go);
 
             GameObject backBtnGo = UIBuilders.CreateImageWOffset("Sprites/BackButton", new Vector2(305, 95), 1f, 0, 0, 0, 0);
-            GameWorld.Instance.AddObject(backBtnGo);
             backBtnGo.AddComponent(new MouseDetector());
             Button backBtn = new Button();
             backBtnGo.AddComponent(backBtn);
@@ -58,6 +52,7 @@ namespace KonySim
                 GotoWorldmap();
                 go.Delete();
             };
+            GameWorld.Instance.AddObject(backBtnGo);
 
             //Children list.
             GameObject weaponListGO = new GameObject();
@@ -143,17 +138,11 @@ namespace KonySim
 
         public void GotoShop()
         {
-            if (map != null)
-            {
-                map.Delete();
-            }
-
             GameObject go = new GameObject();
             go.AddComponent(new Shop());
             GameWorld.Instance.AddObject(go);
 
             GameObject backBtnGo = UIBuilders.CreateImageWOffset("Sprites/BackButton", new Vector2(5, 95), 1f, 0, 0, 0, 0);
-            GameWorld.Instance.AddObject(backBtnGo);
             backBtnGo.AddComponent(new MouseDetector());
             Button backBtn = new Button();
             backBtnGo.AddComponent(backBtn);
@@ -162,6 +151,7 @@ namespace KonySim
                 GotoWorldmap();
                 go.Delete();
             };
+            GameWorld.Instance.AddObject(backBtnGo);
 
             GameObject.OnDeleted += (sender, e) =>
             {

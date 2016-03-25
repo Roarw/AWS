@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework;
 
 namespace KonySim
 {
-    class NextClicker : ILoadContent, IUpdate, IDraw
+    class NextClicker : Component, ILoadContent, IUpdate, IDraw
     {
         private List<GameObject> frameList;
         private List<GameObject> items;
