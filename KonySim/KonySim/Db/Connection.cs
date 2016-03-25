@@ -16,18 +16,19 @@ namespace KonySim.Db
             con = new SQLiteConnection("Data Source=data.db");
             con.Open();
 
-            var reader = new SQLiteCommand("SELECT * FROM sqlite_master WHERE type='table'", con).ExecuteReader();
-            if (!reader.Read())
+            using (var reader = new SQLiteCommand("SELECT * FROM sqlite_master WHERE type='table'", con).ExecuteReader())
             {
-                //No tables, create them all
-                var str = @"
+                if (!reader.Read())
+                {
+                    //No tables, create them all
+                    var str = @"
                             CREATE TABLE Player(ID integer primary key, score integer not null, funds integer not null, buffs integer not null);
 
                             CREATE TABLE Soldier(ID integer primary key, name string not null, health integer not null, exp integer not null, lvl integer not null,
                                 portraitIndex integer not null, portraitColor integer not null, playerID integer not null, weaponID integer,
-                                FOREIGN KEY (playerID) REFERENCES Player(ID), FOREIGN KEY (weaponID) REFERENCES Weapon(ID));
+                                FOREIGN KEY (playerID) REFERENCES Player(ID));
 
-                            CREATE TABLE Weapon (ID integer primary key, name string not null, damage integer not null);
+                            CREATE TABLE Weapon (ID integer primary key, name string not null, damage integer not null, portraitIndex integer not null);
 
                             CREATE TABLE WeaponShop (ID integer primary key);
 
@@ -40,7 +41,8 @@ namespace KonySim.Db
                             CREATE TABLE ShopWeapon(ID integer primary key, shopID integer not null, weaponID integer not null, price integer not null,
                                 FOREIGN KEY (shopID) REFERENCES Shop(ID), FOREIGN KEY (weaponID) REFERENCES Weapon(ID));";
 
-                new SQLiteCommand(str, con).ExecuteNonQuery();
+                    new SQLiteCommand(str, con).ExecuteNonQuery();
+                }
             }
         }
 
@@ -50,50 +52,58 @@ namespace KonySim.Db
 
             List<T> result = new List<T>();
 
-            SQLiteDataReader reader = cmd.ExecuteReader();
-            while (reader.Read())
+            using (SQLiteDataReader reader = cmd.ExecuteReader())
             {
-                T item = new T();
-                FillPropertiesFromRow(item, reader);
+                while (reader.Read())
+                {
+                    T item = new T();
+                    FillPropertiesFromRow(item, reader);
 
-                result.Add(item);
+                    result.Add(item);
+                }
             }
-
             return result;
         }
 
         public T GetRow<T>(int ID) where T : TableRow, new()
         {
-            SQLiteCommand cmd = new SQLiteCommand("SELECT * FROM " + typeof(T).Name + " WHERE ID = " + ID, con);
-
-            SQLiteDataReader reader = cmd.ExecuteReader();
-            if (reader.Read())
+            using (SQLiteCommand cmd = new SQLiteCommand("SELECT * FROM " + typeof(T).Name + " WHERE ID = " + ID, con))
             {
-                var result = new T();
-                FillPropertiesFromRow(result, reader);
-                return result;
-            }
-            else
-            {
-                return null;
+                using (SQLiteDataReader reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        var result = new T();
+                        FillPropertiesFromRow(result, reader);
+                        return result;
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
             }
         }
 
         public List<T> FindRowsWhere<T>(string column, object value) where T : TableRow, new()
         {
-            SQLiteCommand cmd = new SQLiteCommand("SELECT * FROM " + typeof(T).Name + " WHERE " + column + " = @Val;", con);
-            cmd.Parameters.AddWithValue("@Val", value);
-
-            List<T> result = new List<T>();
-
-            SQLiteDataReader reader = cmd.ExecuteReader();
-            while (reader.Read())
+            using (SQLiteCommand cmd = new SQLiteCommand("SELECT * FROM " + typeof(T).Name + " WHERE " + column + " = @Val;", con))
             {
-                var item = new T();
-                FillPropertiesFromRow(item, reader);
-                result.Add(item);
+                cmd.Parameters.AddWithValue("@Val", value);
+
+                List<T> result = new List<T>();
+
+                using (SQLiteDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var item = new T();
+                        FillPropertiesFromRow(item, reader);
+                        result.Add(item);
+                    }
+                }
+                return result;
             }
-            return result;
         }
 
         public int InsertRow<T>(T obj) where T : TableRow, new()
@@ -120,17 +130,24 @@ namespace KonySim.Db
                 cmdText.Append(" DEFAULT VALUES;");
             }
 
-            var cmd = new SQLiteCommand(cmdText.ToString(), con);
-
-            //Insert values as command parameters
-            foreach (var p in propertiesWithoutID)
+            using (var cmd = new SQLiteCommand(cmdText.ToString(), con))
             {
-                cmd.Parameters.AddWithValue("@" + p.Name, p.GetValue(obj, null));
-            }
-            cmd.ExecuteNonQuery();
+                //Insert values as command parameters
+                foreach (var p in propertiesWithoutID)
+                {
+                    object val = p.GetValue(obj, null);
+                    if (val == null)
+                        val = DBNull.Value;
 
-            var id = new SQLiteCommand("SELECT last_insert_rowid()", con).ExecuteScalar();
-            return Convert.ToInt32(id);
+                    cmd.Parameters.AddWithValue("@" + p.Name, val);
+                }
+                cmd.ExecuteNonQuery();
+            }
+
+            using (var cmd = new SQLiteCommand("SELECT last_insert_rowid()", con))
+            {
+                return Convert.ToInt32(cmd.ExecuteScalar());
+            }
         }
 
         public void UpdateRow<T>(T obj) where T : TableRow, new()
@@ -150,14 +167,15 @@ namespace KonySim.Db
             //Append list of values to insert there
             cmdText.Append(" WHERE ID = ").Append(obj.ID).Append(";");
 
-            var cmd = new SQLiteCommand(cmdText.ToString(), con);
-
-            //Insert values as command parameters
-            foreach (var p in propertiesWithoutID)
+            using (var cmd = new SQLiteCommand(cmdText.ToString(), con))
             {
-                cmd.Parameters.AddWithValue("@" + p.Name, p.GetValue(obj, null));
+                //Insert values as command parameters
+                foreach (var p in propertiesWithoutID)
+                {
+                    cmd.Parameters.AddWithValue("@" + p.Name, p.GetValue(obj, null));
+                }
+                cmd.ExecuteNonQuery();
             }
-            cmd.ExecuteNonQuery();
         }
 
         public void InsertOrUpdateRow<T>(T obj) where T : TableRow, new()
@@ -174,14 +192,20 @@ namespace KonySim.Db
             }
         }
 
-        public void DeleteRow<T>(int id)
+        public void DeleteRow<T>(int id) where T : TableRow, new()
         {
-            new SQLiteCommand("DELETE FROM " + typeof(T).Name + " WHERE ID = " + id, con).ExecuteNonQuery();
+            using (var cmd = new SQLiteCommand("DELETE FROM " + typeof(T).Name + " WHERE ID = " + id, con))
+            {
+                cmd.ExecuteNonQuery();
+            }
         }
 
-        public void DeleteAllRows<T>()
+        public void DeleteAllRows<T>() where T : TableRow, new()
         {
-            new SQLiteCommand("DELETE FROM " + typeof(T).Name, con).ExecuteNonQuery();
+            using (var cmd = new SQLiteCommand("DELETE FROM " + typeof(T).Name, con))
+            {
+                cmd.ExecuteNonQuery();
+            }
         }
 
         private void FillPropertiesFromRow<T>(T target, SQLiteDataReader reader)

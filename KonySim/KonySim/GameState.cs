@@ -30,5 +30,11 @@ namespace KonySim
                 foreach (var s in soldiers) con.InsertOrUpdateRow(s);
             }
         }
+
+        public void AddSoldier(Db.Soldier s)
+        {
+            soldiers.Add(s);
+            GameWorld.Instance.UI.UpdateList();
+        }
     }
 }

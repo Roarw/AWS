@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data.SQLite;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -15,8 +16,6 @@ namespace KonySim
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
 
-        MainMenu main;
-
         private float widthMulti;
         private float heightMulti;
 
@@ -24,6 +23,7 @@ namespace KonySim
         public int MouseY { get { return Mouse.GetState().Position.Y / (int)HeightMulti; } }
 
         private List<GameObject> objects = new List<GameObject>();
+        public ReadOnlyCollection<GameObject> Objects { get { return objects.AsReadOnly(); } }
         private List<GameObject> objectsToRemove = new List<GameObject>();
         private List<GameObject> objectsToAdd = new List<GameObject>();
 
@@ -32,12 +32,17 @@ namespace KonySim
 		
         private float deltaTime;
 
-
         public float WidthMulti { get { return widthMulti; } }
         public float HeightMulti { get { return heightMulti; } }
 
         private GameState state;
         public GameState State { get { return state; } }
+
+        private MainWindowManager mwManager;
+        public MainWindowManager MWManager { get { return mwManager; } }
+
+        private UI ui;
+        public UI UI { get { return ui; } }
 
         private static GameWorld instance;
         public static GameWorld Instance
@@ -52,13 +57,8 @@ namespace KonySim
             }
         }
 
-
         private GameWorld()
         {
-            //Initialize game and create GameState object
-            new GameInitializer(this, new Random()).Start();
-            state = new GameState();
-
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
         }
@@ -69,12 +69,6 @@ namespace KonySim
                 objectsToAdd.Add(go);
         }
 
-        public void RemoveObject(GameObject go)
-        {
-            if (!objectsToRemove.Contains(go))
-                objectsToRemove.Add(go);
-        }
-
         /// <summary>
         /// Allows the game to perform any initialization it needs to before starting to run.
         /// This is where it can query for any required services and load any non-graphic
@@ -83,10 +77,13 @@ namespace KonySim
         /// </summary>
         protected override void Initialize()
         {
-            
+            //Initialize game and create GameState object
+            new GameInitializer(this, new Random()).Start();
+            state = new GameState();
+
             // TODO: Add your initialization logic here
             //Creating the generator.
-            main = new MainMenu();
+            //main = new MainMenu();
             //Setting graphics.
             graphics.PreferredBackBufferWidth = 1280;
             graphics.PreferredBackBufferHeight = 720;
@@ -98,57 +95,27 @@ namespace KonySim
 
             this.IsMouseVisible = true;
 
+            //var go = new GameObject();
+            //go.AddComponent(new Transform(Vector2.Zero));
+            //go.AddComponent(new SpriteRender("Sprites/play", 0));
+            //var dnd = new DragAndDropAlt(new Vector2(20, 20));
+            ////dnd.Released += (sender, e) => { Exit(); };
+            //go.AddComponent(dnd);
 
-            CreateGo(Vector2.Zero);
-            CreateGo(new Vector2(100, 400));
-            var map = new GameObject(this);
-            map.AddComponent(new Transform(new Vector2(0, 90)));
-            map.AddComponent(new SpriteRender("Sprites/map",0));
-            AddObject(map);
-
-            var mis2 = new GameObject(this);
-            mis2.AddComponent(new Transform(new Vector2(630, 200)));
-            mis2.AddComponent(new SpriteRender("Sprites/huse", 1));
-            mis2.AddComponent(new MouseDetector());
-            mis2.AddComponent(new WorldMap(mis2));
-            mis2.AddComponent(new MissionComp(5,5,5,5,5,5));
-            AddObject(mis2);
-
-            var mis1 = new GameObject(this);
-            mis1.AddComponent(new Transform(new Vector2(610, 400)));
-            mis1.AddComponent(new SpriteRender("Sprites/huse", 1));
-            mis1.AddComponent(new MouseDetector());
-            mis1.AddComponent(new WorldMap(mis1));
-            mis1.AddComponent(new MissionComp(5, 5, 5, 5, 5, 5));
-            AddObject(mis1);
-            var Weapon = new GameObject(this);
-            Weapon.AddComponent(new Transform(new Vector2(150, 500)));
-            Weapon.AddComponent(new SpriteRender("sprites/weaponshop", 1));
-            AddObject(Weapon);
-            
-            
-
-
-            var go = new GameObject(this);
-            go.AddComponent(new Transform(Vector2.Zero));
-            go.AddComponent(new SpriteRender("Sprites/play", 0));
-            var dnd = new DragAndDropAlt(new Vector2(20, 20));
-            //dnd.Released += (sender, e) => { Exit(); };
-            go.AddComponent(dnd);
-
-            objectsToAdd.Add(go);
+            //objectsToAdd.Add(go);
 
             //shop test
             shop = new Shop();
-            GameObject mwManager = new GameObject(this);
-            mwManager.AddComponent(new MainWindowManager());
-            objectsToAdd.Add(mwManager);
-
-
-            var uiGo = new GameObject(this);
-            uiGo.AddComponent(new UI());
-            objectsToAdd.Add(uiGo);
             
+            GameObject mwGo = new GameObject();
+            mwManager = new MainWindowManager();
+            mwGo.AddComponent(mwManager);
+            objectsToAdd.Add(mwGo);
+
+            var uiGo = new GameObject();
+            ui = new UI();
+            uiGo.AddComponent(ui);
+            objectsToAdd.Add(uiGo);
 
 
             /*var fufugo = new GameObject(this);
@@ -160,14 +127,12 @@ namespace KonySim
             fufugo.AddComponent(new Transform(new Vector2(50, 100)));
             AddObject(fufugo);*/
 
-            var mission = new GameObject(this);
-            mission.AddComponent(new MissionScreen(new Db.Mission { AnimalCount = 5, ChildCount = 10, CivilianCount = 20, DefenseMultiplier = 1 }));
-            AddObject(mission);
-
+            mwManager.GotoWorldmap();
+            //mwManager.GotoMission(new Db.Mission { AnimalCount = 5, ChildCount = 10, CivilianCount = 25, DefenseMultiplier = 1 });
 
             base.Initialize();
         }
-
+        
         private void CreateGo(Vector2 position)
         {
 
@@ -178,7 +143,7 @@ namespace KonySim
             //go.AddComponent(new DragAndDrop(go));
             //objects.Add(go);
 
-            GameObject go = new GameObject(this);
+            GameObject go = new GameObject();
             go.AddComponent(new Transform(position));
             go.AddComponent(new SpriteRender("Sprites/play", 0));
             go.AddComponent(new MouseDetector());
@@ -188,7 +153,7 @@ namespace KonySim
             objectsToAdd.Add(go);
 
         }
-
+        
         /// <summary>
         /// LoadContent will be called once per game and is the place to load
         /// all of your content.
@@ -198,7 +163,7 @@ namespace KonySim
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            main.LoadContent(Content);
+            //main.LoadContent(Content);
             // TODO: use this.Content to load your game content here
 
             foreach (GameObject go in objects)
@@ -230,8 +195,7 @@ namespace KonySim
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-
-            main.Update(deltaTime);
+            //main.Update(deltaTime);
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
@@ -240,13 +204,14 @@ namespace KonySim
 
             foreach (GameObject go in objects)
             {
+                if (go.Deleted)
+                {
+                    objectsToRemove.Add(go);
+                }
                 go.Update(deltaTime);
             }
 
-
-            //ui.Update(deltaTime);
-            shop.Update(deltaTime);
-
+            //Objectstoadd needs to be put in a temporary list for this foreach because calling LoadContent might create new objects (Thus modifying the original collection)
             var tempAdd = new List<GameObject>(objectsToAdd);
             objectsToAdd.Clear();
 
@@ -256,13 +221,11 @@ namespace KonySim
                 go.LoadContent(Content);
             }
 
-            var tempRemove = new List<GameObject>(objectsToRemove);
-            objectsToRemove.Clear();
-
-            foreach (var go in tempRemove)
+            foreach (var go in objectsToRemove)
             {
                 objects.Remove(go);
             }
+            objectsToRemove.Clear();
 
             base.Update(gameTime);
         }
@@ -274,20 +237,16 @@ namespace KonySim
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Peru);
-           
+
             // TODO: Add your drawing code here
             spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, null, null, null, null, null);
 
-            main.Draw(spriteBatch);
+            //main.Draw(spriteBatch);
 
             foreach (GameObject go in objects)
             {
                 go.Draw(spriteBatch);
             }
-
-            shop.Draw(spriteBatch);
-
-
 
             spriteBatch.End();
 

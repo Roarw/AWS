@@ -1,37 +1,38 @@
-﻿using KonySim.Db;
-using Microsoft.Xna.Framework;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using KonySim.Db;
+using Microsoft.Xna.Framework;
 
 namespace KonySim
 {
-    class Generator
+    internal class Generator
     {
-        static string[] childNames = new string[] { "Luim", "Aap", "Swart", "Poef", "Speeksel", "Lelike", "Adebowale", "Ayodele", "Dubaku", "Oog", "Boemelaar", "Jabari", "Imamu", "John", "Mugabe" };
-        static string[] weaponNames = new string[] { "Gun" };
-        static Random random = new Random();
+        private static string[] childNames = new string[] { "Luim", "Aap", "Swart", "Poef", "Speeksel", "Lelike", "Adebowale", "Ayodele", "Dubaku", "Oog", "Boemelaar", "Jabari", "Imamu", "John", "Mugabe" };
+        private static string[] weaponNames = new string[] { "Machine pistol", "Submachine gun", "Assault rifle", "Shotgun", "Rocket launcher" };
+        private static Random random = new Random();
 
-        public static Soldier NewChildForDB(int exp)
+        public static Soldier NewChildForDB(int exp, int playerId)
         {
             Soldier soldier = new Soldier();
             soldier.Name = childNames[random.Next(childNames.Length)];
             soldier.Health = random.Next(70, 100);
             soldier.Exp = exp;
-            soldier.PortraitIndex = GetRandomImageInt();
-            soldier.PortraitColor = GetRandomInt();
-            soldier.PlayerID = GameWorld.Instance.State.Player.ID;
-            soldier.WeaponID = null;
+            soldier.PortraitIndex = random.Next(1, 14 /*This value is the amount of child pictures + 1*/);
+            soldier.PortraitColor = RandomImageInt();
+            soldier.PlayerID = playerId;
 
             return soldier;
         }
 
-        public static Weapon NewWeaponForDB(int dmg)
+        public static Weapon NewWeaponForDB(int missionsCompleted)
         {
             Weapon weapon = new Weapon();
-            weapon.Name = weaponNames[random.Next(weaponNames.Length)];
-            weapon.Damage = dmg;
+            int wep = random.Next(weaponNames.Length);
+            weapon.Name = weaponNames[wep];
+            weapon.Damage = 10 + (10 * wep) + random.Next(0, wep * 8) + random.Next(missionsCompleted, (int)(missionsCompleted * 1.5f));
+            weapon.PortraitIndex = wep;
 
             return weapon;
         }
@@ -56,7 +57,7 @@ namespace KonySim
             return mission;
         }
 
-        private static int GetRandomInt()
+        private static int RandomImageInt()
         {
             HashSet<int> tempSet = new HashSet<int>();
 
@@ -80,11 +81,6 @@ namespace KonySim
             }
 
             return Int32.Parse(returnInt);
-        }
-
-        private static int GetRandomImageInt()
-        {
-            return random.Next(1, 14 /*This value is the amount of child pictures + 1*/);
         }
     }
 }

@@ -10,16 +10,26 @@ namespace KonySim
     internal class GameObject : ILoadContent, IUpdate, IDraw, IMouseDetection
     {
         private List<Component> components;
-        public GameWorld World { get; }
 
-        public GameObject() : this(null)
-        {
-        }
+        public bool Deleted { get; private set; }
+        public event EventHandler OnDeleted;
 
-        public GameObject(GameWorld world)
+        public GameObject()
         {
             components = new List<Component>();
-            World = world;
+        }
+
+        /// <summary>
+        /// Marks this GameObject as deleted, which makes the GameWorld remove it from its object list asap
+        /// </summary>
+        public void Delete()
+        {
+            if (!Deleted)
+            {
+                Deleted = true;
+                if (OnDeleted != null)
+                    OnDeleted(this, EventArgs.Empty);
+            }
         }
 
         public T GetComponent<T>() where T : Component

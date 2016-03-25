@@ -25,11 +25,11 @@ namespace KonySim
             shopObjects.Add(CreateImage("Sprites/Shop.png", new Vector2(-100, 55)));
 
             //Buy button
-            var btnBuy = new GameObject(GameWorld.Instance);
+            var btnBuy = new GameObject();
             btnBuy.AddComponent(new SpriteRender("Sprites/btnBuy", 0));
             btnBuy.AddComponent(new MouseDetector());
             var btn = new Button();
-            btn.OnClick += (sender, e) => { GameWorld.Instance.RemoveObject(btnBuy); };
+            btn.OnClick += (sender, e) => { btnBuy.Delete(); };
             btnBuy.AddComponent(btn);
             btnBuy.AddComponent(new Transform(new Vector2(710, 655)));
             GameWorld.Instance.AddObject(btnBuy);
