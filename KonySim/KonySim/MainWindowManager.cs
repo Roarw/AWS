@@ -12,6 +12,8 @@ namespace KonySim
     {
         private ContentManager content;
 
+        GameObject map;
+
         public void LoadContent(ContentManager content)
         {
             this.content = content;
@@ -42,7 +44,6 @@ namespace KonySim
             GameWorld.Instance.AddObject(go);
 
             GameObject backBtnGo = UIBuilders.CreateImageWOffset("Sprites/BackButton", new Vector2(305, 95), 1f, 0, 0, 0, 0);
-            GameWorld.Instance.AddObject(backBtnGo);
             backBtnGo.AddComponent(new MouseDetector());
             Button backBtn = new Button();
             backBtnGo.AddComponent(backBtn);
@@ -51,6 +52,7 @@ namespace KonySim
                 GotoWorldmap();
                 go.Delete();
             };
+            GameWorld.Instance.AddObject(backBtnGo);
 
             //Children list.
             GameObject weaponListGO = new GameObject();
@@ -134,13 +136,36 @@ namespace KonySim
             return go;
         }
 
-        public void GotoShop(Db.WeaponShop weaponShop)
+        public void GotoShop()
         {
+            GameObject go = new GameObject();
+            go.AddComponent(new Shop());
+            GameWorld.Instance.AddObject(go);
+
+            GameObject backBtnGo = UIBuilders.CreateImageWOffset("Sprites/BackButton", new Vector2(5, 95), 1f, 0, 0, 0, 0);
+            backBtnGo.AddComponent(new MouseDetector());
+            Button backBtn = new Button();
+            backBtnGo.AddComponent(backBtn);
+            backBtn.OnClick += (sender, e) =>
+            {
+                GotoWorldmap();
+                go.Delete();
+            };
+            GameWorld.Instance.AddObject(backBtnGo);
+
+            GameObject.OnDeleted += (sender, e) =>
+            {
+                go.Delete();
+            };
+            go.OnDeleted += (sender, e) =>
+            {
+                backBtnGo.Delete();
+            };
         }
 
         public void GotoWorldmap()
         {
-            var map = new GameObject();
+            map = new GameObject();
             map.AddComponent(new Transform(new Vector2(0, 90)));
             map.AddComponent(new SpriteRender("Sprites/map", 0.1f));
             map.AddComponent(new Map());

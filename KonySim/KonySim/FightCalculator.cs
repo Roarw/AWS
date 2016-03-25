@@ -39,7 +39,7 @@ namespace KonySim
             if (soldiersPower >= missionPower)
             {
                 //Child stuff.
-                float totalExp = mission.DefenseMultiplier * mission.CivilianCount + mission.DefenseMultiplier * mission.AnimalCount * 200;
+                float totalExp = mission.CivilianCount + mission.AnimalCount * 200;
 
                 foreach (Db.Soldier s in soldiers)
                 {
@@ -61,10 +61,12 @@ namespace KonySim
                 GameWorld.Instance.State.Player.Score += mission.CivilianCount + mission.AnimalCount * 200;
 
                 //Getting new children.
+                List<Db.Soldier> sList = new List<Db.Soldier>();
                 for (int i = 0; i < mission.ChildCount; i++)
                 {
-                    GameWorld.Instance.State.AddSoldier(Generator.NewChildForDB(0, GameWorld.Instance.State.Player.ID));
+                    sList.Add(Generator.NewChildForDB(0, GameWorld.Instance.State.Player.ID));
                 }
+                GameWorld.Instance.State.AddSoldiers(sList);
 
                 mission.CivilianCount = 0;
                 mission.AnimalCount = 0;
@@ -78,7 +80,7 @@ namespace KonySim
                 float powerDifference = 1 / (1 + ((missionPower - soldiersPower) / soldiersPower));
 
                 //Child stuff.
-                float totalExp = (float)(mission.DefenseMultiplier * mission.CivilianCount) * powerDifference + (float)(mission.DefenseMultiplier * mission.AnimalCount * 200) * powerDifference;
+                float totalExp = (float)mission.CivilianCount * powerDifference + (float)mission.AnimalCount * 200 * powerDifference;
 
                 foreach (Db.Soldier s in soldiers)
                 {
@@ -94,6 +96,7 @@ namespace KonySim
                         }
                     }
                 }
+                GameWorld.Instance.UI.UpdateList();
 
                 //Mission stuff.
                 GameWorld.Instance.State.Player.Funds += (int)((float)(mission.CivilianCount + mission.AnimalCount * 200) * ((float)r.Next(5, 16) / 100) * powerDifference);

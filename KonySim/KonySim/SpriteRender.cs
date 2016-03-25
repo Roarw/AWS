@@ -55,6 +55,9 @@ namespace KonySim
             this.xLeftOffset = xLeftOffset;
         }
 
+
+
+
         public SpriteRender(string spriteName, float depth, Rectangle bounds) : base()
         {
             this.spriteName = spriteName;
@@ -76,6 +79,7 @@ namespace KonySim
         }
 
         public void LoadContent(ContentManager content)
+ 
         {
             this.Sprite = content.Load<Texture2D>(spriteName);
             this.Rectangle = new Rectangle(0 + xRightOffset, 0 + yTopOffset, Sprite.Width + xLeftOffset, Sprite.Height + yBottomOffset);

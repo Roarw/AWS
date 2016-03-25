@@ -17,7 +17,6 @@ namespace KonySim
             mission.CivilianCount = CivilianCount;
             mission.ChildCount = ChildCount;
             mission.DefenseMultiplier = DefenseMultiplier;
-
         }
 
         public void Draw(SpriteBatch spriteBatch)

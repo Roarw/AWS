@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework;
 
 namespace KonySim
 {
-    class NextClicker : ILoadContent, IUpdate, IDraw
+    class NextClicker : Component, ILoadContent, IUpdate, IDraw
     {
         private List<GameObject> frameList;
         private List<GameObject> items;
@@ -31,6 +31,14 @@ namespace KonySim
 
             frameList.Add(CreateClicker("Sprites/leftArrow", new Vector2(position.X, position.Y), false));
             frameList.Add(CreateClicker("Sprites/rightArrow", new Vector2(position.X + width - 35, position.Y), true));
+
+            items.Add(CreateWeapon("Sprites/WeaponAK47", new Vector2(320, 595)));
+            items.Add(CreateWeapon("Sprites/WeaponBizon", new Vector2(320, 595)));
+            items.Add(CreateWeapon("Sprites/WeaponDP12", new Vector2(320, 595)));
+            items.Add(CreateWeapon("Sprites/WeaponMAC10", new Vector2(320, 595)));
+            items.Add(CreateWeapon("Sprites/WeaponRPG7", new Vector2(320, 595)));
+
+
         }
 
         public void LoadContent(ContentManager content)
@@ -44,6 +52,8 @@ namespace KonySim
             {
                 go.LoadContent(content);
             }
+
+
         }
 
         public void Update(float deltaTime)
@@ -90,5 +100,24 @@ namespace KonySim
             go.AddComponent(new NextButton(this, rightButton));
             return go;
         }
+
+        private GameObject CreateWeapon(string sprite, Vector2 position)
+        {
+            GameObject go = new GameObject();
+            go.AddComponent(new Transform(position));
+            go.AddComponent(new SpriteRender(sprite, 1f));
+            return go;
+        }
+
+        private GameObject Weapon(Db.Weapon wpn)
+        {
+            GameObject go = new GameObject();
+            go.AddComponent(new Transform(position));
+            go.AddComponent(new SpriteRender("Sprites/Weapon" + wpn.ID, 0.5f));
+            go.AddComponent(new TextRenderer(wpn.Name, Color.White, 1f));
+            go.AddComponent(new TextRenderer(wpn.Damage.ToString(), Color.White, 1f));
+            return go;
+        }
+
     }
 }

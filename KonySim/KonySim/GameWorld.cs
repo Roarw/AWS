@@ -26,7 +26,7 @@ namespace KonySim
         public ReadOnlyCollection<GameObject> Objects { get { return objects.AsReadOnly(); } }
         private List<GameObject> objectsToRemove = new List<GameObject>();
         private List<GameObject> objectsToAdd = new List<GameObject>();
-
+        
         private float deltaTime;
 
         public float WidthMulti { get { return widthMulti; } }
@@ -101,6 +101,7 @@ namespace KonySim
 
             //objectsToAdd.Add(go);
 
+            //shop test
             GameObject mwGo = new GameObject();
             mwManager = new MainWindowManager();
             mwGo.AddComponent(mwManager);
@@ -110,6 +111,7 @@ namespace KonySim
             ui = new UI();
             uiGo.AddComponent(ui);
             objectsToAdd.Add(uiGo);
+
 
             /*var fufugo = new GameObject(this);
             fufugo.AddComponent(new SpriteRender("Sprites/GO", 0));
@@ -125,7 +127,28 @@ namespace KonySim
 
             base.Initialize();
         }
+        
+        private void CreateGo(Vector2 position)
+        {
 
+            //GameObject go = new GameObject();
+            //go.AddComponent(new Transform(go, position));
+            //go.AddComponent(new SpriteRender(go, "Sprites/GO.png", 0, 0, 0));
+            //go.AddComponent(new MouseDetector(go));
+            //go.AddComponent(new DragAndDrop(go));
+            //objects.Add(go);
+
+            GameObject go = new GameObject();
+            go.AddComponent(new Transform(position));
+            go.AddComponent(new SpriteRender("Sprites/play", 0));
+            go.AddComponent(new MouseDetector());
+            go.AddComponent(new DragAndDrop());
+
+            objects.Add(go);
+            objectsToAdd.Add(go);
+
+        }
+        
         /// <summary>
         /// LoadContent will be called once per game and is the place to load
         /// all of your content.
@@ -137,6 +160,15 @@ namespace KonySim
 
             //main.LoadContent(Content);
             // TODO: use this.Content to load your game content here
+
+            foreach (GameObject go in objects)
+            {
+                go.LoadContent(Content);
+            }
+
+            new GameInitializer(this, new Random()).Start();
+
+
         }
 
         /// <summary>
@@ -186,6 +218,7 @@ namespace KonySim
                 objects.Remove(go);
             }
             objectsToRemove.Clear();
+
             base.Update(gameTime);
         }
 
