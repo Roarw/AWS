@@ -26,10 +26,7 @@ namespace KonySim
         public ReadOnlyCollection<GameObject> Objects { get { return objects.AsReadOnly(); } }
         private List<GameObject> objectsToRemove = new List<GameObject>();
         private List<GameObject> objectsToAdd = new List<GameObject>();
-
-        private Shop shop;
-
-		
+        
         private float deltaTime;
 
         public float WidthMulti { get { return widthMulti; } }
@@ -105,8 +102,6 @@ namespace KonySim
             //objectsToAdd.Add(go);
 
             //shop test
-            shop = new Shop();
-            
             GameObject mwGo = new GameObject();
             mwManager = new MainWindowManager();
             mwGo.AddComponent(mwManager);
@@ -170,9 +165,6 @@ namespace KonySim
             {
                 go.LoadContent(Content);
             }
-
-            //ui.LoadContent(Content);
-            shop.LoadContent(Content);
 
             new GameInitializer(this, new Random()).Start();
 

@@ -136,6 +136,20 @@ namespace KonySim
 
         public void GotoShop(Db.WeaponShop weaponShop)
         {
+            GameObject go = new GameObject();
+            go.AddComponent(new Shop());
+            GameWorld.Instance.AddObject(go);
+
+            GameObject backBtnGo = UIBuilders.CreateImageWOffset("Sprites/BackButton", new Vector2(5, 95), 1f, 0, 0, 0, 0);
+            GameWorld.Instance.AddObject(backBtnGo);
+            backBtnGo.AddComponent(new MouseDetector());
+            Button backBtn = new Button();
+            backBtnGo.AddComponent(backBtn);
+            backBtn.OnClick += (sender, e) =>
+            {
+                GotoWorldmap();
+                go.Delete();
+            };
         }
 
         public void GotoWorldmap()
