@@ -31,7 +31,7 @@ namespace KonySim
             Weapon weapon = new Weapon();
             int wep = random.Next(weaponNames.Length);
             weapon.Name = weaponNames[wep];
-            weapon.Damage = 10 + (10 * wep) + random.Next(0, wep * 8) + random.Next(missionsCompleted, (int)(missionsCompleted * 1.5f));
+            weapon.Damage = 10 + (10 * wep) + random.Next(-4, wep * 8) + random.Next(missionsCompleted, (int)(missionsCompleted * 1.5f));
             weapon.PortraitIndex = wep;
 
             return weapon;

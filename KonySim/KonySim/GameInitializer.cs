@@ -40,7 +40,7 @@ namespace KonySim
                 var playerId = con.InsertRow(new Db.Player { Score = 0, Funds = 100, Buffs = 10 });
 
                 //Initial soliders
-                for (int i = 0; i < 5; i++)
+                for (int i = 0; i < 3; i++)
                 {
                     var s = Generator.NewChildForDB(0, playerId);
                     con.InsertRow(s);
@@ -49,15 +49,17 @@ namespace KonySim
                 //Mission setup
                 for (int i = 0; i < 16; i++)
                 {
-                    /*var m = new Db.Mission
+                    int diff = random.Next(1, 4);
+
+                    var m = new Db.Mission
                     {
                         Completed = false,
-                        AnimalCount = random.Next(3, 20),
-                        CivilianCount = random.Next(1, 100),
-                        ChildCount = random.Next(1, 30),
-                        DefenseMultiplier = random.Next(1, 4),
-                    };*/
-                    var m = Generator.NewMissionForDB(random.Next(1, 8), random.Next(2) == 0);
+                        AnimalCount = random.Next(3, 20) * diff,
+                        CivilianCount = random.Next(1, 100) * diff,
+                        ChildCount = random.Next(1, 60) * diff,
+                        DefenseMultiplier = diff,
+                    };
+                    //var m = Generator.NewMissionForDB(random.Next(1, 8), random.Next(2) == 0);
 
                     con.InsertRow(m);
                 }
@@ -65,13 +67,18 @@ namespace KonySim
                 //Weapon shop setup
                 int shopId = con.InsertRow(new Db.WeaponShop { });
 
-                for (int i = 0; i < 10; i++)
+                for (int i = 0; i < 3; i++)
                 {
                     var w = Generator.NewWeaponForDB(0);
                     int weaponId = con.InsertRow(w);
-
-                    //con.InsertRow(new Db.ShopWeapon { ShopID = shopId, WeaponID = weaponId, Price = dmg });
                     con.InsertRow(new Db.StoredWeapon { PlayerID = playerId, WeaponID = weaponId });
+                }
+
+                for (int i = 0; i < 16; i++)
+                {
+                    var w = Generator.NewWeaponForDB(0);
+                    int weaponId = con.InsertRow(w);
+                    con.InsertRow(new Db.ShopWeapon { ShopID = shopId, WeaponID = weaponId, Price = Math.Max(w.Damage + random.Next(-20, 20), 5) });
                 }
             }
         }
