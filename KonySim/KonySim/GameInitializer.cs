@@ -56,7 +56,7 @@ namespace KonySim
                         Completed = false,
                         AnimalCount = random.Next(3, 20) * diff,
                         CivilianCount = random.Next(1, 100) * diff,
-                        ChildCount = random.Next(1, 60) * diff,
+                        ChildCount = random.Next(1, 5) * diff,
                         DefenseMultiplier = diff,
                     };
                     //var m = Generator.NewMissionForDB(random.Next(1, 8), random.Next(2) == 0);
