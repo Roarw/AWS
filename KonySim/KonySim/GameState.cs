@@ -37,8 +37,14 @@ namespace KonySim
             {
                 soldiers.Add(s);
             }
-            
-            GameWorld.Instance.UI.UpdateList();
+        }
+
+        public void RemoveSoldiers(Db.Soldier s)
+        {
+            if (soldiers.Contains(s))
+            {
+                soldiers.Remove(s);
+            }
         }
     }
 }

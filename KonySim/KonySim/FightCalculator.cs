@@ -51,7 +51,7 @@ namespace KonySim
 
                         if (s.Health <= 0)
                         {
-                            /*Child dies.*/
+                            GameWorld.Instance.State.RemoveSoldiers(s);
                         }
                     }
                 }
@@ -92,11 +92,10 @@ namespace KonySim
 
                         if (s.Health <= 0)
                         {
-                            /*Child dies.*/
+                            GameWorld.Instance.State.RemoveSoldiers(s);
                         }
                     }
                 }
-                GameWorld.Instance.UI.UpdateList();
 
                 //Mission stuff.
                 GameWorld.Instance.State.Player.Funds += (int)((float)(mission.CivilianCount + mission.AnimalCount * 200) * ((float)r.Next(5, 16) / 100) * powerDifference);
@@ -110,6 +109,7 @@ namespace KonySim
             /// Saving the data to database.
             /// */
             con.UpdateRow(mission);
+            GameWorld.Instance.UI.UpdateList();
             GameWorld.Instance.State.Save();
         }
     }
