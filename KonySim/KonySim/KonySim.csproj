@@ -230,10 +230,10 @@
     <Content Include="Content\WeaponSprites\Weapon0.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\WeaponSprites\Weapon1.png">
+    <Content Include="Content\WeaponSprites\Weapon2.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\WeaponSprites\Weapon2.png">
+    <Content Include="Content\WeaponSprites\Weapon1.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\WeaponSprites\Weapon3.png">
