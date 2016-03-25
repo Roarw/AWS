@@ -63,7 +63,7 @@ namespace KonySim
                 //Getting new children.
                 for (int i = 0; i < mission.ChildCount; i++)
                 {
-                    GameWorld.Instance.State.Soldiers.Add(Generator.NewChildForDB(0, GameWorld.Instance.State.Player.ID));
+                    GameWorld.Instance.State.AddSoldier(Generator.NewChildForDB(0, GameWorld.Instance.State.Player.ID));
                 }
 
                 mission.CivilianCount = 0;
@@ -104,13 +104,10 @@ namespace KonySim
             }
 
             ///*
-            /// Saving the data to database. We are assuming the soldiers in the fight were contained in GameState.Soldiers.
+            /// Saving the data to database.
             /// */
-            System.Diagnostics.Debug.WriteLine(GameWorld.Instance.State.Player.Funds);
-            System.Diagnostics.Debug.WriteLine(GameWorld.Instance.State.Player.Score);
-
-            GameWorld.Instance.State.Save();
             con.UpdateRow(mission);
+            GameWorld.Instance.State.Save();
         }
     }
 }

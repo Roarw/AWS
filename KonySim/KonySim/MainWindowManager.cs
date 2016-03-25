@@ -62,15 +62,18 @@ namespace KonySim
             {
                 //Find all weapons attacked to the active player
                 var storedWeapons = con.GetAllRows<Db.StoredWeapon>();
+
+                List<GameObject> weapons = new List<GameObject>();
                 foreach (var s in storedWeapons)
                 {
                     if (s.PlayerID == GameWorld.Instance.State.Player.ID)
                     {
                         var w = con.GetRow<Db.Weapon>(s.WeaponID);
                         var weaponCardGo = CreateWeaponCard(w, weaponList);
-                        weaponList.AddItem(weaponCardGo, GameWorld.Instance.Content);
+                        weapons.Add(weaponCardGo);
                     }
                 }
+                weaponList.UpdateItems(weapons);
             }
 
             /*Add weapons to the weaponlist like you did with children cards.*/

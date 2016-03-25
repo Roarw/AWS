@@ -38,6 +38,9 @@ namespace KonySim
         private MainWindowManager mwManager;
         public MainWindowManager MWManager { get { return mwManager; } }
 
+        private UI ui;
+        public UI UI { get { return ui; } }
+
         private static GameWorld instance;
         public static GameWorld Instance
         {
@@ -104,7 +107,8 @@ namespace KonySim
             objectsToAdd.Add(mwGo);
 
             var uiGo = new GameObject();
-            uiGo.AddComponent(new UI());
+            ui = new UI();
+            uiGo.AddComponent(ui);
             objectsToAdd.Add(uiGo);
 
             /*var fufugo = new GameObject(this);

@@ -111,19 +111,24 @@ namespace KonySim
         }
 
         //Adding an item to the UIList.
-        public void AddItem(GameObject gameObject, ContentManager content)
+        public void UpdateItems(List<GameObject> items)
         {
-            if (gameObject.GetComponent<Transform>() == null || gameObject.GetComponent<SpriteRender>() == null)
+            itemInformation.Clear();
+
+            foreach(GameObject go in items)
             {
-                System.Diagnostics.Debug.WriteLine("Failed to add item to UIList, because Transform or SpriteRender is null.");
-            }
-            else
-            {
-                gameObject.LoadContent(content);
-                itemInformation.Add(gameObject, new List<Component>()
+                if (go.GetComponent<Transform>() == null || go.GetComponent<SpriteRender>() == null)
                 {
-                    gameObject.GetComponent<Transform>(), gameObject.GetComponent<SpriteRender>()
+                    System.Diagnostics.Debug.WriteLine("Failed to add item to UIList, because Transform or SpriteRender is null.");
+                }
+                else
+                {
+                    go.LoadContent(GameWorld.Instance.Content);
+                    itemInformation.Add(go, new List<Component>()
+                {
+                    go.GetComponent<Transform>(), go.GetComponent<SpriteRender>()
                 });
+                }
             }
         }
 

@@ -35,10 +35,12 @@ namespace KonySim
             childrenList = new UIList(new Vector2(980, 0), 720, 0);
             childrenListGo.AddComponent(childrenList);
 
+            List<GameObject> children = new List<GameObject>();
             foreach (var soldier in GameWorld.Instance.State.Soldiers)
             {
-                childrenList.AddItem(CreateChildCard(soldier), content);
+                children.Add(CreateChildCard(soldier));
             }
+            childrenList.UpdateItems(children);
 
             GameWorld.Instance.AddObject(childrenListGo);
 
@@ -57,6 +59,16 @@ namespace KonySim
             spriteBatch.DrawString(iconFont, GameWorld.Instance.State.Soldiers.Count + "", new Vector2(60 + statStart, 20), Color.White);
             spriteBatch.DrawString(iconFont, player.Buffs.ToString(), new Vector2(60 + statStart + statDist * 1, 20), Color.White);
             spriteBatch.DrawString(iconFont, player.Funds.ToString(), new Vector2(60 + statStart + statDist * 2, 20), Color.White);
+        }
+
+        public void UpdateList()
+        {
+            List<GameObject> children = new List<GameObject>();
+            foreach (var soldier in GameWorld.Instance.State.Soldiers)
+            {
+                children.Add(CreateChildCard(soldier));
+            }
+            childrenList.UpdateItems(children);
         }
 
         //Creating a child card.
